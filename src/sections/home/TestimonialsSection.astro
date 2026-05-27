@@ -1,0 +1,34 @@
+---
+import SectionTitle from '../../components/ui/SectionTitle.astro';
+import TestimonialCard from '../../components/cards/TestimonialCard.astro';
+import { testimonials } from '../../data/testimonials';
+---
+<section class="section-py" style="background:var(--color-surface)" aria-labelledby="testi-title">
+  <div class="container">
+    <SectionTitle
+      id="testi-title"
+      label="Testimonios"
+      title="Lo que dicen nuestros pacientes"
+      subtitle="La confianza de nuestros pacientes es nuestra mayor satisfacción."
+      align="center"
+    />
+
+    <div class="testi-grid" style="margin-top:2.5rem">
+      {testimonials.map((t, i) => (
+        <div class="reveal" style={`animation-delay:${i*0.08}s`}>
+          <TestimonialCard testimonial={t} />
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .testi-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  @media (min-width: 640px) { .testi-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1024px) { .testi-grid { grid-template-columns: repeat(3, 1fr); } }
+</style>

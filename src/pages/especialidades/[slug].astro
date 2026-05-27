@@ -1,0 +1,175 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import DoctorCard from '../../components/cards/DoctorCard.astro';
+import { specialties, getSpecialtyBySlug } from '../../data/specialties';
+import { doctors } from '../../data/doctors';
+
+export async function getStaticPaths() {
+  return specialties.map(s => ({ params: { slug: s.slug } }));
+}
+
+const { slug } = Astro.params;
+const specialty = getSpecialtyBySlug(slug!);
+if (!specialty) return Astro.redirect('/404');
+
+const relatedDoctors = doctors.filter(d => specialty.relatedDoctorIds.includes(d.id));
+---
+<PageLayout
+  title={`${specialty.name} | Clínica Buenaventura`}
+  description={specialty.shortDescription}
+  ogImage={specialty.coverImage}
+  jsonLd={{
+    '@context': 'https://schema.org',
+    '@type': 'MedicalSpecialty',
+    name: specialty.name,
+    description: specialty.shortDescription,
+  }}
+>
+  <!-- Banner -->
+  <div class="spec-banner">
+    <img src={specialty.coverImage} alt={specialty.name} loading="lazy" width="1200" height="400" />
+    <div class="spec-banner-overlay">
+      <div class="container">
+        <nav aria-label="Breadcrumb" class="breadcrumb">
+          <a href="/">Inicio</a><span>/</span>
+          <a href="/especialidades">Especialidades</a><span>/</span>
+          <span aria-current="page">{specialty.name}</span>
+        </nav>
+        <h1 style="color:#fff;font-size:clamp(2rem,4vw,3rem);margin:0.75rem 0 0">{specialty.name}</h1>
+      </div>
+    </div>
+  </div>
+
+  <section class="section-py" style="background:#fff">
+    <div class="container">
+      <div class="spec-layout">
+        <!-- Main content -->
+        <div>
+          <div class="prose reveal">
+            <p style="font-size:1.0625rem;color:var(--color-text-muted);line-height:1.8">{specialty.fullDescription}</p>
+          </div>
+
+          <div class="procedures reveal" style="animation-delay:0.1s">
+            <h2 class="proc-title">Procedimientos y servicios</h2>
+            <ul class="proc-list">
+              {specialty.procedures.map(p => (
+                <li>
+                  <span class="proc-dot" aria-hidden="true"></span>
+                  {p}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {relatedDoctors.length > 0 && (
+            <div class="reveal" style="animation-delay:0.2s">
+              <h2 class="proc-title">Especialistas en {specialty.name}</h2>
+              <div class="doctors-grid">
+                {relatedDoctors.map(d => <DoctorCard doctor={d} compact />)}
+              </div>
+            </div>
+          )}
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="spec-sidebar">
+          <div class="cta-card">
+            <h3>¿Necesitas atención?</h3>
+            <p>Agenda tu cita con nuestros especialistas en {specialty.name}.</p>
+            <a href={`/agendar-cita?especialidad=${specialty.slug}`} class="btn btn-white btn-md" style="width:100%;justify-content:center">
+              Agendar cita ahora
+            </a>
+          </div>
+
+          <div class="hours-card">
+            <h3 style="font-size:1rem;font-weight:700;color:var(--color-text);margin:0 0 1rem">Horario de atención</h3>
+            <dl class="hours">
+              {[
+                ['Lun – Vie', '7:00 am – 7:00 pm'],
+                ['Sábados', '7:00 am – 1:00 pm'],
+                ['Urgencias', '24 horas'],
+              ].map(([dt, dd]) => (
+                <div>
+                  <dt>{dt}</dt>
+                  <dd style={dt==='Urgencias' ? 'color:var(--color-primary);font-weight:600' : ''}>{dd}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  .spec-banner {
+    position: relative;
+    height: 300px;
+    overflow: hidden;
+    background: var(--color-primary);
+  }
+  .spec-banner img { width:100%; height:100%; object-fit:cover; opacity:0.35; }
+  .spec-banner-overlay {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding-bottom: 2.5rem;
+  }
+
+  .breadcrumb {
+    display: flex; align-items: center; gap: 0.5rem;
+    font-size: 0.875rem; color: rgba(255,255,255,0.7);
+  }
+  .breadcrumb a { color: rgba(255,255,255,0.8); }
+  .breadcrumb a:hover { color: #fff; }
+
+  .spec-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  @media (min-width: 1024px) { .spec-layout { grid-template-columns: 1fr 320px; } }
+
+  .proc-title { font-size:1.25rem; font-weight:700; color:var(--color-text); margin:2rem 0 1rem; }
+  .proc-list {
+    list-style: none; padding: 0; margin: 0;
+    display: grid; grid-template-columns: repeat(2,1fr); gap: 0.625rem;
+  }
+  .proc-list li {
+    display: flex; align-items: center; gap: 0.625rem;
+    font-size: 0.9375rem; color: var(--color-text-muted);
+  }
+  .proc-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--color-primary); flex-shrink: 0;
+  }
+
+  .doctors-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    margin-top: 0.5rem;
+  }
+  @media (min-width: 640px) { .doctors-grid { grid-template-columns: repeat(3, 1fr); } }
+
+  .cta-card {
+    background: var(--color-primary);
+    border-radius: var(--radius-xl);
+    padding: 1.5rem;
+    color: #fff;
+    margin-bottom: 1.25rem;
+  }
+  .cta-card h3 { font-size:1.125rem; color:#fff; margin:0 0 0.625rem; }
+  .cta-card p  { font-size:0.9rem; color:rgba(255,255,255,0.75); margin:0 0 1.25rem; line-height:1.6; }
+
+  .hours-card {
+    background: #fff;
+    border-radius: var(--radius-xl);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-card);
+  }
+  .hours { display:flex; flex-direction:column; gap:0.5rem; }
+  .hours div { display:flex; justify-content:space-between; font-size:0.9rem; }
+  .hours dt { color:var(--color-text-muted); }
+  .hours dd { font-weight:600; color:var(--color-text); margin:0; }
+</style>

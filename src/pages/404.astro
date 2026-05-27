@@ -1,0 +1,80 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+---
+<PageLayout
+  title="Página no encontrada | Clínica Buenaventura"
+  description="La página que buscas no existe. Vuelve al inicio o contáctanos."
+  noindex={true}
+>
+  <section class="not-found">
+    <div class="container">
+      <div class="nf-inner">
+        <div class="nf-code" aria-hidden="true">404</div>
+        <div class="nf-icon" aria-hidden="true">
+          <svg width="64" height="64" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.25">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+        </div>
+        <h1 class="nf-title">Página no encontrada</h1>
+        <p class="nf-desc">
+          Lo sentimos, la página que buscas no existe o fue movida a otra ubicación.
+          Te invitamos a volver al inicio.
+        </p>
+        <div class="nf-actions">
+          <a href="/" class="btn btn-primary btn-lg">← Volver al inicio</a>
+          <a href="/contacto" class="btn btn-outline btn-lg">Contactarnos</a>
+        </div>
+
+        <!-- Quick links -->
+        <div class="nf-links">
+          <p class="nf-links-title">Páginas populares:</p>
+          <div class="nf-links-grid">
+            {[
+              ['Especialidades', '/especialidades'],
+              ['Médicos', '/medicos'],
+              ['Agendar cita', '/agendar-cita'],
+              ['Blog de salud', '/blog'],
+              ['Nosotros', '/nosotros'],
+              ['Contacto', '/contacto'],
+            ].map(([label, href]) => (
+              <a href={href} class="nf-link">{label} →</a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  .not-found {
+    min-height:70vh;display:flex;align-items:center;
+    background:linear-gradient(135deg,#EEF3FF,#fff);
+    padding-block:5rem;
+  }
+  .nf-inner { text-align:center;max-width:580px;margin-inline:auto; }
+  .nf-code {
+    font-size:clamp(6rem,15vw,10rem);font-weight:900;
+    color:var(--color-primary);opacity:0.1;line-height:1;
+    margin-bottom:-2rem;
+  }
+  .nf-icon { color:var(--color-primary);margin-bottom:1.25rem; }
+  .nf-title { font-size:clamp(1.75rem,4vw,2.5rem);margin:0 0 1rem; }
+  .nf-desc {
+    font-size:1.0625rem;color:var(--color-text-muted);
+    line-height:1.7;margin:0 0 2.5rem;
+  }
+  .nf-actions { display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-bottom:3rem; }
+
+  .nf-links-title { font-size:0.875rem;color:var(--color-text-muted);margin:0 0 1rem;font-weight:600; }
+  .nf-links-grid {
+    display:flex;flex-wrap:wrap;gap:0.625rem;justify-content:center;
+  }
+  .nf-link {
+    font-size:0.875rem;font-weight:600;color:var(--color-primary);
+    background:var(--color-primary-50);
+    padding:0.375rem 0.875rem;border-radius:var(--radius-full);
+    transition:background 0.2s,color 0.2s;
+  }
+  .nf-link:hover { background:var(--color-primary);color:#fff; }
+</style>

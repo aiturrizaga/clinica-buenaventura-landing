@@ -1,0 +1,48 @@
+---
+// Button.astro
+interface Props {
+  variant?: 'primary' | 'outline' | 'ghost' | 'white';
+  size?: 'sm' | 'md' | 'lg';
+  href?: string;
+  type?: 'button' | 'submit' | 'reset';
+  class?: string;
+  ariaLabel?: string;
+  disabled?: boolean;
+  fullWidth?: boolean;
+  target?: string;
+}
+const {
+  variant = 'primary',
+  size    = 'md',
+  href,
+  type    = 'button',
+  class: cls,
+  ariaLabel,
+  disabled = false,
+  fullWidth = false,
+  target,
+} = Astro.props;
+
+const Tag = href ? 'a' : 'button';
+const classes = [
+  'btn',
+  `btn-${variant}`,
+  `btn-${size}`,
+  fullWidth && 'btn-full',
+  cls,
+].filter(Boolean).join(' ');
+---
+<Tag
+  href={href}
+  type={!href ? type : undefined}
+  class={classes}
+  aria-label={ariaLabel}
+  disabled={!href ? disabled : undefined}
+  target={target}
+  rel={target === '_blank' ? 'noopener noreferrer' : undefined}
+>
+  <slot />
+</Tag>
+<style>
+  .btn-full { width: 100%; justify-content: center; }
+</style>

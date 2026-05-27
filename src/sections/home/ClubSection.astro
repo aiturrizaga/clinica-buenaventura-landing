@@ -1,0 +1,135 @@
+---
+import SectionTitle from '../../components/ui/SectionTitle.astro';
+---
+<section class="section-py club-section" aria-labelledby="club-title">
+  <div class="container">
+    <div class="club-grid">
+      <!-- Left CTA card -->
+      <div class="club-card reveal">
+        <div class="club-icon" aria-hidden="true">
+          <svg width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
+          </svg>
+        </div>
+        <h2 id="club-title" class="club-name">CLUB<br />BUENAVENTURA</h2>
+        <p class="club-desc">
+          Únete a nuestro programa de beneficios exclusivos y disfruta de descuentos,
+          promociones y mucho más.
+        </p>
+        <a href="/club-buenaventura" class="btn btn-white btn-md">Afíliate ahora</a>
+      </div>
+
+      <!-- Benefits grid -->
+      <div class="benefits-grid">
+        {[
+          { icon: 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2', title: 'Descuentos en laboratorios', desc: 'Hasta 30% en estudios seleccionados' },
+          { icon: 'M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z', title: 'Descuentos en imágenes', desc: 'Hasta 25% en rayos X, ecografías y más' },
+          { icon: 'M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z', title: 'Descuentos en farmacia', desc: 'Hasta 20% en medicamentos' },
+          { icon: 'M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7', title: 'Sorteos exclusivos', desc: 'Participa en sorteos y regalos especiales' },
+          { icon: 'M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z', title: 'Promociones todo el año', desc: 'Beneficios en tu cumpleaños y más' },
+        ].map(b => (
+          <div class="benefit-item reveal">
+            <div class="benefit-icon">
+              <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d={b.icon} />
+              </svg>
+            </div>
+            <div>
+              <p class="benefit-title">{b.title}</p>
+              <p class="benefit-desc">{b.desc}</p>
+            </div>
+          </div>
+        ))}
+
+        <!-- Club image -->
+        <div class="club-photo reveal">
+          <img
+            src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=400&h=300&fit=crop&auto=format"
+            alt="Paciente feliz con el club"
+            loading="lazy"
+            width="400"
+            height="300"
+          />
+          <div class="club-photo-overlay">
+            <span class="badge badge-white">CLUB BUENAVENTURA</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .club-section { background: var(--color-surface); }
+
+  .club-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    align-items: start;
+  }
+  @media (min-width: 1024px) { .club-grid { grid-template-columns: 300px 1fr; } }
+
+  .club-card {
+    background: var(--color-primary);
+    border-radius: var(--radius-2xl);
+    padding: 2rem;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    box-shadow: 0 20px 48px rgba(10,75,255,0.3);
+  }
+  .club-icon {
+    width: 52px; height: 52px;
+    background: rgba(255,255,255,0.15);
+    border-radius: var(--radius-lg);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .club-name { font-size: 1.75rem; font-weight: 800; color: #fff; margin: 0; line-height: 1.1; }
+  .club-desc { font-size: 0.9375rem; color: rgba(255,255,255,0.75); line-height: 1.6; margin: 0; }
+
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+  @media (min-width: 768px) { .benefits-grid { grid-template-columns: repeat(3, 1fr); } }
+
+  .benefit-item {
+    background: #fff;
+    border-radius: var(--radius-xl);
+    padding: 1.25rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    box-shadow: var(--shadow-card);
+    transition: transform 0.25s;
+  }
+  .benefit-item:hover { transform: translateY(-2px); }
+
+  .benefit-icon {
+    width: 44px; height: 44px; flex-shrink: 0;
+    background: var(--color-primary-50);
+    color: var(--color-primary);
+    border-radius: var(--radius-lg);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .benefit-title { font-weight: 700; font-size: 0.875rem; color: var(--color-text); margin: 0 0 0.2rem; }
+  .benefit-desc  { font-size: 0.8125rem; color: var(--color-text-muted); margin: 0; line-height: 1.5; }
+
+  .club-photo {
+    position: relative;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    aspect-ratio: 4/3;
+    box-shadow: var(--shadow-card);
+  }
+  .club-photo img { width: 100%; height: 100%; object-fit: cover; }
+  .club-photo-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(10,75,255,0.6) 0%, transparent 60%);
+    display: flex; align-items: flex-end; padding: 1rem;
+  }
+</style>

@@ -1,0 +1,40 @@
+---
+import type { Specialty } from '@/types';
+
+interface Props {
+    specialty: Specialty;
+}
+const { specialty } = Astro.props;
+
+const iconPaths: Record<string, string> = {
+    heart: 'M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z',
+    lungs: 'M12 4C9 4 6 7 6 11v3l-2 2v2h4v-2l2-2V11a2 2 0 014 0v3l2 2v2h4v-2l-2-2v-3c0-4-3-7-6-7z',
+    baby: 'M12 2a3 3 0 100 6 3 3 0 000-6zM6 10a6 6 0 0112 0v8a2 2 0 01-2 2H8a2 2 0 01-2-2v-8z',
+    bone: 'M4 4l4.5 4.5M20 20l-4.5-4.5M4 20l4.5-4.5M20 4l-4.5 4.5M8.5 8.5l7 7',
+    stethoscope: 'M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v11a6 6 0 0012 0V3M3 9a6 6 0 006 6',
+    ribbon: 'M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z',
+    skin: 'M16 8v5l3 3-3-3V8zM8 8v5l-3 3 3-3V8zM12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83',
+};
+---
+
+<a
+        href={ `/especialidades/${ specialty.slug }` }
+        class="group flex flex-col items-center text-center gap-3 p-5 bg-white rounded-2xl border border-gray-100 hover:bg-primary-50 hover:border-blue-100 transition-colors duration-200 no-underline"
+        aria-label={ `Especialidad: ${ specialty.name }` }
+>
+    <div class="w-14 h-14 rounded-xl bg-primary-50 text-primary flex items-center justify-center shrink-0 group-hover:bg-primary group-hover:text-white transition-colors duration-200">
+        <svg width="26" height="26" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75"
+             aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round"
+                  d={ iconPaths[specialty.icon] ?? iconPaths.stethoscope }/>
+        </svg>
+    </div>
+
+    <h3 class="text-sm font-bold text-gray-900 m-0 leading-tight group-hover:text-white transition-colors duration-200">
+        { specialty.name }
+    </h3>
+
+    <span class="text-xs font-semibold text-primary mt-auto transition-colors duration-200">
+    Ver detalle →
+  </span>
+</a>

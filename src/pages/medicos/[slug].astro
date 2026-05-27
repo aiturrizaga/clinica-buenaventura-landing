@@ -1,0 +1,159 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import { doctors, getDoctorBySlug } from '../../data/doctors';
+import { buildDoctorSchema } from '../../utils/seo';
+
+export async function getStaticPaths() {
+  return doctors.map(d => ({ params: { slug: d.slug } }));
+}
+
+const { slug } = Astro.params;
+const doctor = getDoctorBySlug(slug!);
+if (!doctor) return Astro.redirect('/404');
+---
+<PageLayout
+  title={`${doctor.title} ${doctor.name} | ${doctor.specialty} | Clínica Buenaventura`}
+  description={doctor.bio}
+  ogImage={doctor.photo}
+  ogType="profile"
+  jsonLd={buildDoctorSchema(doctor)}
+>
+  <section class="section-py" style="background:#fff">
+    <div class="container">
+      <nav aria-label="Breadcrumb" class="breadcrumb">
+        <a href="/">Inicio</a><span>/</span>
+        <a href="/medicos">Médicos</a><span>/</span>
+        <span aria-current="page">{doctor.title} {doctor.name}</span>
+      </nav>
+
+      <div class="doctor-layout" style="margin-top:2rem">
+        <!-- Photo sidebar -->
+        <aside class="doc-photo-col reveal">
+          <div class="doc-photo-wrap">
+            <img src={doctor.photo} alt={`${doctor.title} ${doctor.name}`} width="400" height="500" loading="eager" />
+          </div>
+          <a href={`/agendar-cita?doctor=${doctor.slug}`} class="btn btn-primary btn-lg" style="width:100%;justify-content:center;margin-top:1.25rem">
+            Agendar cita
+          </a>
+
+          <div class="doc-meta-card" style="margin-top:1rem">
+            <div class="meta-row">
+              <span class="meta-label">Especialidad</span>
+              <span class="meta-val">{doctor.specialty}</span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-label">CMP</span>
+              <span class="meta-val">{doctor.cmp}</span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-label">Experiencia</span>
+              <span class="meta-val">{doctor.experience} años</span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-label">Idiomas</span>
+              <span class="meta-val">{doctor.languages.join(', ')}</span>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Main -->
+        <div class="doc-main reveal" style="animation-delay:0.12s">
+          <p class="doc-specialty-badge">{doctor.specialty}</p>
+          <h1 class="doc-name">{doctor.title} {doctor.name}</h1>
+
+          <div class="doc-rating" aria-label={`Calificación: ${doctor.rating} de 5`}>
+            {Array.from({length:5}).map((_,i)=>(
+              <svg width="18" height="18" viewBox="0 0 24 24" fill={i<Math.floor(doctor.rating)?'#FBBF24':'#E5E7EB'} aria-hidden="true">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+              </svg>
+            ))}
+            <span style="font-size:0.9rem;color:var(--color-text-muted);margin-left:0.25rem">{doctor.rating} ({doctor.reviewCount} reseñas)</span>
+          </div>
+
+          <p class="doc-bio">{doctor.bio}</p>
+
+          <section aria-labelledby="education-title">
+            <h2 id="education-title" class="doc-section-title">Formación académica</h2>
+            <ul class="doc-list">
+              {doctor.education.map(e => <li>{e}</li>)}
+            </ul>
+          </section>
+
+          <section aria-labelledby="schedule-title" style="margin-top:1.75rem">
+            <h2 id="schedule-title" class="doc-section-title">Horario de consultas</h2>
+            <div class="schedule-grid">
+              {doctor.schedule.map(s => (
+                <div class="schedule-item">
+                  <p class="sched-day">{s.day}</p>
+                  <p class="sched-time">{s.startTime} – {s.endTime}</p>
+                  <p class="sched-loc">{s.location}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  .breadcrumb { display:flex;align-items:center;gap:0.5rem;font-size:0.875rem;color:var(--color-text-muted); }
+  .breadcrumb a { color:var(--color-primary); }
+
+  .doctor-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  @media (min-width: 1024px) { .doctor-layout { grid-template-columns: 320px 1fr; } }
+
+  .doc-photo-wrap {
+    border-radius: var(--radius-2xl);
+    overflow: hidden;
+    aspect-ratio: 4/5;
+    box-shadow: var(--shadow-card);
+  }
+  .doc-photo-wrap img { width:100%;height:100%;object-fit:cover;object-position:top; }
+
+  .doc-meta-card {
+    background: var(--color-surface);
+    border-radius: var(--radius-xl);
+    padding: 1.25rem;
+  }
+  .meta-row { display:flex;justify-content:space-between;padding-block:0.5rem;border-bottom:1px solid #F3F4F6; }
+  .meta-row:last-child { border:none; }
+  .meta-label { font-size:0.875rem;color:var(--color-text-muted); }
+  .meta-val   { font-size:0.875rem;font-weight:600;color:var(--color-text); }
+
+  .doc-specialty-badge {
+    font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;
+    color:var(--color-primary);margin:0 0 0.375rem;
+  }
+  .doc-name { font-size:clamp(1.75rem,3vw,2.75rem);margin:0 0 0.75rem; }
+  .doc-rating { display:flex;align-items:center;gap:2px;margin-bottom:1.25rem; }
+  .doc-bio { font-size:1.0625rem;color:var(--color-text-muted);line-height:1.75;margin:0; }
+
+  .doc-section-title { font-size:1.125rem;font-weight:700;color:var(--color-text);margin:1.75rem 0 0.875rem; }
+  .doc-list { list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.5rem; }
+  .doc-list li {
+    display:flex;align-items:center;gap:0.625rem;
+    font-size:0.9375rem;color:var(--color-text-muted);
+  }
+  .doc-list li::before {
+    content:''; display:block;
+    width:8px;height:8px;border-radius:50%;
+    background:var(--color-primary);flex-shrink:0;
+  }
+
+  .schedule-grid {
+    display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:1rem;
+  }
+  .schedule-item {
+    background:var(--color-primary-50);border-radius:var(--radius-lg);
+    padding:1rem;border:1px solid var(--color-primary-100);
+  }
+  .sched-day  { font-weight:700;color:var(--color-primary);font-size:0.9375rem;margin:0 0 0.25rem; }
+  .sched-time { font-weight:600;color:var(--color-text);font-size:0.875rem;margin:0 0 0.2rem; }
+  .sched-loc  { font-size:0.8rem;color:var(--color-text-muted);margin:0; }
+</style>

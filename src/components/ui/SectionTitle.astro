@@ -1,0 +1,61 @@
+---
+interface Props {
+  label?: string;
+  title: string;
+  subtitle?: string;
+  align?: 'left' | 'center';
+  light?: boolean;
+  class?: string;
+}
+const {
+  label,
+  title,
+  subtitle,
+  align = 'left',
+  light = false,
+  class: cls,
+} = Astro.props;
+---
+<div class:list={['section-title', `align-${align}`, light && 'light', 'reveal', cls]}>
+  {label && <span class="label">{label}</span>}
+  <h2 class="title">{title}</h2>
+  {subtitle && <p class="subtitle">{subtitle}</p>}
+</div>
+
+<style>
+  .section-title { max-width: 640px; }
+  .section-title.align-center {
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .label {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    margin-bottom: 0.625rem;
+  }
+  .light .label { color: rgba(255,255,255,0.7); }
+
+  .title {
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    font-weight: 800;
+    line-height: 1.1;
+    margin: 0 0 0.875rem;
+    color: var(--color-text);
+  }
+  .light .title { color: #fff; }
+
+  .subtitle {
+    font-size: 1.0625rem;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+    margin: 0;
+    max-width: 520px;
+  }
+  .light .subtitle { color: rgba(255,255,255,0.65); }
+  .align-center .subtitle { margin-inline: auto; }
+</style>

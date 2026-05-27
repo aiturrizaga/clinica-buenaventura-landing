@@ -1,0 +1,121 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+
+const services = [
+  {
+    category: 'Diagnóstico',
+    icon: 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01',
+    items: ['Laboratorio clínico', 'Tomografía computarizada', 'Resonancia magnética', 'Ecografía', 'Rayos X digital', 'Mamografía', 'Densitometría ósea'],
+  },
+  {
+    category: 'Cirugía',
+    icon: 'M14.121 14.121L19 19m-7-7l7-7m-7 7l-2.879 2.879M12 12L9.121 9.121m0 5.758a3 3 0 10-4.243-4.243 3 3 0 004.243 4.243zm0-5.758a3 3 0 10-4.243-4.243 3 3 0 004.243 4.243z',
+    items: ['Cirugía laparoscópica', 'Cirugía artroscópica', 'Cirugía ambulatoria', 'Cirugía bariátrica', 'Trasplantes', 'Neurocirugía', 'Cirugía cardiovascular'],
+  },
+  {
+    category: 'Hospitalización',
+    icon: 'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4',
+    items: ['Habitaciones privadas', 'UCI adultos', 'UCI neonatal', 'Hospitalización pediátrica', 'Centro obstétrico', 'Hospitalización general'],
+  },
+  {
+    category: 'Urgencias',
+    icon: 'M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z',
+    items: ['Urgencias 24 horas', 'Trauma y emergencias', 'Pediatría de urgencia', 'Cardiología de urgencia', 'Sala de observación', 'Telemedicina de urgencia'],
+  },
+  {
+    category: 'Rehabilitación',
+    icon: 'M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15',
+    items: ['Fisioterapia', 'Terapia ocupacional', 'Fonoaudiología', 'Neurorehabilitación', 'Rehabilitación cardíaca', 'Rehabilitación deportiva'],
+  },
+  {
+    category: 'Medicina Preventiva',
+    icon: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z',
+    items: ['Chequeos ejecutivos', 'Medicina del trabajo', 'Vacunación', 'Control prenatal', 'Tamizaje neonatal', 'Campañas de salud'],
+  },
+];
+---
+<PageLayout
+  title="Servicios Médicos | Clínica Buenaventura"
+  description="Servicios médicos integrales en Clínica Buenaventura: diagnóstico, cirugía, hospitalización, urgencias 24h, rehabilitación y medicina preventiva."
+>
+  <div class="page-banner">
+    <div class="container">
+      <nav aria-label="Breadcrumb" class="breadcrumb">
+        <a href="/">Inicio</a><span>/</span><span aria-current="page">Servicios</span>
+      </nav>
+      <h1>Servicios Médicos</h1>
+      <p>Atención integral de salud en un solo lugar</p>
+    </div>
+  </div>
+
+  <section class="section-py" style="background:#fff">
+    <div class="container">
+      <div class="services-grid">
+        {services.map((svc, i) => (
+          <div class="svc-card card reveal" style={`animation-delay:${i*0.08}s`}>
+            <div class="svc-icon">
+              <svg width="26" height="26" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d={svc.icon}/>
+              </svg>
+            </div>
+            <h2 class="svc-category">{svc.category}</h2>
+            <ul class="svc-list">
+              {svc.items.map(item => (
+                <li>
+                  <span class="dot" aria-hidden="true"></span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section style="background:var(--color-primary);padding-block:4rem;text-align:center">
+    <div class="container">
+      <h2 style="color:#fff;font-size:clamp(1.5rem,3vw,2rem);margin:0 0 1rem">¿Necesitas alguno de nuestros servicios?</h2>
+      <p style="color:rgba(255,255,255,0.75);margin:0 0 2rem">Agenda tu cita y te atendemos a la brevedad.</p>
+      <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+        <a href="/agendar-cita" class="btn btn-white btn-lg">Agendar cita</a>
+        <a href="/contacto" class="btn btn-outline btn-lg" style="border-color:rgba(255,255,255,0.5);color:#fff">Contactarnos</a>
+      </div>
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  .page-banner {
+    padding-block:3.5rem;
+    background:linear-gradient(135deg,#EEF3FF,#fff);
+  }
+  .breadcrumb { display:flex;align-items:center;gap:0.5rem;font-size:0.875rem;color:var(--color-text-muted);margin-bottom:1.25rem; }
+  .breadcrumb a { color:var(--color-primary); }
+  .page-banner h1 { font-size:clamp(2rem,4vw,3rem);margin:0 0 0.5rem; }
+  .page-banner p  { font-size:1.0625rem;color:var(--color-text-muted);margin:0; }
+
+  .services-grid {
+    display:grid;grid-template-columns:1fr;gap:1.5rem;
+  }
+  @media (min-width:640px) { .services-grid { grid-template-columns:repeat(2,1fr); } }
+  @media (min-width:1024px) { .services-grid { grid-template-columns:repeat(3,1fr); } }
+
+  .svc-card { padding:1.75rem; }
+  .svc-icon {
+    width:56px;height:56px;border-radius:var(--radius-lg);
+    background:var(--color-primary-50);color:var(--color-primary);
+    display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem;
+  }
+  .svc-category { font-size:1.125rem;font-weight:700;color:var(--color-text);margin:0 0 1rem; }
+  .svc-list { list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.5rem; }
+  .svc-list li {
+    display:flex;align-items:center;gap:0.625rem;
+    font-size:0.9rem;color:var(--color-text-muted);
+  }
+  .dot {
+    width:7px;height:7px;border-radius:50%;
+    background:var(--color-primary);flex-shrink:0;
+  }
+</style>

@@ -1,0 +1,62 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import SpecialtyCard from '../../components/cards/SpecialtyCard.astro';
+import { specialties } from '../../data/specialties';
+---
+<PageLayout
+  title="Especialidades Médicas | Clínica Buenaventura"
+  description="Más de 30 especialidades médicas en Clínica Buenaventura. Cardiología, Pediatría, Ginecología, Traumatología y mucho más. Agenda tu cita."
+>
+  <!-- Banner -->
+  <section class="page-banner" style="background:linear-gradient(135deg,#EEF3FF,#fff)">
+    <div class="container">
+      <nav aria-label="Breadcrumb" class="breadcrumb">
+        <a href="/">Inicio</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">Especialidades</span>
+      </nav>
+      <h1 class="page-title">Nuestras Especialidades</h1>
+      <p class="page-subtitle">
+        Atención integral con más de 30 especialidades médicas y los mejores profesionales.
+      </p>
+    </div>
+  </section>
+
+  <section class="section-py" style="background:#fff">
+    <div class="container">
+      <div class="specs-grid reveal">
+        {specialties.map(s => <SpecialtyCard specialty={s} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section style="background:var(--color-primary);padding-block:4rem;text-align:center">
+    <div class="container">
+      <h2 style="color:#fff;font-size:clamp(1.5rem,3vw,2rem);margin:0 0 1rem">¿No encuentras tu especialidad?</h2>
+      <p style="color:rgba(255,255,255,0.75);margin:0 0 2rem;font-size:1.0625rem">Contáctanos y te orientamos al especialista indicado.</p>
+      <a href="/contacto" class="btn btn-white btn-lg">Contáctanos</a>
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  .page-banner { padding-block: 3.5rem; }
+  .breadcrumb {
+    display: flex; align-items: center; gap: 0.5rem;
+    font-size: 0.875rem; color: var(--color-text-muted);
+    margin-bottom: 1.25rem;
+  }
+  .breadcrumb a { color: var(--color-primary); }
+  .breadcrumb a:hover { text-decoration: underline; }
+  .page-title { font-size: clamp(2rem,4vw,3rem); margin:0 0 0.75rem; }
+  .page-subtitle { font-size:1.0625rem; color:var(--color-text-muted); margin:0; max-width:520px; }
+
+  .specs-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+  @media (min-width: 640px) { .specs-grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (min-width: 1024px) { .specs-grid { grid-template-columns: repeat(4, 1fr); } }
+</style>

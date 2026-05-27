@@ -1,0 +1,84 @@
+---
+import { promotions } from '@data/promotions.ts';
+---
+
+<section class="py-10 bg-white" aria-labelledby="promos-title">
+    <div class="container">
+
+        <div class="flex items-center justify-between mb-5">
+            <h2 id="promos-title" class="text-lg font-bold tracking-widest uppercase text-primary! m-0">
+                Novedades y Promociones
+            </h2>
+            <a href="/promociones" class="btn btn-ghost btn-sm">Ver todas →</a>
+        </div>
+
+        <div class="swiper promos-swiper">
+            <div class="swiper-wrapper">
+                { promotions.map((promo) => (
+                        <div class="swiper-slide">
+                            <a href="/promociones"
+                                    class="rounded-xl overflow-hidden cursor-pointer transition-transform duration-300 hover:-translate-y-1">
+                                <div class="w-full aspect-video overflow-hidden">
+                                    <img
+                                            src={ promo.image }
+                                            alt={ promo.title }
+                                            loading="lazy"
+                                            decoding="async"
+                                            class="w-full h-full object-cover block transition-transform duration-500 hover:scale-[1.03]"
+                                    />
+                                </div>
+                            </a>
+                        </div>
+                )) }
+            </div>
+
+            <div class="swiper-pagination mt-4"></div>
+        </div>
+
+    </div>
+</section>
+
+<style>
+    .promos-swiper {
+        padding-bottom: 2rem !important;
+    }
+
+    .swiper-pagination-bullet-active {
+        background: var(--color-primary) !important;
+        width: 20px !important;
+        border-radius: 9999px !important;
+    }
+
+    .swiper-pagination-bullet {
+        transition: all 0.25s;
+    }
+</style>
+
+<script>
+    import Swiper from 'swiper';
+    import { Pagination, Autoplay } from 'swiper/modules';
+    import 'swiper/css';
+    import 'swiper/css/pagination';
+
+    new Swiper('.promos-swiper', {
+        modules: [Pagination, Autoplay],
+        slidesPerView: 1,
+        spaceBetween: 16,
+        autoplay: {
+            delay: 5000,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true,
+            reverseDirection: true
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        breakpoints: {
+            640: {
+                slidesPerView: 2,
+                spaceBetween: 16,
+            },
+        },
+    });
+</script>

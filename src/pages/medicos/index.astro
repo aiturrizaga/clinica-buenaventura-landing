@@ -1,0 +1,42 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import DoctorCard from '../../components/cards/DoctorCard.astro';
+import { doctors } from '../../data/doctors';
+---
+<PageLayout
+  title="Nuestros Médicos | Clínica Buenaventura"
+  description="Conoce a nuestro equipo de más de 50 especialistas médicos comprometidos con tu salud. Cardiólogos, pediatras, ginecólogos y más."
+>
+  <section class="page-banner">
+    <div class="container">
+      <nav aria-label="Breadcrumb" class="breadcrumb">
+        <a href="/">Inicio</a><span>/</span><span aria-current="page">Médicos</span>
+      </nav>
+      <h1 class="page-title">Nuestro Staff Médico</h1>
+      <p class="page-subtitle">Especialistas comprometidos con tu bienestar y los mejores resultados clínicos.</p>
+    </div>
+  </section>
+
+  <section class="section-py" style="background:#fff">
+    <div class="container">
+      <div class="docs-grid reveal">
+        {doctors.map(d => <DoctorCard doctor={d} />)}
+      </div>
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  .page-banner { padding-block:3.5rem; background:linear-gradient(135deg,#EEF3FF,#fff); }
+  .breadcrumb { display:flex;align-items:center;gap:0.5rem;font-size:0.875rem;color:var(--color-text-muted);margin-bottom:1.25rem; }
+  .breadcrumb a { color:var(--color-primary); }
+  .page-title { font-size:clamp(2rem,4vw,3rem);margin:0 0 0.75rem; }
+  .page-subtitle { font-size:1.0625rem;color:var(--color-text-muted);margin:0;max-width:520px; }
+  .docs-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+  @media (min-width: 640px) { .docs-grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (min-width: 1024px) { .docs-grid { grid-template-columns: repeat(4, 1fr); } }
+</style>
