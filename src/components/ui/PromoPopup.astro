@@ -2,14 +2,18 @@
 interface Props {
     image: string;
     alt?: string;
-    href?: string;
+    waMessage?: string;
 }
 
 const {
     image,
     alt = 'Promoción Clínica Buenaventura',
-    href,
+    waMessage,
 } = Astro.props;
+
+function waLink(text: string) {
+    return `https://wa.me/51932939530?text=${ encodeURIComponent(text) }`;
+}
 ---
 
 <!-- Overlay -->
@@ -32,8 +36,8 @@ const {
         </button>
 
         <!-- Imagen -->
-        { href ? (
-                <a href={ href } target="_blank" rel="noopener noreferrer">
+        { waMessage ? (
+                <a href={ waLink(waMessage) } target="_blank" rel="noopener noreferrer">
                     <img
                             src={ image }
                             alt={ alt }
