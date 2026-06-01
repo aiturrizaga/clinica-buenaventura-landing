@@ -6,8 +6,9 @@ import SpecialtiesSection from '../sections/home/SpecialtiesSection.astro';
 import AboutSection from '../sections/home/AboutSection.astro';
 // import ClubSection from '../sections/home/ClubSection.astro';
 import DoctorsSection from '../sections/home/DoctorsSection.astro';
-import TestimonialsSection from '../sections/home/TestimonialsSection.astro';
+// import TestimonialsSection from '../sections/home/TestimonialsSection.astro';
 import { buildClinicSchema } from '../utils/seo';
+import PromoPopup from "@components/ui/PromoPopup.astro";
 ---
 <PageLayout
   title="Clínica Buenaventura | Excelencia Médica en Lima"
@@ -15,6 +16,12 @@ import { buildClinicSchema } from '../utils/seo';
   ogImage="/images/og-default.jpg"
   jsonLd={buildClinicSchema()}
 >
+  <PromoPopup
+      image="/images/promotions/promo_uno.webp"
+      alt="Ofertas de locura"
+      href="https://wa.me/51932939530"
+  />
+
   <HeroSection />
   <PromotionsSection />
   <SpecialtiesSection />
