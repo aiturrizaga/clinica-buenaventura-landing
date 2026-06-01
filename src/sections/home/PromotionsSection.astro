@@ -6,33 +6,67 @@ import { promotions } from '@data/promotions.ts';
     <div class="container">
 
         <div class="flex items-center justify-between mb-5">
-            <h2 id="promos-title" class="text-lg font-bold tracking-widest uppercase text-primary! m-0">
+            <h2
+                    id="promos-title"
+                    class="text-lg font-bold tracking-widest uppercase text-primary! m-0"
+            >
                 Novedades y Promociones
             </h2>
-            <a href="/promociones" class="btn btn-ghost btn-sm">Ver todas →</a>
+
+            <a href="/promociones" class="btn btn-ghost btn-sm">
+                Ver todas →
+            </a>
         </div>
 
         <div class="swiper promos-swiper">
             <div class="swiper-wrapper">
-                { promotions.map((promo) => (
-                        <div class="swiper-slide">
-                            <a href="/promociones"
-                                    class="rounded-xl overflow-hidden cursor-pointer transition-transform duration-300 hover:-translate-y-1">
-                                <div class="w-full aspect-video overflow-hidden">
-                                    <img
-                                            src={ promo.image }
-                                            alt={ promo.title }
-                                            loading="lazy"
-                                            decoding="async"
-                                            class="w-full h-full object-cover block transition-transform duration-500 hover:scale-[1.03]"
-                                    />
-                                </div>
-                            </a>
-                        </div>
-                )) }
+                {
+                    promotions.map((promo) => (
+                            <div class="swiper-slide">
+                                <a
+                                        href="/promociones"
+                                        class="promo-card block overflow-hidden rounded-3xl shadow-sm"
+                                >
+                                    <div class="relative aspect-video">
+
+                                        <img
+                                                src={ promo.image }
+                                                alt={ promo.title }
+                                                loading="lazy"
+                                                decoding="async"
+                                                class="w-full h-full object-cover"
+                                        />
+
+                                        <div class="promo-overlay"></div>
+
+                                        <!--<div class="absolute top-0 left-0 right-0">-->
+                                        <!--    <div class="bg-primary text-white text-center text-sm font-semibold py-2">-->
+                                        <!--        Lo mejor para ti-->
+                                        <!--    </div>-->
+                                        <!--</div>-->
+
+                                        <!--<div class="absolute bottom-0 left-0 right-0 p-5 text-white">-->
+                                        <!--    <h3 class="text-xl font-bold mb-1">-->
+                                        <!--        { promo.title }-->
+                                        <!--    </h3>-->
+
+                                        <!--    {-->
+                                        <!--        promo.description && (-->
+                                        <!--                    <p class="text-sm opacity-90 m-0">-->
+                                        <!--                        { promo.description }-->
+                                        <!--                    </p>-->
+                                        <!--        )-->
+                                        <!--    }-->
+                                        <!--</div>-->
+
+                                    </div>
+                                </a>
+                            </div>
+                    ))
+                }
             </div>
 
-            <div class="swiper-pagination mt-4"></div>
+            <div class="swiper-pagination"></div>
         </div>
 
     </div>
@@ -40,17 +74,49 @@ import { promotions } from '@data/promotions.ts';
 
 <style>
     .promos-swiper {
-        padding-bottom: 2rem !important;
+        padding-bottom: 2.5rem !important;
     }
 
-    .swiper-pagination-bullet-active {
-        background: var(--color-primary) !important;
-        width: 20px !important;
-        border-radius: 9999px !important;
+    .promo-card {
+        background: #fff;
+        border: 1px solid #e5e7eb;
+        transition: transform .25s ease;
+    }
+
+    .promo-card:hover {
+        transform: translateY(-4px);
+    }
+
+    .promo-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+                to top,
+                rgba(0, 0, 0, .30) 0%,
+                rgba(0, 0, 0, .08) 40%,
+                transparent 100%
+        );
+    }
+
+    .swiper-pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 6px;
     }
 
     .swiper-pagination-bullet {
-        transition: all 0.25s;
+        width: 8px !important;
+        height: 8px !important;
+        background: #d1d5db !important;
+        opacity: 1 !important;
+        border-radius: 9999px !important;
+        transition: all .25s ease;
+    }
+
+    .swiper-pagination-bullet-active {
+        width: 28px !important;
+        background: var(--color-primary) !important;
     }
 </style>
 
@@ -62,13 +128,12 @@ import { promotions } from '@data/promotions.ts';
 
     new Swiper('.promos-swiper', {
         modules: [Pagination, Autoplay],
-        slidesPerView: 1,
-        spaceBetween: 16,
+        slidesPerView: 1.15,
+        centeredSlides: true,
+        spaceBetween: 12,
         autoplay: {
             delay: 5000,
             disableOnInteraction: false,
-            pauseOnMouseEnter: true,
-            reverseDirection: true
         },
         pagination: {
             el: '.swiper-pagination',
@@ -77,6 +142,7 @@ import { promotions } from '@data/promotions.ts';
         breakpoints: {
             640: {
                 slidesPerView: 2,
+                centeredSlides: false,
                 spaceBetween: 16,
             },
         },
