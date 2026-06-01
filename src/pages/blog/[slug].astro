@@ -1,6 +1,6 @@
 ---
 import BlogLayout from '../../layouts/BlogLayout.astro';
-import { blogPosts, getPostBySlug } from '../../data/blog';
+import { blogPosts, getPostBySlug } from '@data/blog.ts';
 
 export async function getStaticPaths() {
   return blogPosts.map(p => ({ params: { slug: p.slug } }));
