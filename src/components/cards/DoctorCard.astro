@@ -8,7 +8,8 @@ interface Props {
 const { doctor, compact = false } = Astro.props;
 ---
 <article class:list={['doctor-card card', compact && 'compact']} aria-label={`${doctor.title} ${doctor.name}, ${doctor.specialty}`}>
-  <a href={`/medicos/${doctor.slug}`} class="doctor-card-link">
+  <!-- <a href={`/medicos/${doctor.slug}`} class="doctor-card-link"> -->
+  <div class="doctor-card-link">
     <div class="doctor-photo">
       <img
         src={doctor.photo}
@@ -51,7 +52,7 @@ const { doctor, compact = false } = Astro.props;
       <!--  </a>-->
       <!--</div>-->
     </div>
-  </a>
+  </div>
 </article>
 
 <style>

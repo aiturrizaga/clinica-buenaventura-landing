@@ -39,26 +39,6 @@ import { promotions } from '@data/promotions.ts';
 
                                         <div class="promo-overlay"></div>
 
-                                        <!--<div class="absolute top-0 left-0 right-0">-->
-                                        <!--    <div class="bg-primary text-white text-center text-sm font-semibold py-2">-->
-                                        <!--        Lo mejor para ti-->
-                                        <!--    </div>-->
-                                        <!--</div>-->
-
-                                        <!--<div class="absolute bottom-0 left-0 right-0 p-5 text-white">-->
-                                        <!--    <h3 class="text-xl font-bold mb-1">-->
-                                        <!--        { promo.title }-->
-                                        <!--    </h3>-->
-
-                                        <!--    {-->
-                                        <!--        promo.description && (-->
-                                        <!--                    <p class="text-sm opacity-90 m-0">-->
-                                        <!--                        { promo.description }-->
-                                        <!--                    </p>-->
-                                        <!--        )-->
-                                        <!--    }-->
-                                        <!--</div>-->
-
                                     </div>
                                 </a>
                             </div>
@@ -128,8 +108,6 @@ import { promotions } from '@data/promotions.ts';
 
     new Swiper('.promos-swiper', {
         modules: [Pagination, Autoplay],
-        slidesPerView: 1.15,
-        centeredSlides: true,
         spaceBetween: 12,
         autoplay: {
             delay: 5000,
@@ -142,7 +120,6 @@ import { promotions } from '@data/promotions.ts';
         breakpoints: {
             640: {
                 slidesPerView: 2,
-                centeredSlides: false,
                 spaceBetween: 16,
             },
         },
