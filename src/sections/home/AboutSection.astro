@@ -1,140 +1,333 @@
 ---
 import SectionTitle from '../../components/ui/SectionTitle.astro';
 ---
-<section class="section-py about-section" aria-labelledby="about-title">
-  <div class="container">
-    <div class="about-grid">
-      <!-- Images -->
-      <div class="about-images reveal">
-        <div class="img-main">
-          <img
-            src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=600&h=480&fit=crop&auto=format"
-            alt="Fachada Clínica Buenaventura"
-            loading="lazy"
-            width="600"
-            height="480"
-          />
-          <a
-            href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="play-btn"
-            aria-label="Ver video de la clínica"
-          >
-            <svg width="28" height="28" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M8 5v14l11-7z"/>
-            </svg>
-          </a>
+<section id="nosotros" class="section-py about-section" aria-labelledby="about-title">
+    <div class="container">
+        <div class="about-grid">
+            <!-- Images -->
+            <div class="about-images reveal">
+                <div class="img-main">
+                    <img
+                            src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=600&h=480&fit=crop&auto=format"
+                            alt="Fachada Clínica Buenaventura"
+                            loading="lazy"
+                            width="600"
+                            height="480"
+                    />
+                    <a
+                            href="https://youtu.be/j8TyqVtGGbc?si=y_rQwEfFEDfLhpdD"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="play-btn"
+                            aria-label="Ver video de la clínica"
+                    >
+                        <svg width="28" height="28" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M8 5v14l11-7z"/>
+                        </svg>
+                    </a>
+                </div>
+                <div class="img-grid">
+                    <img src="https://images.unsplash.com/photo-1519494080410-f9aa76cb4283?w=280&h=200&fit=crop&auto=format"
+                         alt="Sala de espera" loading="lazy" width="280" height="200"/>
+                    <img src="https://images.unsplash.com/photo-1519494080410-f9aa76cb4283?w=280&h=200&fit=crop&auto=format"
+                         alt="Sala de operaciones" loading="lazy" width="280" height="200"/>
+                </div>
+            </div>
+
+            <!-- Text -->
+            <div class="about-text reveal" style="animation-delay:0.15s">
+                <SectionTitle
+                        label="Sobre nosotros"
+                        title="Salud integral con calidad y calidez humana"
+                        subtitle="En <b>Clínica Buenaventura</b> cuidamos tu salud y la de tu familia con una atención cercana, segura y
+                humana. Somos
+                una <b>clínica en San Juan de Miraflores</b> con especialistas, tecnología médica y áreas de atención
+                pensadas para tu
+                bienestar."
+                />
+
+                <ul class="about-values">
+                    { [
+                        {
+                            icon: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z',
+                            title: 'Todo en un solo lugar:',
+                            description: 'consultas especializadas, laboratorio, farmacia, UCI/UCIN, hospitalización, emergencia y salas de operaciones.'
+                        },
+                        {
+                            icon: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z',
+                            title: 'Equipo médico cercano:',
+                            description: 'profesionales que te escuchan, orientan y acompañan.'
+                        },
+                        {
+                            icon: 'M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z',
+                            title: 'Diagnóstico oportuno:',
+                            description: 'tecnología para una atención segura.'
+                        },
+                    ].map(v => (
+                            <li>
+                                <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="#0A4BFF"
+                                     stroke-width="2" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d={ v.icon }/>
+                                </svg>
+                                <p><b>{ v.title }</b> { v.description }</p>
+                            </li>
+                    )) }
+                </ul>
+
+                <!--<a href="/nosotros" class="btn btn-primary btn-md" style="margin-top:2rem">-->
+                <!--  Conoce más sobre nosotros-->
+                <!--</a>-->
+            </div>
         </div>
-        <div class="img-grid">
-          <img src="https://images.unsplash.com/photo-1631217073612-131e4cebed99?w=280&h=200&fit=crop&auto=format" alt="Sala de espera" loading="lazy" width="280" height="200" />
-          <img src="https://images.unsplash.com/photo-1519494080410-f9aa76cb4283?w=280&h=200&fit=crop&auto=format" alt="Sala de operaciones" loading="lazy" width="280" height="200" />
-        </div>
-      </div>
-
-      <!-- Text -->
-      <div class="about-text reveal" style="animation-delay:0.15s">
-        <SectionTitle
-          id="about-title"
-          label="Sobre nosotros"
-          title="Excelencia médica, calidez humana"
-          subtitle="En Clínica Buenaventura trabajamos cada día para ofrecerte servicios de salud de calidad, con instalaciones modernas y un enfoque centrado en las personas."
-        />
-
-        <ul class="about-values">
-          {[
-            { icon: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z', label: 'Calidad certificada y acreditaciones internacionales' },
-            { icon: 'M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z', label: 'Atención humanizada centrada en el paciente' },
-            { icon: 'M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z', label: 'Tecnología de última generación en diagnóstico' },
-            { icon: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z', label: 'Equipo de más de 50 especialistas comprometidos' },
-          ].map(v => (
-            <li>
-              <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="#0A4BFF" stroke-width="2" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" d={v.icon}/>
-              </svg>
-              <span>{v.label}</span>
-            </li>
-          ))}
-        </ul>
-
-        <a href="/nosotros" class="btn btn-primary btn-md" style="margin-top:2rem">
-          Conoce más sobre nosotros
-        </a>
-      </div>
     </div>
-  </div>
+</section>
+
+<section class="section-py or-section" aria-labelledby="or-title">
+    <div class="container">
+        <div class="or-grid">
+            <div class="or-img reveal">
+                <div class="img-main">
+                    <img
+                            src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=600&h=480&fit=crop&auto=format"
+                            alt="Fachada Clínica Buenaventura"
+                            loading="lazy"
+                            width="600"
+                            height="480"
+                    />
+                    <a
+                            href="https://youtu.be/javru-kTlUc?si=dVfmDz3JCeGm-j1Q"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="play-btn"
+                            aria-label="Ver video de la clínica"
+                    >
+                        <svg width="28" height="28" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M8 5v14l11-7z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <div class="or-text reveal" style="animation-delay:0.15s">
+                <SectionTitle
+                        label="Sala de operaciones"
+                        title="Cirugías con seguridad y respaldo médico"
+                        subtitle={
+                            `
+                            En <b>Clínica Buenaventura</b> contamos con <b>salas de operaciones</b> con tecnología médica y
+                             áreas de apoyo clínico para brindarte una atención segura antes, durante y después de tu cirugía.
+                            `
+                        }
+                />
+
+                <ul class="about-values">
+                    { [
+                        {
+                            title: 'Seguridad quirúrgica:',
+                            description: 'protocolos de atención en cada etapa.'
+                        },
+                        {
+                            title: 'Equipo médico calificado:',
+                            description: 'profesionales comprometidos con tu cuidado.'
+                        },
+                        {
+                            title: 'Soporte integral:',
+                            description: 'laboratorio, farmacia, banco de sangre, sala de recuperación, hospitalización y UCI/UCIN.'
+                        }, {
+                            title: 'Acompañamiento cercano:',
+                            description: 'atención humana para ti y tu familia.'
+                        },
+                    ].map(v => (
+                            <li>
+                                <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="#0A4BFF"
+                                     stroke-width="2.5" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+                                </svg>
+                                <p><b>{ v.title }</b> { v.description }</p>
+                            </li>
+                    )) }
+                </ul>
+            </div>
+        </div>
+    </div>
 </section>
 
 <style>
-  .about-section { background: var(--color-surface); }
+    .about-section {
+        background: var(--color-surface);
+    }
 
-  .about-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 3.5rem;
-    align-items: center;
-  }
-  @media (min-width: 1024px) { .about-grid { grid-template-columns: 1fr 1fr; } }
+    .about-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 3.5rem;
+        align-items: center;
+    }
 
-  .about-images { position: relative; }
+    @media (min-width: 1024px) {
+        .about-grid {
+            grid-template-columns: 1fr 1fr;
+        }
+    }
 
-  .img-main {
-    position: relative;
-    border-radius: var(--radius-2xl);
-    overflow: hidden;
-    box-shadow: 0 24px 48px rgba(10,75,255,0.12);
-    aspect-ratio: 5/4;
-    margin-bottom: 1rem;
-  }
-  .img-main img { width: 100%; height: 100%; object-fit: cover; }
+    .about-images {
+        position: relative;
+    }
 
-  .play-btn {
-    position: absolute;
-    inset: 0;
-    display: flex; align-items: center; justify-content: center;
-    background: rgba(0,0,0,0.3);
-    color: #fff;
-    transition: background 0.3s;
-  }
-  .play-btn:hover { background: rgba(10,75,255,0.5); }
-  .play-btn svg {
-    width: 56px; height: 56px;
-    background: rgba(255,255,255,0.95);
-    color: var(--color-primary);
-    border-radius: 50%;
-    padding: 12px;
-    transition: transform 0.3s;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
-  }
-  .play-btn:hover svg { transform: scale(1.08); }
+    .img-main {
+        position: relative;
+        border-radius: var(--radius-2xl);
+        overflow: hidden;
+        box-shadow: 0 24px 48px rgba(10, 75, 255, 0.12);
+        aspect-ratio: 5/4;
+        margin-bottom: 1rem;
+    }
 
-  .img-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-  }
-  .img-grid img {
-    width: 100%; height: 140px;
-    object-fit: cover;
-    border-radius: var(--radius-xl);
-    box-shadow: var(--shadow-card);
-  }
+    .img-main img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
 
-  .about-values {
-    list-style: none;
-    padding: 0;
-    margin: 1.75rem 0 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.875rem;
-  }
-  .about-values li {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.75rem;
-    font-size: 0.9375rem;
-    color: var(--color-text-muted);
-    line-height: 1.5;
-  }
-  .about-values svg { flex-shrink: 0; margin-top: 2px; }
+    .play-btn {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0, 0, 0, 0.3);
+        color: #fff;
+        transition: background 0.3s;
+    }
+
+    .play-btn:hover {
+        background: rgba(10, 75, 255, 0.5);
+    }
+
+    .play-btn svg {
+        width: 56px;
+        height: 56px;
+        background: rgba(255, 255, 255, 0.95);
+        color: var(--color-primary);
+        border-radius: 50%;
+        padding: 12px;
+        transition: transform 0.3s;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    }
+
+    .play-btn:hover svg {
+        transform: scale(1.08);
+    }
+
+    .img-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
+
+    .img-grid img {
+        width: 100%;
+        height: 140px;
+        object-fit: cover;
+        border-radius: var(--radius-xl);
+        box-shadow: var(--shadow-card);
+    }
+
+    .about-values {
+        list-style: none;
+        padding: 0;
+        margin: 1.75rem 0 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.875rem;
+    }
+
+    .about-values li {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
+        font-size: 0.9375rem;
+        color: var(--color-text-muted);
+        line-height: 1.5;
+    }
+
+    .about-values svg {
+        flex-shrink: 0;
+        margin-top: 2px;
+    }
+
+    .or-section {
+        background: #fff;
+    }
+
+    .or-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 3.5rem;
+        align-items: center;
+    }
+
+    @media (min-width: 1024px) {
+        .or-grid {
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+
+    .or-img {
+        border-radius: var(--radius-2xl);
+        overflow: hidden;
+        aspect-ratio: 4/3;
+        box-shadow: 0 24px 48px rgba(0, 0, 0, 0.1);
+    }
+
+    .or-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .or-label {
+        display: inline-block;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--color-primary);
+        background: var(--color-primary-50);
+        padding: 0.375rem 1rem;
+        border-radius: var(--radius-full);
+        margin-bottom: 1rem;
+    }
+
+    .or-title {
+        font-size: clamp(1.5rem, 3vw, 2.25rem);
+        font-weight: 800;
+        line-height: 1.15;
+        color: var(--color-text);
+        margin: 0 0 1rem;
+    }
+
+    .or-desc {
+        font-size: 1rem;
+        color: var(--color-text-muted);
+        line-height: 1.7;
+        margin: 0;
+    }
+
+    .or-list {
+        list-style: none;
+        padding: 0;
+        margin: 1.5rem 0 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .or-list li {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        font-size: 0.9375rem;
+        color: var(--color-text);
+        font-weight: 500;
+    }
 </style>

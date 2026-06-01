@@ -1,5 +1,5 @@
 ---
-import type { Doctor } from '../../types';
+import type { Doctor } from '@/types';
 
 interface Props {
   doctor: Doctor;
@@ -24,32 +24,32 @@ const { doctor, compact = false } = Astro.props;
       <h3 class="doctor-name">{doctor.title} {doctor.name}</h3>
       <p class="doctor-cmp">CMP {doctor.cmp}</p>
 
-      {!compact && (
-        <div class="doctor-rating" aria-label={`Calificación: ${doctor.rating} de 5`}>
-          <div class="stars" aria-hidden="true">
-            {Array.from({ length: 5 }).map((_, i) => (
-              <svg width="13" height="13" viewBox="0 0 24 24" fill={i < Math.floor(doctor.rating) ? '#FBBF24' : 'none'} stroke="#FBBF24" stroke-width="2">
-                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-              </svg>
-            ))}
-          </div>
-          <span class="rating-count">({doctor.reviewCount})</span>
-        </div>
-      )}
+      <!--{!compact && (-->
+      <!--  <div class="doctor-rating" aria-label={`Calificación: ${doctor.rating} de 5`}>-->
+      <!--    <div class="stars" aria-hidden="true">-->
+      <!--      {Array.from({ length: 5 }).map((_, i) => (-->
+      <!--        <svg width="13" height="13" viewBox="0 0 24 24" fill={i < Math.floor(doctor.rating) ? '#FBBF24' : 'none'} stroke="#FBBF24" stroke-width="2">-->
+      <!--          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>-->
+      <!--        </svg>-->
+      <!--      ))}-->
+      <!--    </div>-->
+      <!--    <span class="rating-count">({doctor.reviewCount})</span>-->
+      <!--  </div>-->
+      <!--)}-->
 
-      <div class="doctor-footer">
-        <span class="view-profile">Ver perfil →</span>
-        <a
-          href={`/agendar-cita?doctor=${doctor.slug}`}
-          class="appt-btn"
-          aria-label={`Agendar cita con ${doctor.title} ${doctor.name}`}
-          onclick="event.stopPropagation()"
-        >
-          <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/>
-          </svg>
-        </a>
-      </div>
+      <!--<div class="doctor-footer">-->
+      <!--  <span class="view-profile">Ver perfil →</span>-->
+      <!--  <a-->
+      <!--    href={`/agendar-cita?doctor=${doctor.slug}`}-->
+      <!--    class="appt-btn"-->
+      <!--    aria-label={`Agendar cita con ${doctor.title} ${doctor.name}`}-->
+      <!--    onclick="event.stopPropagation()"-->
+      <!--  >-->
+      <!--    <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true">-->
+      <!--      <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/>-->
+      <!--    </svg>-->
+      <!--  </a>-->
+      <!--</div>-->
     </div>
   </a>
 </article>

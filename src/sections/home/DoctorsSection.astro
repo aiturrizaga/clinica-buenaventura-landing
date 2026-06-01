@@ -1,47 +1,76 @@
 ---
 import SectionTitle from '../../components/ui/SectionTitle.astro';
 import DoctorCard from '../../components/cards/DoctorCard.astro';
-import { getFeaturedDoctors } from '../../data/doctors';
+import { getFeaturedDoctors } from '@data/doctors.ts';
 
 const docs = getFeaturedDoctors();
 ---
-<section class="section-py" style="background:#fff" aria-labelledby="docs-title">
-  <div class="container">
-    <div class="docs-header">
-      <SectionTitle
-        id="docs-title"
-        label="Nuestro staff médico"
-        title="Especialistas que cuidan de ti"
-        subtitle="Un equipo de médicos certificados con amplia experiencia y compromiso humano."
-      />
-      <a href="/medicos" class="btn btn-outline btn-md hide-mobile">Ver todos los médicos →</a>
-    </div>
+<section id="medicos" class="section-py" style="background:#fff" aria-labelledby="docs-title">
+    <div class="container">
+        <div class="docs-header">
+            <SectionTitle
+                    label="Nuestro staff médico"
+                    title="Especialistas que cuidan de ti"
+                    subtitle="Un equipo de médicos certificados con amplia experiencia y compromiso humano."
+            />
+            <a href="/medicos" class="btn btn-outline btn-md hide-mobile">Ver todos los médicos →</a>
+        </div>
 
-    <div class="docs-grid reveal">
-      {docs.map(d => <DoctorCard doctor={d} />)}
-    </div>
+        <div class="docs-grid reveal">
+            { docs.map(d =>
+                    <DoctorCard doctor={ d }/>) }
+        </div>
 
-    <div class="show-mobile" style="margin-top:1.5rem;text-align:center">
-      <a href="/medicos" class="btn btn-outline btn-md">Ver todos los médicos →</a>
+        <div class="show-mobile" style="margin-top:1.5rem;text-align:center">
+            <a href="/medicos" class="btn btn-outline btn-md">Ver todos los médicos →</a>
+        </div>
     </div>
-  </div>
 </section>
 
 <style>
-  .docs-header {
-    display: flex; align-items: flex-end; justify-content: space-between;
-    gap: 1.5rem; margin-bottom: 2.5rem;
-  }
-  .docs-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.25rem;
-  }
-  @media (min-width: 640px) { .docs-grid { grid-template-columns: repeat(3, 1fr); } }
-  @media (min-width: 1024px) { .docs-grid { grid-template-columns: repeat(5, 1fr); } }
+    .docs-header {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 1.5rem;
+        margin-bottom: 2.5rem;
+    }
 
-  .hide-mobile { display: none; }
-  @media (min-width: 768px) { .hide-mobile { display: inline-flex; } }
-  .show-mobile { display: block; }
-  @media (min-width: 768px) { .show-mobile { display: none; } }
+    .docs-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.25rem;
+    }
+
+    @media (min-width: 640px) {
+        .docs-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .docs-grid {
+            grid-template-columns: repeat(5, 1fr);
+        }
+    }
+
+    .hide-mobile {
+        display: none;
+    }
+
+    @media (min-width: 768px) {
+        .hide-mobile {
+            display: inline-flex;
+        }
+    }
+
+    .show-mobile {
+        display: block;
+    }
+
+    @media (min-width: 768px) {
+        .show-mobile {
+            display: none;
+        }
+    }
 </style>

@@ -72,7 +72,7 @@ Este proyecto usa TailwindCSS v4 con configuración **únicamente desde CSS**:
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #0A4BFF;
+  --color-primary: #15489d;
   --color-primary-dark: #0037C1;
   /* ... */
 }
