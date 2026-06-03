@@ -1,5 +1,23 @@
 ---
 import SectionTitle from '../../components/ui/SectionTitle.astro';
+
+const operationRooms = [
+    {
+        image: '/images/sala_operacion_uno_cover.jpg',
+        alt: 'Sala de operaciones 1',
+        video: 'https://youtu.be/javru-kTlUc?si=dVfmDz3JCeGm-j1Q',
+    },
+    {
+        image: '/images/sala_operacion_dos_cover.jpg',
+        alt: 'Sala de operaciones 2',
+        video: 'https://youtu.be/T4e3GY0fACY?si=Gv2kH0Q8C_x9voMd',
+    },
+    {
+        image: '/images/sala_operacion_tres_cover.jpg',
+        alt: 'Sala de operaciones 3',
+        video: 'https://youtu.be/tNJXQUhs4z8?si=ipI6JiPsUY5fKfjB',
+    },
+];
 ---
 <section id="nosotros" class="section-py about-section" aria-labelledby="about-title">
     <div class="container">
@@ -8,11 +26,11 @@ import SectionTitle from '../../components/ui/SectionTitle.astro';
             <div class="about-images reveal">
                 <div class="img-main">
                     <img
-                            src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=600&h=480&fit=crop&auto=format"
+                            src="/images/nosotros_yt_cover.jpg"
                             alt="Fachada Clínica Buenaventura"
                             loading="lazy"
-                            width="600"
-                            height="480"
+                            width="1280"
+                            height="720"
                     />
                     <a
                             href="https://youtu.be/j8TyqVtGGbc?si=y_rQwEfFEDfLhpdD"
@@ -26,12 +44,12 @@ import SectionTitle from '../../components/ui/SectionTitle.astro';
                         </svg>
                     </a>
                 </div>
-                <div class="img-grid">
-                    <img src="https://images.unsplash.com/photo-1519494080410-f9aa76cb4283?w=280&h=200&fit=crop&auto=format"
-                         alt="Sala de espera" loading="lazy" width="280" height="200"/>
-                    <img src="https://images.unsplash.com/photo-1519494080410-f9aa76cb4283?w=280&h=200&fit=crop&auto=format"
-                         alt="Sala de operaciones" loading="lazy" width="280" height="200"/>
-                </div>
+                <!--<div class="img-grid">-->
+                <!--    <img src="https://images.unsplash.com/photo-1519494080410-f9aa76cb4283?w=280&h=200&fit=crop&auto=format"-->
+                <!--         alt="Sala de espera" loading="lazy" width="280" height="200"/>-->
+                <!--    <img src="https://images.unsplash.com/photo-1519494080410-f9aa76cb4283?w=280&h=200&fit=crop&auto=format"-->
+                <!--         alt="Sala de operaciones" loading="lazy" width="280" height="200"/>-->
+                <!--</div>-->
             </div>
 
             <!-- Text -->
@@ -86,25 +104,44 @@ import SectionTitle from '../../components/ui/SectionTitle.astro';
     <div class="container">
         <div class="or-grid">
             <div class="or-img reveal">
-                <div class="img-main">
-                    <img
-                            src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=600&h=480&fit=crop&auto=format"
-                            alt="Fachada Clínica Buenaventura"
-                            loading="lazy"
-                            width="600"
-                            height="480"
-                    />
-                    <a
-                            href="https://youtu.be/javru-kTlUc?si=dVfmDz3JCeGm-j1Q"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="play-btn"
-                            aria-label="Ver video de la clínica"
-                    >
-                        <svg width="28" height="28" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path d="M8 5v14l11-7z"/>
-                        </svg>
-                    </a>
+                <div class="swiper operation-room-swiper">
+                    <div class="swiper-wrapper">
+                        {
+                            operationRooms.map((item) => (
+                                    <div class="swiper-slide">
+                                        <div class="img-main">
+                                            <img
+                                                    src={ item.image }
+                                                    alt={ item.alt }
+                                                    loading="lazy"
+                                                    width="600"
+                                                    height="480"
+                                            />
+
+                                            <a
+                                                    href={ item.video }
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    class="play-btn"
+                                                    aria-label={ `Ver video de ${ item.alt }` }
+                                            >
+                                                <svg
+                                                        width="28"
+                                                        height="28"
+                                                        fill="currentColor"
+                                                        viewBox="0 0 24 24"
+                                                        aria-hidden="true"
+                                                >
+                                                    <path d="M8 5v14l11-7z"/>
+                                                </svg>
+                                            </a>
+                                        </div>
+                                    </div>
+                            ))
+                        }
+                    </div>
+
+                    <div class="swiper-pagination"></div>
                 </div>
             </div>
             <div class="or-text reveal" style="animation-delay:0.15s">
@@ -330,4 +367,45 @@ import SectionTitle from '../../components/ui/SectionTitle.astro';
         color: var(--color-text);
         font-weight: 500;
     }
+
+    .operation-room-swiper {
+        width: 100%;
+        height: 100%;
+    }
+
+    .operation-room-swiper .swiper-slide {
+        height: 100%;
+    }
+
+    .operation-room-swiper .swiper-pagination {
+        bottom: 16px;
+    }
 </style>
+
+
+<script>
+    import Swiper from 'swiper';
+    import { Pagination, Autoplay } from 'swiper/modules';
+
+    import 'swiper/css';
+    import 'swiper/css/pagination';
+
+    new Swiper('.operation-room-swiper', {
+        modules: [Pagination, Autoplay],
+
+        slidesPerView: 1,
+        spaceBetween: 0,
+
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+
+        autoplay: {
+            delay: 5000,
+            disableOnInteraction: false,
+        },
+
+        loop: true,
+    });
+</script>
