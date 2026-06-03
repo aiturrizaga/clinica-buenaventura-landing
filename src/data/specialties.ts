@@ -122,7 +122,7 @@ export const specialties: Specialty[] = [
         id: '10', slug: 'medicina-alternativa-y-complementaria', name: 'Medicina alternativa y complementaria',
         shortDescription: 'Terapias complementarias para el bienestar integral.',
         fullDescription: 'Enfoque integrativo orientado a mejorar la calidad de vida del paciente.',
-        fontIcon: 'leaf',
+        fontIcon: 'nurse',
         coverImage: 'https://images.unsplash.com/photo-1515377905703-c4788e51af15?w=800&h=400&fit=crop&auto=format',
         procedures: ['Acupuntura', 'Terapias complementarias'],
         relatedDoctorIds: [], featured: false, order: 10,
@@ -190,7 +190,7 @@ export const specialties: Specialty[] = [
         id: '17', slug: 'psicologia', name: 'Psicología',
         shortDescription: 'Atención y acompañamiento en salud mental.',
         fullDescription: 'Evaluación, orientación y terapia psicológica.',
-        fontIcon: 'brain',
+        fontIcon: 'mood-smile',
         coverImage: 'https://images.unsplash.com/photo-1573497620053-ea5300f94f21?w=800&h=400&fit=crop&auto=format',
         procedures: ['Psicoterapia', 'Evaluación psicológica'],
         relatedDoctorIds: [], featured: true, order: 17,
@@ -200,7 +200,7 @@ export const specialties: Specialty[] = [
         id: '18', slug: 'reumatologia', name: 'Reumatología',
         shortDescription: 'Diagnóstico y tratamiento de enfermedades reumáticas.',
         fullDescription: 'Atención especializada para articulaciones, músculos y tejido conectivo.',
-        fontIcon: 'bone',
+        fontIcon: 'hand-stop',
         coverImage: 'https://images.unsplash.com/photo-1530026405186-ed1f139313f8?w=800&h=400&fit=crop&auto=format',
         procedures: ['Artritis', 'Osteoporosis'],
         relatedDoctorIds: [], featured: false, order: 18,
@@ -217,10 +217,15 @@ export const specialties: Specialty[] = [
     },
 ];
 
-export const getFeaturedSpecialties = (): Specialty[] =>
-    specialties
+export const getFeaturedSpecialties = (): Specialty[] => {
+    const specialtiesList = specialties
         .filter(s => s.preferred)
         .sort((a, b) => a.order - b.order);
+
+    return specialtiesList.length % 2 === 0
+        ? specialtiesList
+        : specialtiesList.slice(0, -1);
+};
 
 export const getSpecialtyBySlug = (slug: string): Specialty | undefined =>
     specialties.find(s => s.slug === slug);
