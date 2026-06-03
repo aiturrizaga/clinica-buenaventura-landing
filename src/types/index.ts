@@ -2,7 +2,7 @@ export interface Doctor {
     id: string;
     slug: string;
     name: string;
-    title: 'Dr.' | 'Dra.';
+    title: 'Dr.' | 'Dra.' | 'Lic.';
     specialty: string;
     subspecialty?: string;
     cmp: string;
