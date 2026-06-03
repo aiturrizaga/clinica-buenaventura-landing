@@ -341,7 +341,7 @@ export const doctors: Doctor[] = [
         experience: 10,
         rating: 4.6,
         reviewCount: 89,
-        featured: false,
+        featured: true,
     },
     {
         id: '18',
@@ -381,7 +381,7 @@ export const doctors: Doctor[] = [
         experience: 14,
         rating: 4.8,
         reviewCount: 220,
-        featured: false,
+        featured: true,
     },
     {
         id: '20',
@@ -401,7 +401,7 @@ export const doctors: Doctor[] = [
         experience: 8,
         rating: 4.8,
         reviewCount: 132,
-        featured: false,
+        featured: true,
     },
     {
         id: '21',
@@ -425,5 +425,8 @@ export const doctors: Doctor[] = [
     },
 ];
 
-export const getFeaturedDoctors = (): Doctor[] => doctors.filter(d => d.featured);
+export const getFeaturedDoctors = (): Doctor[] => {
+    const featured = doctors.filter(d => d.featured);
+    return featured.length % 2 !== 0 ? featured.slice(0, featured.length - 1) : featured;
+};
 export const getDoctorBySlug = (slug: string): Doctor | undefined => doctors.find(d => d.slug === slug);
