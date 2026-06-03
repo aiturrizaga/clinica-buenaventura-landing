@@ -24,17 +24,20 @@ const specs = getFeaturedSpecialties();
             <!-- Tile ver todas -->
             <a
                     href="/especialidades"
-                    class="hidden md:flex flex-col items-center justify-center text-center gap-3 p-5 bg-primary rounded-2xl hover:-translate-y-1 hover:shadow-lg transition-all duration-300 no-underline min-h-40"
-                    aria-label="Ver todas las especialidades"
+                    class="hidden md:flex flex-col items-center justify-center text-center gap-3 p-5 bg-primary rounded-2xl hover:-translate-y-1 hover:shadow-lg transition-all duration-300 no-underline"
+                    aria-label="Ver todas"
             >
-                <div class="grid grid-cols-2 gap-1.5">
-                    { Array.from({ length: 4 }).map(() => (
-                            <div class="w-3 h-3 bg-white/40 rounded-sm"></div>
-                    )) }
+                <div class="text-gray-200 flex items-center justify-center shrink-0">
+                    <i class="ti ti-category"
+                       style="font-size: 36px;"
+                       aria-hidden="true"
+                    ></i>
                 </div>
-                <strong class="text-white text-sm leading-snug">
+
+                <h3 class="text-white! text-sm leading-snug">
                     Ver todas →
-                </strong>
+                </h3>
+
             </a>
         </div>
 
