@@ -3,7 +3,7 @@ import PageLayout from '../layouts/PageLayout.astro';
 ---
 <PageLayout
   title="Contacto | Clínica Buenaventura"
-  description="Contáctanos para cualquier consulta, cita o información. Estamos en Lima con atención de lunes a sábado y urgencias 24 horas."
+  description="Contáctanos para cualquier consulta, cita o información. Estamos en Lima con atención de lunes a domingos."
   jsonLd={{
     '@context': 'https://schema.org',
     '@type': 'ContactPage',
@@ -117,7 +117,7 @@ import PageLayout from '../layouts/PageLayout.astro';
                   ['Lunes – Viernes', '7:00 am – 7:00 pm'],
                   ['Sábados', '7:00 am – 1:00 pm'],
                   ['Domingos y Festivos', 'Solo urgencias'],
-                  ['Urgencias', '24 horas'],
+                  // ['Urgencias', '24 horas'],
                 ].map(([dt, dd]) => (
                   <div>
                     <dt>{dt}</dt>

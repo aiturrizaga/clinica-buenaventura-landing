@@ -61,7 +61,7 @@ const { doctor, compact = false } = Astro.props;
   .doctor-card-link { display: block; text-decoration: none; color: inherit; }
 
   .doctor-photo {
-    aspect-ratio: 3/4;
+    aspect-ratio: 3/3;
     overflow: hidden;
     background: var(--color-surface);
   }
@@ -72,6 +72,10 @@ const { doctor, compact = false } = Astro.props;
     object-position: top;
     transition: transform 0.5s;
   }
+  .compact .doctor-photo img {
+    object-position: center 15%;
+  }
+
   .doctor-card:hover .doctor-photo img { transform: scale(1.04); }
 
   .doctor-info { padding: 1.125rem 1.25rem 1.25rem; }

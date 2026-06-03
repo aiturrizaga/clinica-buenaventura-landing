@@ -85,9 +85,9 @@ const relatedDoctors = doctors.filter(d => specialty.relatedDoctorIds.includes(d
             <h3 style="font-size:1rem;font-weight:700;color:var(--color-text);margin:0 0 1rem">Horario de atención</h3>
             <dl class="hours">
               {[
-                ['Lun – Vie', '7:00 am – 7:00 pm'],
-                ['Sábados', '7:00 am – 1:00 pm'],
-                ['Urgencias', '24 horas'],
+                ['Lun – Dom', '7:00 am – 8:00 pm'],
+                // ['Sábados', '7:00 am – 1:00 pm'],
+                // ['Urgencias', '24 horas'],
               ].map(([dt, dd]) => (
                 <div>
                   <dt>{dt}</dt>

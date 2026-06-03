@@ -1,6 +1,6 @@
 export const SITE_NAME = 'Clínica Buenaventura';
 export const SITE_URL  = 'https://clinicabuenaventura.com';
-export const SITE_DESCRIPTION = 'Clínica médica en Lima con más de 20 especialidades. Atención de excelencia, tecnología avanzada y un equipo comprometido con tu bienestar.';
+export const SITE_DESCRIPTION = 'Clínica médica en Lima Sur con más de 20 especialidades. Atención de excelencia, tecnología avanzada y un equipo comprometido con tu bienestar.';
 export const DEFAULT_OG_IMAGE = '/images/og-default.jpg';
 
 export function buildTitle(pageTitle: string): string {
