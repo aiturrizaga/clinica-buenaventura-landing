@@ -1,6 +1,6 @@
 export const SITE_NAME = 'Clínica Buenaventura';
 export const SITE_URL  = 'https://clinicabuenaventura.com';
-export const SITE_DESCRIPTION = 'Clínica médica en Lima Sur con más de 20 especialidades. Atención de excelencia, tecnología avanzada y un equipo comprometido con tu bienestar.';
+export const SITE_DESCRIPTION = 'Atención médica cercana y confiable para ti y tu familia. Más de 20 especialidades, cirugías, ecografías, rayos X, odontología, laboratorio y farmacia en San Juan de Miraflores, Lima Sur. Agenda tu cita online.';
 export const DEFAULT_OG_IMAGE = '/images/og-default.jpg';
 
 export function buildTitle(pageTitle: string): string {

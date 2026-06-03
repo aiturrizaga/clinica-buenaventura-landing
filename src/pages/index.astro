@@ -11,22 +11,22 @@ import { buildClinicSchema } from '../utils/seo';
 import PromoPopup from "@components/ui/PromoPopup.astro";
 ---
 <PageLayout
-  title="Clínica Buenaventura | Excelencia Médica en Lima"
-  description="Clínica médica en Lima Sur con más de 20 especialidades. Atención de excelencia y tecnología avanzada."
-  ogImage="/images/og-default.jpg"
-  jsonLd={buildClinicSchema()}
+        title="Clínica Buenaventura | Comprometidos con tu confianza"
+        description="Atención médica cercana y confiable para ti y tu familia. Más de 20 especialidades, cirugías, ecografías, rayos X, odontología, laboratorio y farmacia en San Juan de Miraflores, Lima Sur. Agenda tu cita online."
+        ogImage="/images/og-default.jpg"
+        jsonLd={ buildClinicSchema() }
 >
-  <PromoPopup
-      image="/images/promotions/promo_uno.webp"
-      alt="Ofertas de locura"
-      waMessage="Hola Clínica Buenaventura, me el Paquete Papá saludable. ¿Me pueden dar más información?"
-  />
+    <PromoPopup
+            image="/images/promotions/promo_uno.webp"
+            alt="Ofertas de locura"
+            waMessage="Hola Clínica Buenaventura, me el Paquete Papá saludable. ¿Me pueden dar más información?"
+    />
 
-  <HeroSection />
-  <PromotionsSection />
-  <SpecialtiesSection />
-  <AboutSection />
-  <!--<ClubSection />-->
-  <DoctorsSection />
-  <!--<TestimonialsSection />-->
+    <HeroSection/>
+    <PromotionsSection/>
+    <SpecialtiesSection/>
+    <AboutSection/>
+    <!--<ClubSection />-->
+    <DoctorsSection/>
+    <!--<TestimonialsSection />-->
 </PageLayout>
