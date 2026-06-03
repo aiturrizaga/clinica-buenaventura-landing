@@ -1,40 +1,123 @@
 ---
 interface Props {
-  phone: string;
-  message?: string;
+    phone: string;
+    message?: string;
 }
-const { phone, message = 'Hola Clínica Buenaventura, vengo de la página web y requiero una consulta médica.' } = Astro.props;
+const {
+    phone,
+    message = 'Hola Clínica Buenaventura, vengo de la página web y requiero una consulta médica.'
+} = Astro.props;
 const cleanPhone = phone.replace(/\D/g, '');
-const waUrl = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`;
+const waUrl = `https://wa.me/${ cleanPhone }?text=${ encodeURIComponent(message) }`;
 ---
 <a
-  href={waUrl}
-  target="_blank"
-  rel="noopener noreferrer"
-  class="wa-float"
-  aria-label="Contactar por WhatsApp"
+        href={ waUrl }
+        target="_blank"
+        rel="noopener noreferrer"
+        class="wa-float"
+        aria-label="Contactar por WhatsApp"
 >
-  <!--<svg width="28" height="28" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">-->
-  <!--  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.111.554 4.103 1.524 5.829L.076 23.924l6.262-1.424A11.936 11.936 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.891 0-3.67-.504-5.2-1.385l-.372-.22-3.871.881.897-3.771-.242-.39A9.937 9.937 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>-->
-  <!--</svg>-->
-  <img src="/icon-whatsapp.svg" alt="WhatsApp" width="56" height="56">
+    <div class="wa-avatar">
+        <img
+                src="/icon-whatsapp.svg"
+                alt="Asesor Clínica Buenaventura"
+                width="80"
+                height="80"
+        />
+    </div>
+
+    <div class="wa-contact">
+        <img
+                src="/images/logo-whatsapp.svg"
+                alt=""
+                aria-hidden="true"
+                width="22"
+                height="22"
+        />
+
+        <span>CONTÁCTANOS</span>
+    </div>
 </a>
+
 <style>
-  .wa-float {
-    position: fixed;
-    bottom: 1.75rem;
-    right: 1.75rem;
-    z-index: 200;
-    //width: 56px; height: 56px;
-    //background: #25D366;
-    //color: #fff;
-    //border-radius: 50%;
-    //display: flex; align-items: center; justify-content: center;
-    //box-shadow: 0 6px 24px rgba(37,211,102,0.4);
-    transition: transform 0.25s, box-shadow 0.25s;
-  }
-  .wa-float:hover {
-    transform: scale(1.1);
-    //box-shadow: 0 8px 32px rgba(37,211,102,0.5);
-  }
+    .wa-float {
+        position: fixed;
+        right: 1.75rem;
+        bottom: 1.75rem;
+        z-index: 200;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        text-decoration: none;
+
+        transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .wa-float:hover {
+        transform: scale(1.05);
+    }
+
+    .wa-avatar {
+        width: 75px;
+        height: 75px;
+        border-radius: 50%;
+        overflow: hidden;
+
+        background: #b9d8e8;
+        border: 3px solid rgba(255, 255, 255, 0.7);
+
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
+    }
+
+    .wa-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .wa-contact {
+        position: relative;
+
+        margin-top: -4px;
+
+        display: flex;
+        align-items: center;
+        gap: 0.35rem;
+
+        background: var(--color-primary);
+        color: white;
+
+        border-radius: 8px;
+
+        font-size: 0.7rem;
+        padding: 0.35rem 0.7rem;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        line-height: 1;
+
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+    }
+
+    .wa-contact img {
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
+    }
+
+    .wa-contact::before {
+        content: "";
+        position: absolute;
+        top: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+
+        width: 0;
+        height: 0;
+
+        border-left: 8px solid transparent;
+        border-right: 8px solid transparent;
+        border-bottom: 8px solid var(--color-primary);
+    }
 </style>

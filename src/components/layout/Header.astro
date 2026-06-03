@@ -1,6 +1,7 @@
 ---
 import { navItems } from '@data/navigation.ts';
 const currentPath = Astro.url.pathname;
+const waMessage = 'Hola Clínica Buenaventura, vengo de la página web y requiero una consulta médica.';
 ---
 
 <header id="site-header"
@@ -33,7 +34,9 @@ const currentPath = Astro.url.pathname;
 
             <!-- CTA + burger -->
             <div class="flex items-center gap-3">
-                <a href="/agendar-cita" class="btn btn-primary btn-sm hidden sm:inline-flex"
+                <a href={ `https://wa.me/51932939530?text=${ encodeURIComponent(waMessage) }` }
+                   target="_blank" rel="noopener noreferrer"
+                   class="btn btn-primary btn-sm hidden sm:inline-flex"
                    aria-label="Agendar cita médica">
                     <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"
                          aria-hidden="true">
