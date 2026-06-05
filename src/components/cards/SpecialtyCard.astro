@@ -6,9 +6,9 @@ interface Props {
 }
 const { specialty } = Astro.props;
 ---
-<div
-        class="group flex flex-col items-center text-center gap-3 p-5 bg-white rounded-2xl border border-gray-100 hover:bg-primary-50 hover:border-blue-100 transition-colors duration-200 no-underline"
-        aria-label={ `Especialidad: ${ specialty.name }` }
+<a href="https://wa.me/51932939530" target="_blank" rel="noopener noreferrer"
+   class="group flex flex-col items-center text-center gap-3 p-5 bg-white rounded-2xl border border-gray-100 hover:bg-primary-50 hover:border-blue-100 transition-colors duration-200 no-underline"
+   aria-label={ `Especialidad: ${ specialty.name }` }
 >
     <div class="w-14 h-14 rounded-xl bg-primary-50 text-primary flex items-center justify-center shrink-0 group-hover:bg-primary group-hover:text-white transition-colors duration-200">
         <i class={ `ti ti-${ specialty.fontIcon }` }
@@ -24,4 +24,4 @@ const { specialty } = Astro.props;
     <!--  <span class="text-xs font-semibold text-primary mt-auto transition-colors duration-200">-->
     <!--  Ver detalle →-->
     <!--</span>-->
-</div>
+</a>

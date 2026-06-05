@@ -287,7 +287,7 @@ export const doctors: Doctor[] = [
         id: '15',
         slug: 'jesus-pablo-rios-hinostroza',
         name: 'Jesus Pablo Rios Hinostroza',
-        title: 'Dr.',
+        title: 'Lic.',
         specialty: 'Psicología',
         cmp: '66281',
         bio: 'Psicólogo clínico con experiencia en terapia cognitivo-conductual, manejo de ansiedad, depresión y trastornos del comportamiento.',
