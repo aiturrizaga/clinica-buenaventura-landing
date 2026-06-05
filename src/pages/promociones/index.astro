@@ -37,13 +37,15 @@ function waLink(text: string) {
                         >
                             <!-- Imagen -->
                             <div class="w-full aspect-video overflow-hidden">
-                                <img
-                                        src={ promo.image }
-                                        alt={ promo.title }
-                                        loading="lazy"
-                                        decoding="async"
-                                        class="w-full h-full object-cover transition-transform duration-500 hover:scale-[1.03]"
-                                />
+                                <a href={ `/promociones/${ promo.slug }` }>
+                                    <img
+                                            src={ promo.image }
+                                            alt={ promo.title }
+                                            loading="lazy"
+                                            decoding="async"
+                                            class="w-full h-full object-cover transition-transform duration-500 hover:scale-[1.03]"
+                                    />
+                                </a>
                             </div>
 
                             <!-- Botón WhatsApp -->

@@ -23,9 +23,8 @@ import { promotions } from '@data/promotions.ts';
                 {
                     promotions.map((promo) => (
                             <div class="swiper-slide">
-                                <a
-                                        href="/promociones"
-                                        class="promo-card block overflow-hidden rounded-3xl shadow-sm"
+                                <a href={ `/promociones/${ promo.slug }` }
+                                   class="promo-card block overflow-hidden rounded-3xl shadow-sm"
                                 >
                                     <div class="relative aspect-video">
 
