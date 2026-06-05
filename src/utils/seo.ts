@@ -63,12 +63,14 @@ export function buildClinicSchema() {
             addressLocality: 'Lima',
             addressCountry: 'PE',
         },
-        openingHoursSpecification: {
-            '@type': 'OpeningHoursSpecification',
-            dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-            opens: '07:00',
-            closes: '20:00',
-        },
+        openingHoursSpecification: [
+            {
+                '@type': "OpeningHoursSpecification",
+                dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+                opens: "07:00",
+                closes: "20:00"
+            }
+        ],
         medicalSpecialty: [
             'https://schema.org/Cardiovascular',
             'https://schema.org/Surgical',
@@ -77,15 +79,15 @@ export function buildClinicSchema() {
             'https://schema.org/Endocrine',
             'https://schema.org/Gastroenterologic',
             'https://schema.org/Gynecologic',
-            'https://schema.org/Internal',
+            'https://schema.org/PrimaryCare',
             'https://schema.org/Neurologic',
-            'https://schema.org/Dietary',
+            'https://schema.org/DietNutrition',
             'https://schema.org/Dentistry',
             'https://schema.org/Otolaryngologic',
-            'https://schema.org/MentalHealth',
+            'https://schema.org/Psychiatric',
             'https://schema.org/Rheumatologic',
             'https://schema.org/Musculoskeletal',
-            'https://schema.org/PhysicalTherapy',
+            'https://schema.org/Physiotherapy',
         ],
         sameAs: [
             'https://www.facebook.com/clinicabuenaventurasjm',
