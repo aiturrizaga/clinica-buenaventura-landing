@@ -63,9 +63,27 @@
     }
 
     @media (min-width: 1440px) {
+        .hero {
+            height: auto;
+            width: 100%;
+        }
+
+        .hero-bg-img {
+            position: relative;
+            inset: unset;
+            width: 100%;
+        }
+
+        .hero-bg-img picture {
+            display: block;
+            width: 100%;
+        }
+
         .hero-bg-img img {
-            object-fit: contain;
-            object-position: center center;
+            object-fit: unset;
+            width: 100%;
+            height: auto;
+            display: block;
         }
     }
 
