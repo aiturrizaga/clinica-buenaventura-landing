@@ -82,7 +82,8 @@ const waMessage = 'Hola Clínica Buenaventura, vengo de la página web y requier
                     </a>
             )) }
             <div class="px-1 mt-3">
-                <a href="/agendar-cita" class="btn btn-primary btn-md w-full justify-center">
+                <a href={ `https://wa.me/51932939530?text=${ encodeURIComponent(waMessage) }` }
+                   class="btn btn-primary btn-md w-full justify-center">
                     Agendar cita
                 </a>
             </div>
