@@ -6,13 +6,25 @@ interface Props {
     compact?: boolean;
 }
 const { doctor, compact = false } = Astro.props;
+
+const PHONE = '51932939530';
+
+function waLink(text: string) {
+    return `https://wa.me/${ PHONE }?text=${ encodeURIComponent(text) }`;
+}
+
+function waDoctorLink(doctor: Doctor) {
+    const {} = doctor;
+    const desc = `${ doctor.title } ${ doctor.name } de ${ doctor.specialty }`
+    return waLink(`Hola Clínica Buenaventura, vengo de la página web y requiero una consulta médica con el ${ desc }.`);
+}
 ---
 <article class:list={ ['doctor-card card', compact && 'compact'] }
          aria-label={ `${ doctor.title } ${ doctor.name }, ${ doctor.specialty }` }>
     <!-- <a href={`/medicos/${doctor.slug}`} class="doctor-card-link"> -->
     <div class="doctor-card-link">
         <div class="doctor-photo">
-            <a href="https://wa.me/51932939530" target="_blank" rel="noopener noreferrer">
+            <a href={ waDoctorLink(doctor) } target="_blank" rel="noopener noreferrer">
                 <img
                         src={ doctor.photo }
                         alt={ `Foto de ${ doctor.title } ${ doctor.name }` }
@@ -26,7 +38,7 @@ const { doctor, compact = false } = Astro.props;
         <div class="doctor-info">
             <p class="doctor-specialty">{ doctor.specialty }</p>
             <h3 class="doctor-name">
-                <a href="https://wa.me/51932939530" target="_blank" rel="noopener noreferrer">
+                <a href={ waDoctorLink(doctor) } target="_blank" rel="noopener noreferrer">
                     { doctor.title } { doctor.name }
                 </a>
             </h3>

@@ -1,8 +1,8 @@
-import type { NavItem } from '../types';
+import type { NavItem } from '@/types';
 
 export const navItems: NavItem[] = [
   { label: 'Inicio', href: '/' },
-  { label: 'Nosotros', href: '/nosotros' },
+  { label: 'Nosotros', href: '/#nosotros' },
   {
     label: 'Especialidades',
     href: '/#especialidades',

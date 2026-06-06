@@ -5,8 +5,15 @@ interface Props {
     specialty: Specialty;
 }
 const { specialty } = Astro.props;
+
+const PHONE = '51932939530';
+
+function waLink(text: string) {
+    return `https://wa.me/${ PHONE }?text=${ encodeURIComponent(text) }`;
+}
 ---
-<a href="https://wa.me/51932939530" target="_blank" rel="noopener noreferrer"
+<a href={ waLink(`Hola Clínica Buenaventura, vengo de la página web y requiero una consulta médica para ${ specialty.name }.`) }
+   target="_blank" rel="noopener noreferrer"
    class="group flex flex-col items-center text-center gap-3 p-5 bg-white rounded-2xl border border-gray-100 hover:bg-primary-50 hover:border-blue-100 transition-colors duration-200 no-underline"
    aria-label={ `Especialidad: ${ specialty.name }` }
 >
