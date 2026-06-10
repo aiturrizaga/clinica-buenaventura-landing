@@ -1,0 +1,68 @@
+---
+import ConfirmDialog from '@/components/ui/ConfirmDialog.astro';
+
+interface Props {
+    id?: string;
+    confirmText?: string;
+    cancelText?: string;
+}
+
+const {
+    id = 'appointment-confirm',
+    confirmText = 'Continuar',
+    cancelText = 'Cancelar',
+} = Astro.props;
+
+const rows = [
+    { label: 'Médico', field: 'doctor' },
+    { label: 'Sede', field: 'branch' },
+    { label: 'Especialidad', field: 'specialty' },
+    { label: 'Fecha y hora', field: 'datetime' },
+    { label: 'Tipo de consulta', field: 'type' },
+];
+
+const rowClass = 'grid grid-cols-[120px_1fr] items-start gap-3';
+const labelClass = 'text-[0.95rem] text-text-muted';
+const valueClass = 'm-0 text-[0.95rem] font-semibold text-text';
+const pillBtn = 'rounded-full px-6 py-3 text-base font-semibold transition-colors';
+---
+
+<ConfirmDialog id={ id }>
+    <div
+            slot="icon"
+            class="mx-auto mb-5 flex size-16 items-center justify-center rounded-full bg-primary"
+            aria-hidden="true"
+    >
+        <i class="ti ti-info-circle text-3xl text-white"></i>
+    </div>
+
+    <h2 slot="title" id={ `${ id }-title` } class="mb-6 text-xl font-bold text-text">
+        ¿Deseas continuar con <span class="text-primary">el agendamiento?</span>
+    </h2>
+
+    <dl slot="body" class="mb-7 grid gap-3 text-left">
+        { rows.map((row) => (
+                <div class={ rowClass }>
+                    <dt class={ labelClass }>{ row.label }</dt>
+                    <dd class={ valueClass } data-field={ row.field }>—</dd>
+                </div>
+        )) }
+    </dl>
+
+    <Fragment slot="actions">
+        <button
+                type="button"
+                class={ `${ pillBtn } cursor-pointer border-2 border-primary bg-white text-primary hover:bg-primary-50` }
+                data-action="cancel"
+        >
+            { cancelText }
+        </button>
+        <button
+                type="button"
+                class={ `${ pillBtn } cursor-pointer border-2 border-transparent bg-primary text-white hover:bg-primary-dark` }
+                data-action="confirm"
+        >
+            { confirmText }
+        </button>
+    </Fragment>
+</ConfirmDialog>

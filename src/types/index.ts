@@ -15,6 +15,8 @@ export interface Doctor {
     rating: number;
     reviewCount: number;
     featured: boolean;
+    dates?: AvailabilityDate[];
+    slots?: Record<string, string[]>;
 }
 
 export interface Schedule {
@@ -111,4 +113,17 @@ export interface ClubBenefit {
     icon: string;
     title: string;
     description: string;
+}
+
+export interface Branch {
+    id: string;
+    slug: string;
+    name: string;
+    address: string;
+}
+
+export interface AvailabilityDate {
+    iso: string;
+    dow: string;
+    day: string;
 }

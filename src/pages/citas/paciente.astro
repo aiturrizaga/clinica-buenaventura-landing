@@ -1,0 +1,138 @@
+---
+import AppointmentLayout from '@/layouts/AppointmentLayout.astro';
+import AppointmentSummary from '@/components/appointment/AppointmentSummary.astro';
+
+const tabClassBase =
+    'relative -mb-px border-b-2 px-1 pb-3 pt-2 text-base font-medium transition-colors';
+const rowClass = 'border-t border-primary-100 pt-4';
+const labelClass = 'mb-1 text-sm text-text-muted';
+const valueClass = 'm-0 text-text';
+---
+
+<AppointmentLayout
+        title="¿Para quién es la cita? | Clínica Buenaventura"
+        description="Confirma los datos del paciente para reservar tu cita."
+>
+    <section class="container py-10 md:py-16">
+        <div class="mx-auto grid max-w-4xl gap-6 lg:grid-cols-[1fr_340px]">
+            <!-- Form card -->
+            <div class="card p-7 md:p-9">
+                <p class="mb-1 text-sm font-semibold text-primary">Último paso</p>
+                <h1 class="mb-6 text-2xl font-bold text-text md:text-3xl">
+                    ¿Para quién es <span class="text-primary">la cita?</span>
+                </h1>
+
+                <!-- Tabs -->
+                <div class="mb-6 flex gap-8 border-b border-primary-100" role="tablist">
+                    <button
+                            type="button"
+                            class:list={ [tabClassBase, 'border-primary text-primary'] }
+                            data-tab="self"
+                            data-active
+                    >
+                        Para mí
+                    </button>
+                    <button
+                            type="button"
+                            class:list={ [tabClassBase, 'border-transparent text-text-muted hover:text-text'] }
+                            data-tab="relative"
+                    >
+                        Para un familiar
+                    </button>
+                </div>
+
+                <!-- Patient data -->
+                <dl class="grid gap-4">
+                    <div>
+                        <dt class={ labelClass }>Nombre y apellidos</dt>
+                        <dd class={ valueClass } data-patient="name">—</dd>
+                    </div>
+                    <div class:list={ ['grid grid-cols-2 gap-4', rowClass] }>
+                        <div>
+                            <dt class={ labelClass }>Tipo de documento</dt>
+                            <dd class={ valueClass } data-patient="documentType">D.N.I</dd>
+                        </div>
+                        <div>
+                            <dt class={ labelClass }>N° de documento</dt>
+                            <dd class={ valueClass } data-patient="documentNumber">—</dd>
+                        </div>
+                    </div>
+                    <div class={ rowClass }>
+                        <dt class={ labelClass }>Celular</dt>
+                        <dd class={ valueClass } data-patient="phone">—</dd>
+                    </div>
+                    <div class={ rowClass }>
+                        <dt class={ labelClass }>Correo</dt>
+                        <dd class={ valueClass } data-patient="email">—</dd>
+                    </div>
+                </dl>
+
+                <button
+                        type="button"
+                        id="reserve-btn"
+                        class="cursor-pointer mt-8 inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary px-6 py-3.5 font-semibold text-white transition-colors hover:bg-primary-dark"
+                >
+                    Reservar cita
+                    <i class="ti ti-calendar-check"></i>
+                </button>
+
+                <p class="mt-4 text-sm text-text-muted">
+                    ¿No eres <span data-patient="firstName">—</span>?
+                    <a class="font-semibold text-primary hover:underline" href="/citas/identificacion">
+                        Ingresar otro N° de documento
+                    </a>
+                </p>
+            </div>
+
+            <!-- Summary -->
+            <AppointmentSummary showPatient={ true } class="h-fit"/>
+        </div>
+    </section>
+</AppointmentLayout>
+
+<script>
+    import { getAppointment, saveAppointment } from '@/scripts/appointmentStore';
+
+    const CONFIRMATION_URL = '/citas/confirmacion';
+
+    const appointment = getAppointment();
+    const account = appointment?.account;
+
+    if (account) {
+        const set = (field: string, value: string) => {
+            const el = document.querySelector<HTMLElement>(`[data-patient="${ field }"]`);
+            if (el) el.textContent = value || '—';
+        };
+        set('name', `${ account.firstName } ${ account.lastName }`);
+        set('documentType', account.documentType);
+        set('documentNumber', account.documentNumber);
+        set('phone', account.phone);
+        set('email', account.email);
+        set('firstName', account.firstName);
+    }
+
+    // Tabs (visual selection only)
+    const tabs = document.querySelectorAll<HTMLElement>('[data-tab]');
+    tabs.forEach((tab) => {
+        tab.addEventListener('click', () => {
+            tabs.forEach((t) => {
+                const active = t === tab;
+                t.toggleAttribute('data-active', active);
+                t.classList.toggle('border-primary', active);
+                t.classList.toggle('text-primary', active);
+                t.classList.toggle('border-transparent', !active);
+                t.classList.toggle('text-text-muted', !active);
+            });
+        });
+    });
+
+    document.getElementById('reserve-btn')?.addEventListener('click', () => {
+        const current = getAppointment();
+        if (!current) {
+            window.location.href = '/citas';
+            return;
+        }
+        saveAppointment(current);
+        window.location.href = CONFIRMATION_URL;
+    });
+</script>

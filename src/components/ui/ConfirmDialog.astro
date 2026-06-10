@@ -1,0 +1,93 @@
+---
+interface Props {
+    id: string;
+    labelledby?: string;
+}
+
+const { id, labelledby = `${ Astro.props.id }-title` } = Astro.props;
+---
+
+<div
+        id={ id }
+        class="confirm-overlay group fixed inset-0 z-1100 hidden bg-primary/55 [&:not(.hidden)]:flex items-end justify-center sm:items-center sm:p-4"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={ labelledby }
+        data-confirm-overlay
+>
+    <div
+            class="confirm-panel w-full max-w-full translate-y-full rounded-t-[22px] bg-white px-6 pb-8 pt-3 text-center shadow-[0_10px_40px_rgba(13,53,120,0.25)] transition-transform duration-300 ease-out group-[&:not(.hidden)]:translate-y-0 sm:max-w-md sm:translate-y-0 sm:rounded-[20px] sm:p-8 sm:pt-8"
+            data-confirm-panel
+    >
+        <!-- Drag handle (mobile only) -->
+        <div
+                class="mx-auto mb-4 h-1.5 w-12 cursor-grab rounded-full bg-primary-100 sm:hidden"
+                data-confirm-handle
+                aria-hidden="true"
+        ></div>
+
+        <slot name="icon"/>
+        <slot name="title"/>
+        <slot name="body"/>
+
+        <div class="mt-7 flex flex-col-reverse gap-3 sm:flex-row sm:justify-center *:flex-1">
+            <slot name="actions"/>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.querySelectorAll<HTMLElement>('[data-confirm-overlay]').forEach((overlay) => {
+        const panel = overlay.querySelector<HTMLElement>('[data-confirm-panel]');
+        const handle = overlay.querySelector<HTMLElement>('[data-confirm-handle]');
+
+        const close = () => overlay.classList.add('hidden');
+
+        // Close on backdrop click
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) close();
+        });
+
+        // Close on Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !overlay.classList.contains('hidden')) close();
+        });
+
+        // Drag-to-dismiss (mobile bottom sheet)
+        if (panel && handle) {
+            let startY = 0;
+            let currentY = 0;
+            let dragging = false;
+
+            const onStart = (clientY: number) => {
+                dragging = true;
+                startY = clientY;
+                panel.style.transition = 'none';
+            };
+
+            const onMove = (clientY: number) => {
+                if (!dragging) return;
+                currentY = Math.max(0, clientY - startY);
+                panel.style.transform = `translateY(${ currentY }px)`;
+            };
+
+            const onEnd = () => {
+                if (!dragging) return;
+                dragging = false;
+                panel.style.transition = '';
+                panel.style.transform = '';
+                // Dismiss if dragged down more than 120px
+                if (currentY > 120) close();
+                currentY = 0;
+            };
+
+            handle.addEventListener('touchstart', (e) => onStart(e.touches[0].clientY), { passive: true });
+            handle.addEventListener('touchmove', (e) => onMove(e.touches[0].clientY), { passive: true });
+            handle.addEventListener('touchend', onEnd);
+
+            handle.addEventListener('mousedown', (e) => onStart(e.clientY));
+            document.addEventListener('mousemove', (e) => onMove(e.clientY));
+            document.addEventListener('mouseup', onEnd);
+        }
+    });
+</script>

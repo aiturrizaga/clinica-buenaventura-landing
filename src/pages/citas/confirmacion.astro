@@ -1,0 +1,126 @@
+---
+import AppointmentLayout from '@/layouts/AppointmentLayout.astro';
+
+const detailItems = [
+    { label: 'Paciente', field: 'patient' },
+    { label: 'Médico', field: 'doctor' },
+    { label: 'Especialidad', field: 'specialty' },
+    { label: 'Sede', field: 'branch' },
+    { label: 'Fecha', field: 'date' },
+    { label: 'Hora', field: 'time' },
+    { label: 'Tipo de consulta', field: 'type' },
+];
+---
+
+<AppointmentLayout
+        title="¡Cita agendada! | Clínica Buenaventura"
+        description="Tu cita ha sido agendada con éxito."
+>
+    <section class="container py-10 md:py-16">
+        <div class="mx-auto max-w-4xl">
+            <!-- Header -->
+            <div class="mb-8 flex items-start gap-4">
+        <span class="flex size-11 shrink-0 items-center justify-center rounded-full bg-green-500 text-white">
+          <i class="ti ti-check text-2xl"></i>
+        </span>
+                <div>
+                    <h1 class="mb-1 text-2xl font-bold text-text md:text-3xl">
+                        ¡Tu cita ha sido agendada <span class="text-primary">con éxito!</span>
+                    </h1>
+                    <p class="text-text-muted">
+                        Revisa el detalle en el portal Mi Buenaventura, en la sección "Mis citas".
+                    </p>
+                </div>
+            </div>
+
+            <div class="mb-5 inline-block rounded-lg bg-primary px-5 py-2.5 font-semibold text-white">
+                Acércate a admisión 30 minutos antes de la hora de tu cita
+            </div>
+
+            <div class="grid gap-6 md:grid-cols-[1.2fr_1fr]">
+                <!-- Detail -->
+                <div class="card p-7">
+                    <dl class="grid grid-cols-2 gap-x-6 gap-y-5">
+                        { detailItems.map((item) => (
+                                <div>
+                                    <dt class="mb-1 text-xs text-text-muted">{ item.label }</dt>
+                                    <dd class="m-0 text-[0.95rem] font-semibold text-primary"
+                                        data-summary={ item.field }>—
+                                    </dd>
+                                </div>
+                        )) }
+                    </dl>
+                </div>
+
+                <!-- Info -->
+                <aside class="card p-6">
+                    <p class="mb-4 flex items-center gap-2 font-bold text-primary">
+                        <i class="ti ti-info-circle text-lg"></i>
+                        Indicaciones para tu cita
+                    </p>
+                    <ul class="mb-5 grid gap-2.5 text-sm text-text">
+                        <li class="flex gap-2">
+                            <i class="ti ti-check mt-0.5 text-green-600"></i>
+                            Llega 30 minutos antes para que puedas pasar por admisión.
+                        </li>
+                        <li class="flex gap-2">
+                            <i class="ti ti-check mt-0.5 text-green-600"></i>
+                            El número de consultorio será indicado por admisión el día de tu cita.
+                        </li>
+                    </ul>
+                    <div class="rounded-xl bg-primary px-5 py-4 text-white">
+                        <p class="m-0 text-2xl font-bold">Hasta 15% dscto</p>
+                        <p class="m-0 mt-1 text-sm opacity-90">
+                            Al pagar por la web · Consultas ambulatorias particulares
+                        </p>
+                    </div>
+                </aside>
+            </div>
+
+            <!-- Actions -->
+            <div class="mt-8 flex flex-wrap gap-3">
+                <button
+                        type="button"
+                        id="pay-btn"
+                        class="cursor-pointer inline-flex items-center justify-center gap-2 rounded-full bg-primary px-7 py-3.5 font-semibold text-white transition-colors hover:bg-primary-dark"
+                >
+                    <i class="ti ti-credit-card"></i>
+                    Pagar ahora
+                </button>
+                <a
+                        href="/"
+                        id="home-link"
+                        class="cursor-pointer inline-flex items-center justify-center gap-2 rounded-full border-2 border-primary bg-white px-7 py-3.5 font-semibold text-primary transition-colors hover:bg-primary-50"
+                >
+                    Ir a inicio
+                </a>
+            </div>
+        </div>
+    </section>
+</AppointmentLayout>
+
+<script>
+    import { getAppointment, clearAppointment, formatLongDate, formatTime } from '@/scripts/appointmentStore';
+
+    const appointment = getAppointment();
+    if (appointment) {
+        const set = (field: string, value?: string) => {
+            const el = document.querySelector<HTMLElement>(`[data-summary="${ field }"]`);
+            if (el && value) el.textContent = value;
+        };
+        set('patient', appointment.patientName);
+        set('doctor', appointment.doctorName);
+        set('specialty', appointment.specialty);
+        set('branch', appointment.branchName);
+        set('type', appointment.type);
+        set('date', formatLongDate(appointment.dateIso));
+        set('time', formatTime(appointment.time));
+    }
+
+    document.getElementById('pay-btn')?.addEventListener('click', () => {
+        // TODO: redirect to payment gateway
+    });
+
+    // Clear stored appointment when leaving to home
+    document.getElementById('home-link')?.addEventListener('click', () => clearAppointment());
+</script>

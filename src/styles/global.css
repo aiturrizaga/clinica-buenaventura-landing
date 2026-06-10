@@ -354,7 +354,11 @@ a {
     color: var(--color-text);
 }
 
-/* Gradient text */
+/* Gradient */
+.bg-gradient {
+    background: linear-gradient(to bottom right, var(--color-primary), color-mix(in srgb, var(--color-primary) 60%, #000))
+}
+
 .text-gradient {
     background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
     -webkit-background-clip: text;

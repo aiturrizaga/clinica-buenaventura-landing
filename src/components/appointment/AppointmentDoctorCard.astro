@@ -1,0 +1,107 @@
+---
+import type { Doctor } from '@/types';
+
+interface Props {
+    doctor: Doctor;
+    address?: string;
+}
+
+const { doctor, address = '' } = Astro.props;
+
+const displayName = `${ doctor.title } ${ doctor.name }`;
+const dates = doctor.dates ?? [];
+const slots = doctor.slots ?? {};
+---
+
+<article
+        class="grid grid-cols-1 items-start gap-8 border-b border-[#eef2f5] py-6 lg:grid-cols-[minmax(280px,1fr)_auto]"
+        data-doctor={ doctor.slug }
+>
+    <!-- Info column -->
+    <div class="flex gap-4">
+        <img
+                class="size-24 shrink-0 rounded-xl bg-primary-50 object-cover"
+                src={ doctor.photo }
+                alt={ displayName }
+                width="96"
+                height="96"
+                loading="lazy"
+        />
+        <div>
+            <p class="mb-0.5 text-sm font-semibold text-primary">{ doctor.specialty }</p>
+            <h3 class="mb-1.5 text-xl font-bold text-text">{ displayName }</h3>
+            <p class="mb-3 flex flex-wrap items-center gap-3 text-sm text-text-muted">
+                <span>CMP { doctor.cmp }</span>
+                <a class="inline-flex items-center gap-1 font-semibold text-primary hover:underline"
+                   href={ `/medicos/${ doctor.slug }` }>
+                    Ver perfil <i class="ti ti-arrow-right"></i>
+                </a>
+            </p>
+            <div class="mb-3 inline-block border-b-2 border-primary pb-1 text-sm font-semibold text-primary">
+                Presencial
+            </div>
+            { address && (
+                    <p class="flex items-center gap-1.5 text-sm text-text-muted">
+                        <i class="ti ti-map-pin text-primary"></i>
+                        { address }
+                    </p>
+            ) }
+        </div>
+    </div>
+
+    <!-- Schedule column -->
+    <div class="flex items-start">
+        <div class="order-1 rounded-2xl bg-primary-50 p-2">
+            <!-- Date tabs -->
+            <div class="flex gap-1.5" role="tablist">
+                { dates.map((d, i) => (
+                        <button
+                                type="button"
+                                class:list={ [
+                                    'flex-1 min-w-16 rounded-t-xl border-[1.5px] px-1.5 py-2 text-center transition-colors cursor-pointer',
+                                    i === 0
+                                        ? 'border-primary border-b-transparent bg-primary-100 text-primary'
+                                        : 'border-primary-light bg-white text-primary',
+                                ] }
+                                data-date={ d.iso }
+                                role="tab"
+                        >
+                            <span class="block text-sm font-bold">{ d.dow }</span>
+                            <span class="block text-xs">{ d.day }</span>
+                        </button>
+                )) }
+            </div>
+
+            <!-- Slots per date -->
+            <div class="rounded-b-xl bg-primary-50 px-1 pb-1 pt-2">
+                { dates.map((d, i) => (
+                        <div
+                                class:list={ [
+                                    'grid grid-cols-4 gap-1.5 sm:grid-cols-5',
+                                    { hidden: i !== 0 },
+                                ] }
+                                data-slots={ d.iso }
+                        >
+                            { (slots[d.iso] ?? []).map((time) => (
+                                    <button
+                                            type="button"
+                                            class="rounded-lg border border-[#e4eef3] bg-white px-1.5 py-2 text-sm font-semibold cursor-pointer text-text transition-colors hover:border-primary hover:text-primary data-selected:border-primary! data-selected:bg-primary! data-selected:text-white!"
+                                            data-time={ time }
+                                            data-doctor={ doctor.slug }
+                                            data-date={ d.iso }
+                                    >{ time }</button>
+                            )) }
+                        </div>
+                )) }
+            </div>
+        </div>
+
+        <button
+                type="button"
+                class="order-2 ml-2 mt-1 flex size-9 shrink-0 items-center justify-center cursor-pointer rounded-full border border-primary-100 bg-white text-text-muted transition-colors hover:bg-primary-50 hover:text-primary"
+                aria-label="Más fechas"
+        >
+            <i class="ti ti-arrow-right"></i>
+        </button>
+    </div>
+</article>

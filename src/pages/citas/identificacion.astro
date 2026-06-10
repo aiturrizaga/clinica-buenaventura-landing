@@ -1,0 +1,118 @@
+---
+import AppointmentLayout from '@/layouts/AppointmentLayout.astro';
+import AppointmentSummary from '@/components/appointment/AppointmentSummary.astro';
+---
+
+<AppointmentLayout
+        title="Identifícate | Clínica Buenaventura"
+        description="Identifícate para continuar con la reserva de tu cita."
+>
+    <section class="container py-10 md:py-16">
+        <div class="mx-auto grid max-w-4xl gap-6 lg:grid-cols-[1fr_340px]">
+            <!-- Form card -->
+            <div class="card p-7 md:p-9">
+                <p class="mb-1 text-sm font-semibold text-primary">Reserva de cita</p>
+                <h1 class="mb-2 text-2xl font-bold text-text md:text-3xl">
+                    Identifícate para continuar
+                </h1>
+                <p class="mb-7 text-text-muted">
+                    Ingresa tu documento para reconocerte o crear tu cuenta.
+                </p>
+
+                <div class="grid gap-4 sm:grid-cols-[150px_1fr]">
+                    <div>
+                        <label class="mb-1.5 block text-sm font-medium text-text" for="document-type">
+                            Tipo de documento
+                        </label>
+                        <div class="relative">
+                            <select
+                                    id="document-type"
+                                    class="form-input appearance-none pr-10"
+                            >
+                                <option>D.N.I</option>
+                                <option>C.E</option>
+                                <option>Pasaporte</option>
+                            </select>
+                            <i class="ti ti-chevron-down pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-primary"></i>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="mb-1.5 block text-sm font-medium text-text" for="document-number">
+                            N° de documento
+                        </label>
+                        <input
+                                id="document-number"
+                                type="text"
+                                inputmode="numeric"
+                                maxlength="12"
+                                placeholder="Ej. 44324600"
+                                class="form-input"
+                        />
+                    </div>
+                </div>
+
+                <p id="document-error" class="mt-2 hidden text-sm text-danger">
+                    Ingresa un número de documento válido.
+                </p>
+
+                <button
+                        type="button"
+                        id="continue-btn"
+                        class="cursor-pointer mt-7 inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary px-6 py-3.5 font-semibold text-white transition-colors hover:bg-primary-dark sm:w-auto"
+                >
+                    Continuar
+                    <i class="ti ti-arrow-right"></i>
+                </button>
+            </div>
+
+            <!-- Summary -->
+            <AppointmentSummary class="h-fit"/>
+        </div>
+    </section>
+</AppointmentLayout>
+
+<script>
+    import { findAccountByDocument } from '@/data/accounts';
+    import { getAppointment, saveAppointment } from '@/scripts/appointmentStore';
+
+    const REGISTER_URL = '/citas/registro';
+    const PATIENT_URL = '/citas/paciente';
+
+    const input = document.getElementById('document-number') as HTMLInputElement;
+    const error = document.getElementById('document-error');
+
+    document.getElementById('continue-btn')?.addEventListener('click', () => {
+        const doc = input.value.trim();
+        if (!doc) {
+            error?.classList.remove('hidden');
+            input.focus();
+            return;
+        }
+        error?.classList.add('hidden');
+
+        const appointment = getAppointment();
+        if (!appointment) {
+            // No appointment selected: send back to listing.
+            window.location.href = '/citas';
+            return;
+        }
+
+        appointment.documentNumber = doc;
+        const account = findAccountByDocument(doc);
+
+        if (account) {
+            appointment.account = account;
+            appointment.patientName = `${ account.firstName } ${ account.lastName }`;
+            saveAppointment(appointment);
+            window.location.href = PATIENT_URL;
+        } else {
+            saveAppointment(appointment);
+            window.location.href = REGISTER_URL;
+        }
+    });
+
+    input?.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') document.getElementById('continue-btn')?.dispatchEvent(new Event('click'));
+    });
+</script>
