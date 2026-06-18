@@ -70,6 +70,29 @@ export const promotions: Promotion[] = [
             legal: 'El precio es válido para las especialidades mencionadas solo los viernes de junio. No acumulable con otras promociones.',
             termsUrl: '/legal/terminos-promociones',
         },
+    },
+    {
+        id: '4',
+        title: 'Campaña de Salud Digestiva – Test de Aliento',
+        description: '¡Cuida tu salud digestiva! Test de Aliento para la detección de Helicobacter Pylori a solo S/150.00 (antes S/200).',
+        image: '/images/promotions/promo_test_de_aliento.webp',
+        validUntil: '2026-06-30',
+        slug: 'campana-salud-digestiva-test-aliento',
+        ctaText: 'Aprovechar promoción',
+        ctaHref: '/promociones',
+        accentColor: '#0A3D8F',
+        waMessage: 'Hola Clínica Buenaventura, quisiera más información sobre la Campaña de Salud Digestiva y el Test de Aliento para Helicobacter Pylori.',
+        detail: {
+            highlights: [
+                { icon: '🔬', text: 'Test de Aliento para la detección de <strong>Helicobacter Pylori</strong>.' },
+                { icon: '💰', text: 'Precio promocional <strong>S/150.00</strong> (antes S/200).' },
+                { icon: '📋', text: 'Incluye <strong>lectura e interpretación de resultados</strong>.' },
+                { icon: '🩺', text: 'Aplica para pacientes con <strong>orden médica previa</strong>.' },
+            ],
+            important: 'Aplica únicamente para pacientes con <strong>orden médica previa</strong>. Sujeta a disponibilidad de cupos.',
+            legal: 'Promoción no acumulable con otros descuentos o beneficios. Aplica únicamente para pacientes con orden médica previa. Sujeta a disponibilidad de cupos.',
+            termsUrl: '/legal/terminos-promociones',
+        },
     }
     // {
     //     id: '2',

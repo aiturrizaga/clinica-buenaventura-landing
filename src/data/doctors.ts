@@ -9,7 +9,7 @@ export const doctors: Doctor[] = [
         specialty: 'Cardiología',
         cmp: '70081',
         bio: 'Cardiólogo con más de 15 años de experiencia en diagnóstico y tratamiento de enfermedades cardiovasculares. Especialista en intervenciones coronarias percutáneas y ecocardiografía avanzada.',
-        photo: '/images/doctors/DR_EZAINE.jpg',
+        photo: '/images/doctors/DR_EZAINE.webp',
         schedule: [
             { day: 'Lunes', startTime: '09:00', endTime: '13:00', location: 'Consultorios Piso 2' },
             { day: 'Miércoles', startTime: '15:00', endTime: '19:00', location: 'Consultorios Piso 2' },
@@ -44,7 +44,7 @@ export const doctors: Doctor[] = [
         specialty: 'Cardiología',
         cmp: '93663',
         bio: 'Cardióloga dedicada al diagnóstico y tratamiento integral de enfermedades cardiovasculares con enfoque en cardiología preventiva.',
-        photo: '/images/doctors/DRA_NIQUEN.jpg',
+        photo: '/images/doctors/DRA_NIQUEN.webp',
         schedule: [
             { day: 'Martes', startTime: '08:00', endTime: '12:00', location: 'Consultorios Piso 2' },
             { day: 'Jueves', startTime: '14:00', endTime: '18:00', location: 'Consultorios Piso 2' },
@@ -78,7 +78,7 @@ export const doctors: Doctor[] = [
         specialty: 'Cirugía de Cabeza, Cuello y Maxilofacial',
         cmp: '47662',
         bio: 'Especialista en cirugía de cabeza, cuello y maxilofacial con amplia experiencia en procedimientos reconstructivos y oncológicos de la región cérvico-facial.',
-        photo: '/images/doctors/DR_GAMARRA.jpg',
+        photo: '/images/doctors/DR_GAMARRA.webp',
         schedule: [
             { day: 'Lunes', startTime: '14:00', endTime: '18:00', location: 'Consultorios Piso 3' },
             { day: 'Jueves', startTime: '09:00', endTime: '13:00', location: 'Consultorios Piso 3' },
@@ -112,7 +112,7 @@ export const doctors: Doctor[] = [
         specialty: 'Cirugía General',
         cmp: '083983',
         bio: 'Cirujana general con amplia experiencia en procedimientos quirúrgicos abdominales, laparoscópicos y cirugía de urgencia.',
-        photo: '/images/doctors/DRA_DAVILA.jpg',
+        photo: '/images/doctors/DRA_DAVILA.webp',
         schedule: [
             { day: 'Martes', startTime: '09:00', endTime: '13:00', location: 'Consultorios Piso 1' },
             { day: 'Viernes', startTime: '14:00', endTime: '18:00', location: 'Consultorios Piso 1' },
@@ -146,7 +146,7 @@ export const doctors: Doctor[] = [
         specialty: 'Otorrinolaringología',
         cmp: '77065',
         bio: 'Otorrinolaringólogo con especialización en patologías del oído, nariz y garganta. Experto en cirugía endoscópica nasosinusal y otología.',
-        photo: '/images/doctors/DR_GONZALES_PENA.jpg',
+        photo: '/images/doctors/DR_GONZALES.webp',
         schedule: [
             { day: 'Lunes', startTime: '08:00', endTime: '14:00', location: 'Consultorios Piso 4' },
             { day: 'Miércoles', startTime: '08:00', endTime: '12:00', location: 'Consultorios Piso 4' },
@@ -181,7 +181,7 @@ export const doctors: Doctor[] = [
         specialty: 'Ginecología',
         cmp: '82140',
         bio: 'Ginecólogo y obstetra con amplia experiencia en salud reproductiva femenina, medicina materno-fetal y cirugía mínimamente invasiva.',
-        photo: '/images/doctors/DR_FERNANDEZ.jpg',
+        photo: '/images/doctors/DR_FERNANDEZ.webp',
         schedule: [
             { day: 'Martes', startTime: '10:00', endTime: '14:00', location: 'Consultorios Piso 2' },
             { day: 'Jueves', startTime: '10:00', endTime: '14:00', location: 'Consultorios Piso 2' },
@@ -215,7 +215,7 @@ export const doctors: Doctor[] = [
         specialty: 'Ginecología',
         cmp: '88223',
         bio: 'Ginecóloga especializada en salud reproductiva femenina con enfoque en ginecología preventiva y atención materno-perinatal.',
-        photo: '/images/doctors/DRA_PRINCIPE.jpg',
+        photo: '/images/doctors/DRA_PRINCIPE.webp',
         schedule: [
             { day: 'Lunes', startTime: '09:00', endTime: '13:00', location: 'Consultorios Piso 1' },
             { day: 'Miércoles', startTime: '15:00', endTime: '19:00', location: 'Consultorios Piso 1' },
@@ -249,7 +249,7 @@ export const doctors: Doctor[] = [
         specialty: 'Ginecología',
         cmp: '80972',
         bio: 'Ginecóloga con experiencia en atención integral de la salud de la mujer, control prenatal y procedimientos ginecológicos mínimamente invasivos.',
-        photo: '/images/doctors/DRA_CERVERA.jpg',
+        photo: '/images/doctors/DRA_CERVERA.webp',
         schedule: [
             { day: 'Martes', startTime: '08:00', endTime: '12:00', location: 'Consultorios Piso 1' },
             { day: 'Viernes', startTime: '14:00', endTime: '18:00', location: 'Consultorios Piso 1' },
@@ -283,7 +283,7 @@ export const doctors: Doctor[] = [
         specialty: 'Traumatología',
         cmp: '64601',
         bio: 'Traumatólogo ortopédico especialista en cirugía artroscópica y reemplazos articulares. Experto en lesiones deportivas y patología degenerativa.',
-        photo: '/images/doctors/SORIANO.jpg',
+        photo: '/images/doctors/DR_SORIANO.webp',
         schedule: [
             { day: 'Lunes', startTime: '14:00', endTime: '18:00', location: 'Consultorios Piso 3' },
             { day: 'Jueves', startTime: '09:00', endTime: '13:00', location: 'Consultorios Piso 3' },
@@ -317,7 +317,7 @@ export const doctors: Doctor[] = [
         specialty: 'Odontología',
         cmp: '15772',
         bio: 'Odontólogo con amplia experiencia en odontología general, rehabilitación oral y tratamientos estéticos dentales.',
-        photo: '/images/doctors/DR_VARGAS.jpg',
+        photo: '/images/doctors/DR_VARGAS.webp',
         schedule: [
             { day: 'Lunes', startTime: '09:00', endTime: '13:00', location: 'Consultorios Piso 1' },
             { day: 'Miércoles', startTime: '14:00', endTime: '18:00', location: 'Consultorios Piso 1' },
@@ -351,7 +351,7 @@ export const doctors: Doctor[] = [
         specialty: 'Odontología',
         cmp: '55279',
         bio: 'Odontóloga especializada en odontología estética, ortodoncia y atención odontológica integral para toda la familia.',
-        photo: '/images/doctors/RONCAL.jpg',
+        photo: '/images/doctors/RONCAL.webp',
         schedule: [
             { day: 'Martes', startTime: '09:00', endTime: '13:00', location: 'Consultorios Piso 1' },
             { day: 'Jueves', startTime: '14:00', endTime: '18:00', location: 'Consultorios Piso 1' },
@@ -385,7 +385,7 @@ export const doctors: Doctor[] = [
         specialty: 'Pediatría',
         cmp: '74401',
         bio: 'Pediatra dedicada al desarrollo integral del niño desde el nacimiento hasta la adolescencia. Especializada en neurodesarrollo y pediatría preventiva.',
-        photo: '/images/doctors/GOMERO.jpg',
+        photo: '/images/doctors/DRA_GOMERO.webp',
         schedule: [
             { day: 'Lunes', startTime: '08:00', endTime: '12:00', location: 'Consultorios Piso 1' },
             { day: 'Miércoles', startTime: '14:00', endTime: '18:00', location: 'Consultorios Piso 1' },
@@ -419,7 +419,7 @@ export const doctors: Doctor[] = [
         specialty: 'Neurología',
         cmp: '84162',
         bio: 'Neurólogo con experiencia en diagnóstico y tratamiento de enfermedades del sistema nervioso central y periférico. Especialista en cefaleas y epilepsia.',
-        photo: '/images/doctors/DR_CHACALTANA.jpg',
+        photo: '/images/doctors/DR_CHACALTANA.webp',
         schedule: [
             { day: 'Martes', startTime: '09:00', endTime: '13:00', location: 'Consultorios Piso 4' },
             { day: 'Viernes', startTime: '14:00', endTime: '18:00', location: 'Consultorios Piso 4' },
@@ -453,7 +453,7 @@ export const doctors: Doctor[] = [
         specialty: 'Reumatología',
         cmp: '083767',
         bio: 'Reumatólogo especializado en enfermedades autoinmunes y musculoesqueléticas. Experto en artritis reumatoide, lupus y otras enfermedades reumáticas.',
-        photo: '/images/doctors/DR_NAVARRO_TEJADA.jpg',
+        photo: '/images/doctors/DR_NAVARRO.webp',
         schedule: [
             { day: 'Lunes', startTime: '09:00', endTime: '13:00', location: 'Consultorios Piso 3' },
             { day: 'Jueves', startTime: '14:00', endTime: '18:00', location: 'Consultorios Piso 3' },
@@ -487,7 +487,7 @@ export const doctors: Doctor[] = [
         specialty: 'Psicología',
         cmp: '66281',
         bio: 'Psicólogo clínico con experiencia en terapia cognitivo-conductual, manejo de ansiedad, depresión y trastornos del comportamiento.',
-        photo: '/images/doctors/RIOS.jpg',
+        photo: '/images/doctors/LIC_RIOS.webp',
         schedule: [
             { day: 'Martes', startTime: '10:00', endTime: '14:00', location: 'Consultorios Piso 2' },
             { day: 'Viernes', startTime: '10:00', endTime: '14:00', location: 'Consultorios Piso 2' },
@@ -521,7 +521,7 @@ export const doctors: Doctor[] = [
         specialty: 'Nutrición',
         cmp: '11226',
         bio: 'Licenciada en nutrición con enfoque en nutrición clínica, dietoterapia y educación alimentaria para todas las etapas de la vida.',
-        photo: '/images/doctors/LIC_ADRIANA.jpg',
+        photo: '/images/doctors/LIC_ADRIANA.webp',
         schedule: [
             { day: 'Lunes', startTime: '09:00', endTime: '13:00', location: 'Consultorios Piso 1' },
             { day: 'Miércoles', startTime: '14:00', endTime: '18:00', location: 'Consultorios Piso 1' },
@@ -555,7 +555,7 @@ export const doctors: Doctor[] = [
         specialty: 'Medicina Alternativa y Complementaria',
         cmp: '45627',
         bio: 'Especialista en medicina alternativa y complementaria con enfoque integrador para el bienestar y la salud holística del paciente.',
-        photo: '/images/doctors/DR_VILLANUEVA.jpg',
+        photo: '/images/doctors/DR_VILLANUEVA.webp',
         schedule: [
             { day: 'Martes', startTime: '09:00', endTime: '13:00', location: 'Consultorios Piso 2' },
             { day: 'Jueves', startTime: '14:00', endTime: '18:00', location: 'Consultorios Piso 2' },
@@ -589,7 +589,7 @@ export const doctors: Doctor[] = [
         specialty: 'Gastroenterología',
         cmp: '70678',
         bio: 'Gastroenterólogo con experiencia en diagnóstico y tratamiento de enfermedades del aparato digestivo. Especialista en endoscopía digestiva.',
-        photo: '/images/doctors/DR_MORALES.jpg',
+        photo: '/images/doctors/DR_MORALES.webp',
         schedule: [
             { day: 'Lunes', startTime: '14:00', endTime: '18:00', location: 'Consultorios Piso 3' },
             { day: 'Miércoles', startTime: '09:00', endTime: '13:00', location: 'Consultorios Piso 3' },
@@ -623,7 +623,7 @@ export const doctors: Doctor[] = [
         specialty: 'Pediatría',
         cmp: '87607',
         bio: 'Pediatra con amplia experiencia en atención pediátrica integral, desde recién nacidos hasta adolescentes, con enfoque en medicina preventiva.',
-        photo: '/images/doctors/DR_PETIT.jpg',
+        photo: '/images/doctors/DR_PETIT.webp',
         schedule: [
             { day: 'Martes', startTime: '08:00', endTime: '12:00', location: 'Consultorios Piso 1' },
             { day: 'Viernes', startTime: '14:00', endTime: '18:00', location: 'Consultorios Piso 1' },
@@ -657,7 +657,7 @@ export const doctors: Doctor[] = [
         specialty: 'Cirugía Pediátrica',
         cmp: '66603',
         bio: 'Cirujana pediátrica especializada en procedimientos quirúrgicos en pacientes de edad pediátrica, con enfoque en cirugía mínimamente invasiva.',
-        photo: '/images/doctors/LABRIN.jpg',
+        photo: '/images/doctors/DRA_LABRIN.webp',
         schedule: [
             { day: 'Lunes', startTime: '09:00', endTime: '13:00', location: 'Consultorios Piso 3' },
             { day: 'Jueves', startTime: '14:00', endTime: '18:00', location: 'Consultorios Piso 3' },
@@ -691,7 +691,7 @@ export const doctors: Doctor[] = [
         specialty: 'Cirugía Oncológica',
         cmp: '62387',
         bio: 'Cirujano oncólogo con experiencia en diagnóstico y tratamiento quirúrgico de tumores sólidos. Especialista en cirugía oncológica mínimamente invasiva.',
-        photo: '/images/doctors/DR_VICTOR_DIAZ.jpg',
+        photo: '/images/doctors/DR_DIAZ.webp',
         schedule: [
             { day: 'Martes', startTime: '09:00', endTime: '13:00', location: 'Consultorios Piso 4' },
             { day: 'Viernes', startTime: '14:00', endTime: '18:00', location: 'Consultorios Piso 4' },
