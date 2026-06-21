@@ -1,29 +1,29 @@
 import type { Promotion } from '@/types';
 
 export const promotions: Promotion[] = [
-    {
-        id: '1',
-        title: 'Sorteo especial Día del Padre',
-        description: '',
-        image: '/images/promotions/sorteo_dia_del_padre.webp',
-        validUntil: '2025-12-31',
-        slug: 'sorteo-especial-dia-del-padre',
-        ctaText: 'Participa del Sorteo',
-        ctaHref: '/promociones',
-        accentColor: '#E91E8C',
-        waMessage: 'Hola Clínica Buenaventura, ¿Me pueden dar más información sobre el sorteo especial del Día del Padre?',
-        detail: {
-            highlights: [
-                { icon: '🎟️', text: 'Por consumos iguales o mayores a <strong>S/ 100</strong>, recibe un ticket para participar.' },
-                { icon: '📺', text: 'Gana 1 de los <strong>2 Smart TV de 45 pulgadas</strong>.' },
-                { icon: '📅', text: 'Sorteo el <strong>viernes 19 de junio</strong> a las 12:00 p.m.' },
-                { icon: '📱', text: 'Transmisión en vivo por <strong>TikTok Live @clinicabuenaventura</strong>.' },
-            ],
-            important: 'El ganador deberá presentar su <strong>ticket y DNI</strong> para reclamar el premio.',
-            legal: 'Válido exclusivamente para ventas particulares: consultas médicas, farmacia, laboratorio, ecografías, rayos X, procedimientos, cirugías y hospitalización. No aplica para Conv. Saludpol, Empresa/Convenio o Conv. Alquiler.',
-            termsUrl: '/legal/terminos-condiciones-sorteo-dia-del-padre',
-        },
-    },
+    // {
+    //     id: '1',
+    //     title: 'Sorteo especial Día del Padre',
+    //     description: '',
+    //     image: '/images/promotions/sorteo_dia_del_padre.webp',
+    //     validUntil: '2025-12-31',
+    //     slug: 'sorteo-especial-dia-del-padre',
+    //     ctaText: 'Participa del Sorteo',
+    //     ctaHref: '/promociones',
+    //     accentColor: '#E91E8C',
+    //     waMessage: 'Hola Clínica Buenaventura, ¿Me pueden dar más información sobre el sorteo especial del Día del Padre?',
+    //     detail: {
+    //         highlights: [
+    //             { icon: '🎟️', text: 'Por consumos iguales o mayores a <strong>S/ 100</strong>, recibe un ticket para participar.' },
+    //             { icon: '📺', text: 'Gana 1 de los <strong>2 Smart TV de 45 pulgadas</strong>.' },
+    //             { icon: '📅', text: 'Sorteo el <strong>viernes 19 de junio</strong> a las 12:00 p.m.' },
+    //             { icon: '📱', text: 'Transmisión en vivo por <strong>TikTok Live @clinicabuenaventura</strong>.' },
+    //         ],
+    //         important: 'El ganador deberá presentar su <strong>ticket y DNI</strong> para reclamar el premio.',
+    //         legal: 'Válido exclusivamente para ventas particulares: consultas médicas, farmacia, laboratorio, ecografías, rayos X, procedimientos, cirugías y hospitalización. No aplica para Conv. Saludpol, Empresa/Convenio o Conv. Alquiler.',
+    //         termsUrl: '/legal/terminos-condiciones-sorteo-dia-del-padre',
+    //     },
+    // },
     {
         id: '2',
         title: 'Jueves de Locura – Promo para Papá',
