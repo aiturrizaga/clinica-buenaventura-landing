@@ -9,31 +9,24 @@ const areas = [
 ];
 
 const benefits = [
-    {
-        icon: 'ti-trending-up',
-        title: 'Desarrollo profesional',
-        desc: 'Oportunidades reales de crecimiento dentro de la clínica.'
-    },
-    { icon: 'ti-school', title: 'Capacitación continua', desc: 'Programas de formación y actualización permanente.' },
-    {
-        icon: 'ti-mood-happy',
-        title: 'Ambiente laboral',
-        desc: 'Un entorno de trabajo positivo, inclusivo y respetuoso.'
-    },
-    {
-        icon: 'ti-users',
-        title: 'Trabajo en equipo',
-        desc: 'Equipos multidisciplinarios comprometidos con el paciente.'
-    },
+    { icon: 'ti-trending-up', title: 'Desarrollo profesional', desc: 'Oportunidades reales de crecimiento dentro de la clínica.' },
+    { icon: 'ti-school',      title: 'Capacitación continua',  desc: 'Programas de formación y actualización permanente.' },
+    { icon: 'ti-mood-happy',  title: 'Ambiente laboral',       desc: 'Un entorno de trabajo positivo, inclusivo y respetuoso.' },
+    { icon: 'ti-users',       title: 'Trabajo en equipo',      desc: 'Equipos multidisciplinarios comprometidos con el paciente.' },
+];
+
+const steps = [
+    { n: '1', title: 'Revisión de perfil',   desc: 'RRHH evalúa tu CV y la información enviada.' },
+    { n: '2', title: 'Contacto inicial',      desc: 'Si hay una vacante alineada, nos comunicamos contigo.' },
+    { n: '3', title: 'Proceso de selección', desc: 'Entrevistas y evaluaciones según el área postulada.' },
 ];
 
 const HR_EMAIL = 'recursoshumanos@clinicabuenaventura.com';
-const API_URL = 'https://clinicabuenaventura-api-hlpe0l-1436c5-85-239-243-214.sslip.io/api/v1/hiring/apply';
 ---
 
 <PageLayout
-        title="Trabaja con Nosotros | Clínica Buenaventura"
-        description="Únete al equipo de Clínica Buenaventura. Buscamos personas comprometidas con vocación de servicio. Postula en línea adjuntando tu CV."
+    title="Trabaja con Nosotros | Clínica Buenaventura"
+    description="Únete al equipo de Clínica Buenaventura. Buscamos personas comprometidas con vocación de servicio. Postula en línea adjuntando tu CV."
 >
 
     <!-- Banner -->
@@ -45,9 +38,9 @@ const API_URL = 'https://clinicabuenaventura-api-hlpe0l-1436c5-85-239-243-214.ss
                 <span aria-current="page">Trabaja con Nosotros</span>
             </nav>
             <span class="badge badge-white mb-4">
-        <i class="ti ti-briefcase"></i>
-        Únete a nuestro equipo
-      </span>
+                <i class="ti ti-briefcase"></i>
+                Únete a nuestro equipo
+            </span>
             <h1 class="text-4xl md:text-5xl font-extrabold text-white! mt-3 mb-4">
                 Trabaja con Nosotros
             </h1>
@@ -58,29 +51,29 @@ const API_URL = 'https://clinicabuenaventura-api-hlpe0l-1436c5-85-239-243-214.ss
         </div>
     </div>
 
-    <!-- Benefits -->
-    <section class="py-14 bg-white">
+    <!-- Benefits — bg-surface para que los ítems blancos destaquen sin sombra -->
+    <section class="py-14 bg-surface">
         <div class="container">
             <div class="text-center mb-12 reveal">
                 <span class="inline-block text-xs font-bold tracking-widest uppercase text-primary mb-3">¿Por qué elegirnos?</span>
                 <h2 class="text-3xl md:text-4xl font-extrabold">¿Por qué trabajar con nosotros?</h2>
             </div>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-5">
-                { benefits.map((b, i) => (
-                        <div class="card reveal p-7 text-center" style={ `animation-delay:${ i * 0.1 }s` }>
-                            <div class="w-14 h-14 rounded-xl bg-primary-50 text-primary flex items-center justify-center mx-auto mb-4 text-2xl">
-                                <i class={ `ti ${ b.icon }` }></i>
-                            </div>
-                            <h3 class="text-base font-bold mb-1.5">{ b.title }</h3>
-                            <p class="text-sm text-gray-500 leading-relaxed m-0">{ b.desc }</p>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                {benefits.map((b, i) => (
+                    <div class="benefit-item reveal group" style={`animation-delay:${i * 0.1}s`}>
+                        <div class="size-12 rounded-xl bg-primary-50 text-primary group-hover:bg-primary group-hover:text-white! flex items-center justify-center mx-auto mb-4 text-xl">
+                            <i class={`ti ${b.icon}`}></i>
                         </div>
-                )) }
+                        <h3 class="text-base font-bold mb-1.5">{b.title}</h3>
+                        <p class="text-sm text-gray-500 leading-relaxed m-0">{b.desc}</p>
+                    </div>
+                ))}
             </div>
         </div>
     </section>
 
-    <!-- Areas -->
-    <section class="py-14 bg-surface">
+    <!-- Areas — bg-white, tags solo con borde -->
+    <section class="py-14 bg-white">
         <div class="container">
             <div class="text-center mb-10 reveal">
                 <span class="inline-block text-xs font-bold tracking-widest uppercase text-primary mb-3">Vacantes disponibles</span>
@@ -90,20 +83,20 @@ const API_URL = 'https://clinicabuenaventura-api-hlpe0l-1436c5-85-239-243-214.ss
                 </p>
             </div>
             <div class="flex flex-wrap gap-3 justify-center">
-                { areas.map((area) => (
-                        <div class="area-tag reveal">
-                            <i class="ti ti-stethoscope"></i>
-                            { area }
-                        </div>
-                )) }
+                {areas.map((area) => (
+                    <div class="area-tag reveal">
+                        <i class="ti ti-stethoscope"></i>
+                        {area}
+                    </div>
+                ))}
             </div>
         </div>
     </section>
 
-    <!-- Content -->
-    <section class="py-14 bg-white" id="postular">
+    <!-- Form — bg-surface, contenedores con borde fino -->
+    <section class="py-14 bg-surface" id="postular">
         <div class="container">
-            <div class="grid gap-10 lg:grid-cols-[1fr_340px] items-start">
+            <div class="grid gap-10 lg:grid-cols-[1fr_320px] items-start">
 
                 <!-- Form -->
                 <div>
@@ -115,40 +108,32 @@ const API_URL = 'https://clinicabuenaventura-api-hlpe0l-1436c5-85-239-243-214.ss
                         </p>
                     </div>
 
-                    <form id="job-form" class="card p-8 reveal" novalidate enctype="multipart/form-data">
+                    <form id="job-form" class="panel p-8 reveal" novalidate enctype="multipart/form-data">
 
                         <div class="grid sm:grid-cols-2 gap-4 mb-4">
                             <div>
-                                <label for="jf-name" class="block text-sm font-semibold mb-1.5">
-                                    Nombres y Apellidos *
-                                </label>
+                                <label for="jf-name" class="block text-sm font-semibold mb-1.5">Nombres y Apellidos *</label>
                                 <input id="jf-name" name="full_name" type="text" class="form-input" required
-                                       autocomplete="name" placeholder="Ej. María García López" minlength="2"
-                                       maxlength="100"/>
+                                       autocomplete="name" placeholder="Ej. María García López" />
                             </div>
                             <div>
                                 <label for="jf-phone" class="block text-sm font-semibold mb-1.5">Teléfono *</label>
                                 <input id="jf-phone" name="phone" type="tel" class="form-input" required
-                                       autocomplete="tel" placeholder="999000999" minlength="7" maxlength="9"/>
+                                       autocomplete="tel" placeholder="999 000 999" />
                             </div>
                         </div>
 
                         <div class="mb-4">
-                            <label for="jf-email" class="block text-sm font-semibold mb-1.5">
-                                Correo Electrónico *
-                            </label>
+                            <label for="jf-email" class="block text-sm font-semibold mb-1.5">Correo Electrónico *</label>
                             <input id="jf-email" name="email" type="email" class="form-input" required
-                                   autocomplete="email" placeholder="tucorreo@ejemplo.com" maxlength="100"/>
+                                   autocomplete="email" placeholder="tucorreo@ejemplo.com" />
                         </div>
 
                         <div class="mb-4">
-                            <label for="jf-area" class="block text-sm font-semibold mb-1.5">
-                                Área de Postulación *
-                            </label>
+                            <label for="jf-area" class="block text-sm font-semibold mb-1.5">Área de Postulación *</label>
                             <select id="jf-area" name="area" class="form-input select-arrow" required>
                                 <option value="">Selecciona un área</option>
-                                { areas.map((a) =>
-                                        <option value={ a }>{ a }</option>) }
+                                {areas.map((a) => <option value={a}>{a}</option>)}
                             </select>
                         </div>
 
@@ -156,7 +141,7 @@ const API_URL = 'https://clinicabuenaventura-api-hlpe0l-1436c5-85-239-243-214.ss
                             <label for="jf-cv" class="block text-sm font-semibold mb-1.5">Adjuntar CV *</label>
                             <div class="relative">
                                 <input id="jf-cv" name="cv" type="file"
-                                       class="file-native" accept=".pdf,.doc,.docx" required/>
+                                       class="file-native" accept=".pdf,.doc,.docx" required />
                                 <label for="jf-cv" class="file-drop" id="file-label-el">
                                     <i class="ti ti-upload text-xl shrink-0"></i>
                                     <span id="file-name-el">Seleccionar archivo (PDF o Word)</span>
@@ -170,12 +155,12 @@ const API_URL = 'https://clinicabuenaventura-api-hlpe0l-1436c5-85-239-243-214.ss
                                 Mensaje <span class="font-normal text-gray-400">(Opcional)</span>
                             </label>
                             <textarea id="jf-msg" name="message" class="form-input" rows="4"
-                                      style="resize:vertical" maxlength="1000"
+                                      style="resize:vertical"
                                       placeholder="Cuéntanos sobre tu experiencia y motivación..."></textarea>
                         </div>
 
                         <div id="jf-error"
-                             class="items-center gap-2 p-3 mb-4 bg-red-50 text-red-800 border border-red-200 rounded-lg text-sm"
+                             class="items-center gap-2 p-3 mb-4 bg-red-50 text-red-700 border border-red-200 rounded-lg text-sm"
                              style="display:none" role="alert">
                             <i class="ti ti-alert-circle shrink-0"></i>
                             <span id="jf-error-msg">Ocurrió un error. Por favor intenta nuevamente.</span>
@@ -187,9 +172,9 @@ const API_URL = 'https://clinicabuenaventura-api-hlpe0l-1436c5-85-239-243-214.ss
                         </button>
                     </form>
 
-                    <!-- Success state-->
-                    <div id="job-success" class="card p-14 text-center mt-8" style="display:none" aria-live="polite">
-                        <div class="size-18 bg-success rounded-full flex items-center justify-center mx-auto mb-5 text-3xl text-white! shadow-[0_8px_32px_rgba(16,185,129,0.3)]">
+                    <!-- Estado éxito -->
+                    <div id="job-success" class="panel p-14 text-center mt-8" style="display:none" aria-live="polite">
+                        <div class="w-16 h-16 bg-success rounded-full flex items-center justify-center mx-auto mb-5 text-3xl text-white!">
                             <i class="ti ti-check"></i>
                         </div>
                         <h3 class="text-2xl font-bold mb-3">¡Postulación enviada con éxito!</h3>
@@ -203,56 +188,46 @@ const API_URL = 'https://clinicabuenaventura-api-hlpe0l-1436c5-85-239-243-214.ss
                 </div>
 
                 <!-- Sidebar -->
-                <aside class="flex flex-col gap-5">
+                <aside class="flex flex-col gap-4">
 
-                    <div class="card p-7 reveal">
-                        <h3 class="flex items-center gap-2 text-base font-bold mb-5">
+                    <!-- Timeline de pasos -->
+                    <div class="panel p-7 reveal">
+                        <h3 class="flex items-center gap-2 text-base font-bold mb-6">
                             <i class="ti ti-list-check text-primary text-xl"></i>
                             ¿Qué sucede después?
                         </h3>
-                        <ol class="flex flex-col gap-5 list-none p-0 m-0">
-                            { [
-                                {
-                                    n: '1',
-                                    title: 'Revisión de perfil',
-                                    desc: 'RRHH evalúa tu CV y la información enviada.'
-                                },
-                                {
-                                    n: '2',
-                                    title: 'Contacto inicial',
-                                    desc: 'Si hay una vacante alineada, nos comunicamos contigo.'
-                                },
-                                {
-                                    n: '3',
-                                    title: 'Proceso de selección',
-                                    desc: 'Entrevistas y evaluaciones según el área postulada.'
-                                },
-                            ].map((s) => (
-                                    <li class="flex gap-3 items-start">
-                                        <div class="w-7 h-7 rounded-full bg-primary-50 text-primary-dark flex items-center justify-center text-xs font-bold flex-shrink-0">
-                                            { s.n }
-                                        </div>
-                                        <div>
-                                            <strong class="block text-sm font-bold mb-0.5">{ s.title }</strong>
-                                            <p class="text-sm text-gray-500 m-0 leading-relaxed">{ s.desc }</p>
-                                        </div>
-                                    </li>
-                            )) }
+                        <ol class="flex flex-col list-none p-0 m-0">
+                            {steps.map((s, i) => (
+                                <li class="flex gap-3 items-start relative pb-6 last:pb-0">
+                                    {i < steps.length - 1 && (
+                                        <div class="absolute left-3 top-7 w-px bottom-0 bg-gray-100"></div>
+                                    )}
+                                    <div class="w-7 h-7 rounded-full bg-primary-50 border border-primary-100 text-primary-dark flex items-center justify-center text-xs font-bold shrink-0 relative z-10">
+                                        {s.n}
+                                    </div>
+                                    <div class="pt-0.5">
+                                        <strong class="block text-sm font-bold mb-0.5">{s.title}</strong>
+                                        <p class="text-sm text-gray-500 m-0 leading-relaxed">{s.desc}</p>
+                                    </div>
+                                </li>
+                            ))}
                         </ol>
                     </div>
 
-                    <div class="card p-7 text-center reveal">
-                        <div class="w-12 h-12 bg-primary-50 rounded-xl flex items-center justify-center mx-auto mb-4 text-xl text-primary">
-                            <i class="ti ti-mail"></i>
+                    <!-- Contacto RRHH -->
+                    <div class="panel p-7 reveal">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-10 h-10 bg-primary-50 rounded-lg flex items-center justify-center text-lg text-primary shrink-0">
+                                <i class="ti ti-mail"></i>
+                            </div>
+                            <h4 class="text-base font-bold m-0">¿Tienes alguna consulta?</h4>
                         </div>
-                        <h4 class="text-base font-bold mb-1">¿Tienes alguna consulta?</h4>
                         <p class="text-sm text-gray-500 mb-4 leading-relaxed">
                             Escríbenos directamente a Recursos Humanos:
                         </p>
-                        <a href={ `mailto:${ HR_EMAIL }` }
-                           class="block text-sm font-semibold text-primary bg-primary-50 border-2 border-primary-100 rounded-lg px-4 py-3 break-all hover:bg-primary hover:text-white! hover:border-primary transition-all"
-                        >
-                            { HR_EMAIL }
+                        <a href={`mailto:${HR_EMAIL}`}
+                           class="block text-sm font-semibold text-primary bg-primary-50 border border-primary-100 rounded-lg px-4 py-3 break-all hover:bg-primary hover:text-white! hover:border-primary transition-all">
+                            {HR_EMAIL}
                         </a>
                     </div>
 
@@ -264,31 +239,47 @@ const API_URL = 'https://clinicabuenaventura-api-hlpe0l-1436c5-85-239-243-214.ss
 </PageLayout>
 
 <style>
+    .panel {
+        background: #fff;
+        border: 1px solid #E5E7EB;
+        border-radius: var(--radius-xl);
+        overflow: hidden;
+    }
+
+    /* Benefit item */
+    .benefit-item {
+        background: #fff;
+        border: 1px solid #E5E7EB;
+        border-radius: var(--radius-xl);
+        padding: 1.75rem;
+        text-align: center;
+        transition: border-color 0.2s, background 0.2s;
+    }
+    .benefit-item:hover {
+        border-color: var(--color-primary-100);
+        background: var(--color-primary-50);
+    }
+
     /* Area pill */
     .area-tag {
         display: inline-flex;
         align-items: center;
         gap: 0.5rem;
-        padding: 0.625rem 1.125rem;
+        padding: 0.5rem 1rem;
         background: #fff;
-        border: 2px solid var(--color-primary-100);
+        border: 1px solid #E5E7EB;
         border-radius: var(--radius-full);
-        font-size: 0.9rem;
+        font-size: 0.875rem;
         font-weight: 600;
         color: var(--color-primary-dark);
-        box-shadow: var(--shadow-soft);
-        transition: all 0.2s;
+        transition: border-color 0.2s, background 0.2s;
+        cursor: default;
     }
-
     .area-tag:hover {
         background: var(--color-primary-50);
-        border-color: var(--color-primary);
-        transform: translateY(-2px);
+        border-color: var(--color-primary-100);
     }
-
-    .area-tag i {
-        color: var(--color-primary-light);
-    }
+    .area-tag i { color: var(--color-primary-light); }
 
     /* File input */
     .file-native {
@@ -301,7 +292,6 @@ const API_URL = 'https://clinicabuenaventura-api-hlpe0l-1436c5-85-239-243-214.ss
         z-index: 1;
     }
 
-    /* File drop area */
     .file-drop {
         display: flex;
         align-items: center;
@@ -315,7 +305,6 @@ const API_URL = 'https://clinicabuenaventura-api-hlpe0l-1436c5-85-239-243-214.ss
         transition: border-color 0.2s, background 0.2s, color 0.2s;
         user-select: none;
     }
-
     .file-drop:hover,
     .file-drop.active {
         border-color: var(--color-primary);
@@ -323,7 +312,7 @@ const API_URL = 'https://clinicabuenaventura-api-hlpe0l-1436c5-85-239-243-214.ss
         color: var(--color-primary);
     }
 
-    /* Custom select */
+    /* Select */
     .select-arrow {
         appearance: none;
         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
@@ -334,9 +323,9 @@ const API_URL = 'https://clinicabuenaventura-api-hlpe0l-1436c5-85-239-243-214.ss
 </style>
 
 <script>
-    const fileInput = document.getElementById('jf-cv') as HTMLInputElement;
-    const fileLabel = document.getElementById('file-label-el') as HTMLElement;
-    const fileNameEl = document.getElementById('file-name-el') as HTMLSpanElement;
+    const fileInput  = document.getElementById('jf-cv')         as HTMLInputElement;
+    const fileLabel  = document.getElementById('file-label-el') as HTMLElement;
+    const fileNameEl = document.getElementById('file-name-el')  as HTMLSpanElement;
 
     fileInput?.addEventListener('change', () => {
         const file = fileInput.files?.[0];
@@ -349,27 +338,24 @@ const API_URL = 'https://clinicabuenaventura-api-hlpe0l-1436c5-85-239-243-214.ss
         }
     });
 
-    const API_URL = 'https://clinicabuenaventura-api-hlpe0l-1436c5-85-239-243-214.sslip.io/api/v1/hiring/apply';
+    const API_URL   = 'https://clinicabuenaventura-api-hlpe0l-1436c5-85-239-243-214.sslip.io/api/v1/hiring/apply';
 
-    const form = document.getElementById('job-form') as HTMLFormElement;
-    const successBox = document.getElementById('job-success') as HTMLElement;
-    const errorBox = document.getElementById('jf-error') as HTMLElement;
-    const errorMsg = document.getElementById('jf-error-msg') as HTMLSpanElement;
-    const submitBtn = document.getElementById('jf-submit') as HTMLButtonElement;
+    const form       = document.getElementById('job-form')      as HTMLFormElement;
+    const successBox = document.getElementById('job-success')   as HTMLElement;
+    const errorBox   = document.getElementById('jf-error')      as HTMLElement;
+    const errorMsg   = document.getElementById('jf-error-msg')  as HTMLSpanElement;
+    const submitBtn  = document.getElementById('jf-submit')     as HTMLButtonElement;
 
     form?.addEventListener('submit', async (e) => {
         e.preventDefault();
-        if (!form.checkValidity()) {
-            form.reportValidity();
-            return;
-        }
+        if (!form.checkValidity()) { form.reportValidity(); return; }
 
         submitBtn.disabled = true;
         submitBtn.innerHTML = '<i class="ti ti-loader-2 animate-spin"></i> Enviando…';
         errorBox.style.display = 'none';
 
         try {
-            const res = await fetch(API_URL, {
+            const res  = await fetch(API_URL, {
                 method: 'POST',
                 body: new FormData(form),
             });

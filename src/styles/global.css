@@ -200,7 +200,7 @@ a {
 .btn-primary {
     background: var(--color-primary);
     color: #fff;
-    box-shadow: var(--shadow-btn);
+    /*box-shadow: var(--shadow-btn);*/
 }
 
 .btn-primary:hover {
