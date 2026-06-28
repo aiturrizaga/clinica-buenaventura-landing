@@ -1,0 +1,395 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+
+const areas = [
+    'Médicos Especialistas', 'Médicos Generales', 'Enfermería',
+    'Técnicos en Enfermería', 'Obstetricia', 'Laboratorio',
+    'Farmacia', 'Administración', 'Atención al Cliente',
+    'Logística', 'Servicios Generales',
+];
+
+const benefits = [
+    {
+        icon: 'ti-trending-up',
+        title: 'Desarrollo profesional',
+        desc: 'Oportunidades reales de crecimiento dentro de la clínica.'
+    },
+    { icon: 'ti-school', title: 'Capacitación continua', desc: 'Programas de formación y actualización permanente.' },
+    {
+        icon: 'ti-mood-happy',
+        title: 'Ambiente laboral',
+        desc: 'Un entorno de trabajo positivo, inclusivo y respetuoso.'
+    },
+    {
+        icon: 'ti-users',
+        title: 'Trabajo en equipo',
+        desc: 'Equipos multidisciplinarios comprometidos con el paciente.'
+    },
+];
+
+const HR_EMAIL = 'recursoshumanos@clinicabuenaventura.com';
+const API_URL = 'https://clinicabuenaventura-api-hlpe0l-1436c5-85-239-243-214.sslip.io/api/v1/hiring/apply';
+---
+
+<PageLayout
+        title="Trabaja con Nosotros | Clínica Buenaventura"
+        description="Únete al equipo de Clínica Buenaventura. Buscamos personas comprometidas con vocación de servicio. Postula en línea adjuntando tu CV."
+>
+
+    <!-- Banner -->
+    <div class="py-16 md:py-20 bg-gradient">
+        <div class="container">
+            <nav aria-label="Breadcrumb" class="flex items-center gap-2 text-sm text-white/65 mb-5">
+                <a href="/" class="text-white/80 hover:text-white transition-colors">Inicio</a>
+                <span>/</span>
+                <span aria-current="page">Trabaja con Nosotros</span>
+            </nav>
+            <span class="badge badge-white mb-4">
+        <i class="ti ti-briefcase"></i>
+        Únete a nuestro equipo
+      </span>
+            <h1 class="text-4xl md:text-5xl font-extrabold text-white! mt-3 mb-4">
+                Trabaja con Nosotros
+            </h1>
+            <p class="text-white/80 text-lg max-w-xl leading-relaxed">
+                En Clínica Buenaventura buscamos personas comprometidas, con vocación de
+                servicio y pasión por brindar una atención de calidad.
+            </p>
+        </div>
+    </div>
+
+    <!-- Benefits -->
+    <section class="py-14 bg-white">
+        <div class="container">
+            <div class="text-center mb-12 reveal">
+                <span class="inline-block text-xs font-bold tracking-widest uppercase text-primary mb-3">¿Por qué elegirnos?</span>
+                <h2 class="text-3xl md:text-4xl font-extrabold">¿Por qué trabajar con nosotros?</h2>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-5">
+                { benefits.map((b, i) => (
+                        <div class="card reveal p-7 text-center" style={ `animation-delay:${ i * 0.1 }s` }>
+                            <div class="w-14 h-14 rounded-xl bg-primary-50 text-primary flex items-center justify-center mx-auto mb-4 text-2xl">
+                                <i class={ `ti ${ b.icon }` }></i>
+                            </div>
+                            <h3 class="text-base font-bold mb-1.5">{ b.title }</h3>
+                            <p class="text-sm text-gray-500 leading-relaxed m-0">{ b.desc }</p>
+                        </div>
+                )) }
+            </div>
+        </div>
+    </section>
+
+    <!-- Areas -->
+    <section class="py-14 bg-surface">
+        <div class="container">
+            <div class="text-center mb-10 reveal">
+                <span class="inline-block text-xs font-bold tracking-widest uppercase text-primary mb-3">Vacantes disponibles</span>
+                <h2 class="text-3xl md:text-4xl font-extrabold mb-3">Áreas de Postulación</h2>
+                <p class="text-gray-500 text-lg leading-relaxed max-w-xl mx-auto">
+                    Contamos con oportunidades en distintas áreas. Encuentra la que mejor se adapte a tu perfil.
+                </p>
+            </div>
+            <div class="flex flex-wrap gap-3 justify-center">
+                { areas.map((area) => (
+                        <div class="area-tag reveal">
+                            <i class="ti ti-stethoscope"></i>
+                            { area }
+                        </div>
+                )) }
+            </div>
+        </div>
+    </section>
+
+    <!-- Content -->
+    <section class="py-14 bg-white" id="postular">
+        <div class="container">
+            <div class="grid gap-10 lg:grid-cols-[1fr_340px] items-start">
+
+                <!-- Form -->
+                <div>
+                    <div class="mb-8 reveal">
+                        <span class="inline-block text-xs font-bold tracking-widest uppercase text-primary mb-3">Postulación en línea</span>
+                        <h2 class="text-3xl md:text-4xl font-extrabold mb-3">Envía tu Postulación</h2>
+                        <p class="text-gray-500 text-lg leading-relaxed">
+                            Completa el formulario y adjunta tu Curriculum Vitae.
+                        </p>
+                    </div>
+
+                    <form id="job-form" class="card p-8 reveal" novalidate enctype="multipart/form-data">
+
+                        <div class="grid sm:grid-cols-2 gap-4 mb-4">
+                            <div>
+                                <label for="jf-name" class="block text-sm font-semibold mb-1.5">
+                                    Nombres y Apellidos *
+                                </label>
+                                <input id="jf-name" name="full_name" type="text" class="form-input" required
+                                       autocomplete="name" placeholder="Ej. María García López" minlength="2"
+                                       maxlength="100"/>
+                            </div>
+                            <div>
+                                <label for="jf-phone" class="block text-sm font-semibold mb-1.5">Teléfono *</label>
+                                <input id="jf-phone" name="phone" type="tel" class="form-input" required
+                                       autocomplete="tel" placeholder="999000999" minlength="7" maxlength="9"/>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="jf-email" class="block text-sm font-semibold mb-1.5">
+                                Correo Electrónico *
+                            </label>
+                            <input id="jf-email" name="email" type="email" class="form-input" required
+                                   autocomplete="email" placeholder="tucorreo@ejemplo.com" maxlength="100"/>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="jf-area" class="block text-sm font-semibold mb-1.5">
+                                Área de Postulación *
+                            </label>
+                            <select id="jf-area" name="area" class="form-input select-arrow" required>
+                                <option value="">Selecciona un área</option>
+                                { areas.map((a) =>
+                                        <option value={ a }>{ a }</option>) }
+                            </select>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="jf-cv" class="block text-sm font-semibold mb-1.5">Adjuntar CV *</label>
+                            <div class="relative">
+                                <input id="jf-cv" name="cv" type="file"
+                                       class="file-native" accept=".pdf,.doc,.docx" required/>
+                                <label for="jf-cv" class="file-drop" id="file-label-el">
+                                    <i class="ti ti-upload text-xl shrink-0"></i>
+                                    <span id="file-name-el">Seleccionar archivo (PDF o Word)</span>
+                                </label>
+                            </div>
+                            <p class="text-xs text-gray-400 mt-1.5">Formatos: PDF, DOC, DOCX · Máx. 5 MB</p>
+                        </div>
+
+                        <div class="mb-6">
+                            <label for="jf-msg" class="block text-sm font-semibold mb-1.5">
+                                Mensaje <span class="font-normal text-gray-400">(Opcional)</span>
+                            </label>
+                            <textarea id="jf-msg" name="message" class="form-input" rows="4"
+                                      style="resize:vertical" maxlength="1000"
+                                      placeholder="Cuéntanos sobre tu experiencia y motivación..."></textarea>
+                        </div>
+
+                        <div id="jf-error"
+                             class="items-center gap-2 p-3 mb-4 bg-red-50 text-red-800 border border-red-200 rounded-lg text-sm"
+                             style="display:none" role="alert">
+                            <i class="ti ti-alert-circle shrink-0"></i>
+                            <span id="jf-error-msg">Ocurrió un error. Por favor intenta nuevamente.</span>
+                        </div>
+
+                        <button type="submit" id="jf-submit" class="btn btn-primary btn-lg w-full justify-center">
+                            <i class="ti ti-send"></i>
+                            Enviar Postulación
+                        </button>
+                    </form>
+
+                    <!-- Success state-->
+                    <div id="job-success" class="card p-14 text-center mt-8" style="display:none" aria-live="polite">
+                        <div class="size-18 bg-success rounded-full flex items-center justify-center mx-auto mb-5 text-3xl text-white! shadow-[0_8px_32px_rgba(16,185,129,0.3)]">
+                            <i class="ti ti-check"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3">¡Postulación enviada con éxito!</h3>
+                        <p class="text-gray-500 max-w-md mx-auto leading-relaxed mb-5">
+                            Nuestro equipo de Recursos Humanos evaluará tu perfil y se pondrá en
+                            contacto contigo en caso de que exista una oportunidad alineada a tu
+                            experiencia y competencias.
+                        </p>
+                        <a href="/" class="btn btn-outline btn-md">Volver al inicio</a>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <aside class="flex flex-col gap-5">
+
+                    <div class="card p-7 reveal">
+                        <h3 class="flex items-center gap-2 text-base font-bold mb-5">
+                            <i class="ti ti-list-check text-primary text-xl"></i>
+                            ¿Qué sucede después?
+                        </h3>
+                        <ol class="flex flex-col gap-5 list-none p-0 m-0">
+                            { [
+                                {
+                                    n: '1',
+                                    title: 'Revisión de perfil',
+                                    desc: 'RRHH evalúa tu CV y la información enviada.'
+                                },
+                                {
+                                    n: '2',
+                                    title: 'Contacto inicial',
+                                    desc: 'Si hay una vacante alineada, nos comunicamos contigo.'
+                                },
+                                {
+                                    n: '3',
+                                    title: 'Proceso de selección',
+                                    desc: 'Entrevistas y evaluaciones según el área postulada.'
+                                },
+                            ].map((s) => (
+                                    <li class="flex gap-3 items-start">
+                                        <div class="w-7 h-7 rounded-full bg-primary-50 text-primary-dark flex items-center justify-center text-xs font-bold flex-shrink-0">
+                                            { s.n }
+                                        </div>
+                                        <div>
+                                            <strong class="block text-sm font-bold mb-0.5">{ s.title }</strong>
+                                            <p class="text-sm text-gray-500 m-0 leading-relaxed">{ s.desc }</p>
+                                        </div>
+                                    </li>
+                            )) }
+                        </ol>
+                    </div>
+
+                    <div class="card p-7 text-center reveal">
+                        <div class="w-12 h-12 bg-primary-50 rounded-xl flex items-center justify-center mx-auto mb-4 text-xl text-primary">
+                            <i class="ti ti-mail"></i>
+                        </div>
+                        <h4 class="text-base font-bold mb-1">¿Tienes alguna consulta?</h4>
+                        <p class="text-sm text-gray-500 mb-4 leading-relaxed">
+                            Escríbenos directamente a Recursos Humanos:
+                        </p>
+                        <a href={ `mailto:${ HR_EMAIL }` }
+                           class="block text-sm font-semibold text-primary bg-primary-50 border-2 border-primary-100 rounded-lg px-4 py-3 break-all hover:bg-primary hover:text-white! hover:border-primary transition-all"
+                        >
+                            { HR_EMAIL }
+                        </a>
+                    </div>
+
+                </aside>
+            </div>
+        </div>
+    </section>
+
+</PageLayout>
+
+<style>
+    /* Area pill */
+    .area-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.625rem 1.125rem;
+        background: #fff;
+        border: 2px solid var(--color-primary-100);
+        border-radius: var(--radius-full);
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--color-primary-dark);
+        box-shadow: var(--shadow-soft);
+        transition: all 0.2s;
+    }
+
+    .area-tag:hover {
+        background: var(--color-primary-50);
+        border-color: var(--color-primary);
+        transform: translateY(-2px);
+    }
+
+    .area-tag i {
+        color: var(--color-primary-light);
+    }
+
+    /* File input */
+    .file-native {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+        z-index: 1;
+    }
+
+    /* File drop area */
+    .file-drop {
+        display: flex;
+        align-items: center;
+        gap: 0.625rem;
+        padding: 0.75rem 1rem;
+        border: 2px dashed #D1D5DB;
+        border-radius: var(--radius-md);
+        cursor: pointer;
+        color: var(--color-text-muted);
+        font-size: 0.9375rem;
+        transition: border-color 0.2s, background 0.2s, color 0.2s;
+        user-select: none;
+    }
+
+    .file-drop:hover,
+    .file-drop.active {
+        border-color: var(--color-primary);
+        background: var(--color-primary-50);
+        color: var(--color-primary);
+    }
+
+    /* Custom select */
+    .select-arrow {
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 0.75rem center;
+        padding-right: 2.5rem;
+    }
+</style>
+
+<script>
+    const fileInput = document.getElementById('jf-cv') as HTMLInputElement;
+    const fileLabel = document.getElementById('file-label-el') as HTMLElement;
+    const fileNameEl = document.getElementById('file-name-el') as HTMLSpanElement;
+
+    fileInput?.addEventListener('change', () => {
+        const file = fileInput.files?.[0];
+        if (file) {
+            fileNameEl.textContent = file.name;
+            fileLabel.classList.add('active');
+        } else {
+            fileNameEl.textContent = 'Seleccionar archivo (PDF o Word)';
+            fileLabel.classList.remove('active');
+        }
+    });
+
+    const API_URL = 'https://clinicabuenaventura-api-hlpe0l-1436c5-85-239-243-214.sslip.io/api/v1/hiring/apply';
+
+    const form = document.getElementById('job-form') as HTMLFormElement;
+    const successBox = document.getElementById('job-success') as HTMLElement;
+    const errorBox = document.getElementById('jf-error') as HTMLElement;
+    const errorMsg = document.getElementById('jf-error-msg') as HTMLSpanElement;
+    const submitBtn = document.getElementById('jf-submit') as HTMLButtonElement;
+
+    form?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        if (!form.checkValidity()) {
+            form.reportValidity();
+            return;
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="ti ti-loader-2 animate-spin"></i> Enviando…';
+        errorBox.style.display = 'none';
+
+        try {
+            const res = await fetch(API_URL, {
+                method: 'POST',
+                body: new FormData(form),
+            });
+            const json = await res.json() as { success: boolean; message?: string };
+
+            if (json.success) {
+                form.style.display = 'none';
+                successBox.style.display = 'block';
+                successBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            } else {
+                errorMsg.textContent = 'No pudimos procesar tu postulación en este momento. Por favor intenta nuevamente o escríbenos directamente a Recursos Humanos.';
+                errorBox.style.display = 'flex';
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="ti ti-send"></i> Enviar Postulación';
+            }
+        } catch {
+            errorMsg.textContent = 'No se pudo establecer conexión con el servidor. Revisa tu conexión a internet e inténtalo de nuevo.';
+            errorBox.style.display = 'flex';
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<i class="ti ti-send"></i> Enviar Postulación';
+        }
+    });
+</script>

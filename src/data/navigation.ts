@@ -17,6 +17,7 @@ export const navItems: NavItem[] = [
   // { label: 'Servicios', href: '/servicios' },
   { label: 'Médicos', href: '/#medicos' },
   { label: 'Promociones', href: '/promociones' },
+  { label: 'Trabaja con Nosotros', href: '/trabaja-con-nosotros' },
   // { label: 'Blog', href: '/blog' },
   // { label: 'Club Buenaventura', href: '/club-buenaventura' },
   // { label: 'Contacto', href: '/contacto' },
