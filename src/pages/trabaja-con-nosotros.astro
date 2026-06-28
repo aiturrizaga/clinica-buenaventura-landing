@@ -128,7 +128,8 @@ const HR_EMAIL = 'recursoshumanos@clinicabuenaventura.com';
                                     Nombres y Apellidos *
                                 </label>
                                 <input id="jf-name" name="full_name" type="text" class="form-input" required
-                                       autocomplete="name" placeholder="Ej. María García López" minlength="2" maxlength="100"/>
+                                       autocomplete="name" placeholder="Ej. María García López" minlength="2"
+                                       maxlength="100"/>
                             </div>
                             <div>
                                 <label for="jf-phone" class="block text-sm font-semibold mb-1.5">Teléfono *</label>
@@ -167,6 +168,7 @@ const HR_EMAIL = 'recursoshumanos@clinicabuenaventura.com';
                                 </label>
                             </div>
                             <p class="text-xs text-gray-400 mt-1.5">Formatos: PDF, DOC, DOCX · Máx. 5 MB</p>
+                            <p id="jf-cv-error" class="text-xs text-red-600 mt-1.5" style="display:none"></p>
                         </div>
 
                         <div class="mb-6">
@@ -337,6 +339,12 @@ const HR_EMAIL = 'recursoshumanos@clinicabuenaventura.com';
         color: var(--color-primary);
     }
 
+    .file-drop.error {
+        border-color: #FCA5A5;
+        background: #FEF2F2;
+        color: #DC2626;
+    }
+
     /* Select */
     .select-arrow {
         appearance: none;
@@ -348,19 +356,53 @@ const HR_EMAIL = 'recursoshumanos@clinicabuenaventura.com';
 </style>
 
 <script>
+    const ALLOWED_TYPES = new Set([
+        'application/pdf',
+        'application/msword',
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    ]);
+    const ALLOWED_EXT = /\.(pdf|doc|docx)$/i;
+    const MAX_BYTES = 5 * 1024 * 1024; // 5 MB
+
+    function validateFile(file: File): string | null {
+        if (!ALLOWED_EXT.test(file.name) && !ALLOWED_TYPES.has(file.type)) {
+            return 'El archivo debe ser PDF, DOC o DOCX.';
+        }
+        if (file.size > MAX_BYTES) {
+            return `El archivo pesa ${ (file.size / 1024 / 1024).toFixed(1) } MB. El límite es 5 MB.`;
+        }
+        return null;
+    }
+
     const fileInput = document.getElementById('jf-cv') as HTMLInputElement;
     const fileLabel = document.getElementById('file-label-el') as HTMLElement;
     const fileNameEl = document.getElementById('file-name-el') as HTMLSpanElement;
+    const fileErrorEl = document.getElementById('jf-cv-error') as HTMLParagraphElement;
 
     fileInput?.addEventListener('change', () => {
         const file = fileInput.files?.[0];
-        if (file) {
-            fileNameEl.textContent = file.name;
-            fileLabel.classList.add('active');
-        } else {
+
+        fileLabel.classList.remove('active', 'error');
+        fileErrorEl.style.display = 'none';
+        fileErrorEl.textContent = '';
+
+        if (!file) {
             fileNameEl.textContent = 'Seleccionar archivo (PDF o Word)';
-            fileLabel.classList.remove('active');
+            return;
         }
+
+        const err = validateFile(file);
+        if (err) {
+            fileErrorEl.textContent = err;
+            fileErrorEl.style.display = 'block';
+            fileLabel.classList.add('error');
+            fileNameEl.textContent = 'Seleccionar archivo (PDF o Word)';
+            fileInput.value = '';
+            return;
+        }
+
+        fileNameEl.textContent = file.name;
+        fileLabel.classList.add('active');
     });
 
     const API_URL = 'https://api.clinicabuenaventura.com/api/v1/hiring/apply';
@@ -375,6 +417,21 @@ const HR_EMAIL = 'recursoshumanos@clinicabuenaventura.com';
         e.preventDefault();
         if (!form.checkValidity()) {
             form.reportValidity();
+            return;
+        }
+
+        const file = fileInput.files?.[0];
+        if (!file) {
+            fileErrorEl.textContent = 'Por favor adjunta tu CV antes de enviar.';
+            fileErrorEl.style.display = 'block';
+            fileLabel.classList.add('error');
+            return;
+        }
+        const fileErr = validateFile(file);
+        if (fileErr) {
+            fileErrorEl.textContent = fileErr;
+            fileErrorEl.style.display = 'block';
+            fileLabel.classList.add('error');
             return;
         }
 
