@@ -9,15 +9,27 @@ const areas = [
 ];
 
 const benefits = [
-    { icon: 'ti-trending-up', title: 'Desarrollo profesional', desc: 'Oportunidades reales de crecimiento dentro de la clínica.' },
-    { icon: 'ti-school',      title: 'Capacitación continua',  desc: 'Programas de formación y actualización permanente.' },
-    { icon: 'ti-mood-happy',  title: 'Ambiente laboral',       desc: 'Un entorno de trabajo positivo, inclusivo y respetuoso.' },
-    { icon: 'ti-users',       title: 'Trabajo en equipo',      desc: 'Equipos multidisciplinarios comprometidos con el paciente.' },
+    {
+        icon: 'ti-trending-up',
+        title: 'Desarrollo profesional',
+        desc: 'Oportunidades reales de crecimiento dentro de la clínica.'
+    },
+    { icon: 'ti-school', title: 'Capacitación continua', desc: 'Programas de formación y actualización permanente.' },
+    {
+        icon: 'ti-mood-happy',
+        title: 'Ambiente laboral',
+        desc: 'Un entorno de trabajo positivo, inclusivo y respetuoso.'
+    },
+    {
+        icon: 'ti-users',
+        title: 'Trabajo en equipo',
+        desc: 'Equipos multidisciplinarios comprometidos con el paciente.'
+    },
 ];
 
 const steps = [
-    { n: '1', title: 'Revisión de perfil',   desc: 'RRHH evalúa tu CV y la información enviada.' },
-    { n: '2', title: 'Contacto inicial',      desc: 'Si hay una vacante alineada, nos comunicamos contigo.' },
+    { n: '1', title: 'Revisión de perfil', desc: 'RRHH evalúa tu CV y la información enviada.' },
+    { n: '2', title: 'Contacto inicial', desc: 'Si hay una vacante alineada, nos comunicamos contigo.' },
     { n: '3', title: 'Proceso de selección', desc: 'Entrevistas y evaluaciones según el área postulada.' },
 ];
 
@@ -25,8 +37,8 @@ const HR_EMAIL = 'recursoshumanos@clinicabuenaventura.com';
 ---
 
 <PageLayout
-    title="Trabaja con Nosotros | Clínica Buenaventura"
-    description="Únete al equipo de Clínica Buenaventura. Buscamos personas comprometidas con vocación de servicio. Postula en línea adjuntando tu CV."
+        title="Trabaja con Nosotros | Clínica Buenaventura"
+        description="Únete al equipo de Clínica Buenaventura. Buscamos personas comprometidas con vocación de servicio. Postula en línea adjuntando tu CV."
 >
 
     <!-- Banner -->
@@ -59,15 +71,15 @@ const HR_EMAIL = 'recursoshumanos@clinicabuenaventura.com';
                 <h2 class="text-3xl md:text-4xl font-extrabold">¿Por qué trabajar con nosotros?</h2>
             </div>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                {benefits.map((b, i) => (
-                    <div class="benefit-item reveal group" style={`animation-delay:${i * 0.1}s`}>
-                        <div class="size-12 rounded-xl bg-primary-50 text-primary group-hover:bg-primary group-hover:text-white! flex items-center justify-center mx-auto mb-4 text-xl">
-                            <i class={`ti ${b.icon}`}></i>
+                { benefits.map((b, i) => (
+                        <div class="benefit-item reveal group" style={ `animation-delay:${ i * 0.1 }s` }>
+                            <div class="size-12 rounded-xl bg-primary-50 text-primary group-hover:bg-primary group-hover:text-white! flex items-center justify-center mx-auto mb-4 text-xl">
+                                <i class={ `ti ${ b.icon }` }></i>
+                            </div>
+                            <h3 class="text-base font-bold mb-1.5">{ b.title }</h3>
+                            <p class="text-sm text-gray-500 leading-relaxed m-0">{ b.desc }</p>
                         </div>
-                        <h3 class="text-base font-bold mb-1.5">{b.title}</h3>
-                        <p class="text-sm text-gray-500 leading-relaxed m-0">{b.desc}</p>
-                    </div>
-                ))}
+                )) }
             </div>
         </div>
     </section>
@@ -83,12 +95,12 @@ const HR_EMAIL = 'recursoshumanos@clinicabuenaventura.com';
                 </p>
             </div>
             <div class="flex flex-wrap gap-3 justify-center">
-                {areas.map((area) => (
-                    <div class="area-tag reveal">
-                        <i class="ti ti-stethoscope"></i>
-                        {area}
-                    </div>
-                ))}
+                { areas.map((area) => (
+                        <div class="area-tag reveal">
+                            <i class="ti ti-stethoscope"></i>
+                            { area }
+                        </div>
+                )) }
             </div>
         </div>
     </section>
@@ -112,28 +124,35 @@ const HR_EMAIL = 'recursoshumanos@clinicabuenaventura.com';
 
                         <div class="grid sm:grid-cols-2 gap-4 mb-4">
                             <div>
-                                <label for="jf-name" class="block text-sm font-semibold mb-1.5">Nombres y Apellidos *</label>
+                                <label for="jf-name" class="block text-sm font-semibold mb-1.5">
+                                    Nombres y Apellidos *
+                                </label>
                                 <input id="jf-name" name="full_name" type="text" class="form-input" required
-                                       autocomplete="name" placeholder="Ej. María García López" />
+                                       autocomplete="name" placeholder="Ej. María García López" minlength="2" maxlength="100"/>
                             </div>
                             <div>
                                 <label for="jf-phone" class="block text-sm font-semibold mb-1.5">Teléfono *</label>
                                 <input id="jf-phone" name="phone" type="tel" class="form-input" required
-                                       autocomplete="tel" placeholder="999 000 999" />
+                                       autocomplete="tel" placeholder="999000999" minlength="7" maxlength="9"/>
                             </div>
                         </div>
 
                         <div class="mb-4">
-                            <label for="jf-email" class="block text-sm font-semibold mb-1.5">Correo Electrónico *</label>
+                            <label for="jf-email" class="block text-sm font-semibold mb-1.5">
+                                Correo Electrónico *
+                            </label>
                             <input id="jf-email" name="email" type="email" class="form-input" required
-                                   autocomplete="email" placeholder="tucorreo@ejemplo.com" />
+                                   autocomplete="email" placeholder="tucorreo@ejemplo.com" maxlength="100"/>
                         </div>
 
                         <div class="mb-4">
-                            <label for="jf-area" class="block text-sm font-semibold mb-1.5">Área de Postulación *</label>
+                            <label for="jf-area" class="block text-sm font-semibold mb-1.5">
+                                Área de Postulación *
+                            </label>
                             <select id="jf-area" name="area" class="form-input select-arrow" required>
                                 <option value="">Selecciona un área</option>
-                                {areas.map((a) => <option value={a}>{a}</option>)}
+                                { areas.map((a) =>
+                                        <option value={ a }>{ a }</option>) }
                             </select>
                         </div>
 
@@ -141,7 +160,7 @@ const HR_EMAIL = 'recursoshumanos@clinicabuenaventura.com';
                             <label for="jf-cv" class="block text-sm font-semibold mb-1.5">Adjuntar CV *</label>
                             <div class="relative">
                                 <input id="jf-cv" name="cv" type="file"
-                                       class="file-native" accept=".pdf,.doc,.docx" required />
+                                       class="file-native" accept=".pdf,.doc,.docx" required/>
                                 <label for="jf-cv" class="file-drop" id="file-label-el">
                                     <i class="ti ti-upload text-xl shrink-0"></i>
                                     <span id="file-name-el">Seleccionar archivo (PDF o Word)</span>
@@ -155,7 +174,7 @@ const HR_EMAIL = 'recursoshumanos@clinicabuenaventura.com';
                                 Mensaje <span class="font-normal text-gray-400">(Opcional)</span>
                             </label>
                             <textarea id="jf-msg" name="message" class="form-input" rows="4"
-                                      style="resize:vertical"
+                                      style="resize:vertical" maxlength="1000"
                                       placeholder="Cuéntanos sobre tu experiencia y motivación..."></textarea>
                         </div>
 
@@ -197,20 +216,20 @@ const HR_EMAIL = 'recursoshumanos@clinicabuenaventura.com';
                             ¿Qué sucede después?
                         </h3>
                         <ol class="flex flex-col list-none p-0 m-0">
-                            {steps.map((s, i) => (
-                                <li class="flex gap-3 items-start relative pb-6 last:pb-0">
-                                    {i < steps.length - 1 && (
-                                        <div class="absolute left-3 top-7 w-px bottom-0 bg-gray-100"></div>
-                                    )}
-                                    <div class="w-7 h-7 rounded-full bg-primary-50 border border-primary-100 text-primary-dark flex items-center justify-center text-xs font-bold shrink-0 relative z-10">
-                                        {s.n}
-                                    </div>
-                                    <div class="pt-0.5">
-                                        <strong class="block text-sm font-bold mb-0.5">{s.title}</strong>
-                                        <p class="text-sm text-gray-500 m-0 leading-relaxed">{s.desc}</p>
-                                    </div>
-                                </li>
-                            ))}
+                            { steps.map((s, i) => (
+                                    <li class="flex gap-3 items-start relative pb-6 last:pb-0">
+                                        { i < steps.length - 1 && (
+                                                <div class="absolute left-3 top-7 w-px bottom-0 bg-gray-100"></div>
+                                        ) }
+                                        <div class="w-7 h-7 rounded-full bg-primary-50 border border-primary-100 text-primary-dark flex items-center justify-center text-xs font-bold shrink-0 relative z-10">
+                                            { s.n }
+                                        </div>
+                                        <div class="pt-0.5">
+                                            <strong class="block text-sm font-bold mb-0.5">{ s.title }</strong>
+                                            <p class="text-sm text-gray-500 m-0 leading-relaxed">{ s.desc }</p>
+                                        </div>
+                                    </li>
+                            )) }
                         </ol>
                     </div>
 
@@ -225,9 +244,9 @@ const HR_EMAIL = 'recursoshumanos@clinicabuenaventura.com';
                         <p class="text-sm text-gray-500 mb-4 leading-relaxed">
                             Escríbenos directamente a Recursos Humanos:
                         </p>
-                        <a href={`mailto:${HR_EMAIL}`}
+                        <a href={ `mailto:${ HR_EMAIL }` }
                            class="block text-sm font-semibold text-primary bg-primary-50 border border-primary-100 rounded-lg px-4 py-3 break-all hover:bg-primary hover:text-white! hover:border-primary transition-all">
-                            {HR_EMAIL}
+                            { HR_EMAIL }
                         </a>
                     </div>
 
@@ -255,6 +274,7 @@ const HR_EMAIL = 'recursoshumanos@clinicabuenaventura.com';
         text-align: center;
         transition: border-color 0.2s, background 0.2s;
     }
+
     .benefit-item:hover {
         border-color: var(--color-primary-100);
         background: var(--color-primary-50);
@@ -275,11 +295,15 @@ const HR_EMAIL = 'recursoshumanos@clinicabuenaventura.com';
         transition: border-color 0.2s, background 0.2s;
         cursor: default;
     }
+
     .area-tag:hover {
         background: var(--color-primary-50);
         border-color: var(--color-primary-100);
     }
-    .area-tag i { color: var(--color-primary-light); }
+
+    .area-tag i {
+        color: var(--color-primary-light);
+    }
 
     /* File input */
     .file-native {
@@ -305,6 +329,7 @@ const HR_EMAIL = 'recursoshumanos@clinicabuenaventura.com';
         transition: border-color 0.2s, background 0.2s, color 0.2s;
         user-select: none;
     }
+
     .file-drop:hover,
     .file-drop.active {
         border-color: var(--color-primary);
@@ -323,9 +348,9 @@ const HR_EMAIL = 'recursoshumanos@clinicabuenaventura.com';
 </style>
 
 <script>
-    const fileInput  = document.getElementById('jf-cv')         as HTMLInputElement;
-    const fileLabel  = document.getElementById('file-label-el') as HTMLElement;
-    const fileNameEl = document.getElementById('file-name-el')  as HTMLSpanElement;
+    const fileInput = document.getElementById('jf-cv') as HTMLInputElement;
+    const fileLabel = document.getElementById('file-label-el') as HTMLElement;
+    const fileNameEl = document.getElementById('file-name-el') as HTMLSpanElement;
 
     fileInput?.addEventListener('change', () => {
         const file = fileInput.files?.[0];
@@ -338,24 +363,27 @@ const HR_EMAIL = 'recursoshumanos@clinicabuenaventura.com';
         }
     });
 
-    const API_URL   = 'https://clinicabuenaventura-api-hlpe0l-1436c5-85-239-243-214.sslip.io/api/v1/hiring/apply';
+    const API_URL = 'https://api.clinicabuenaventura.com/api/v1/hiring/apply';
 
-    const form       = document.getElementById('job-form')      as HTMLFormElement;
-    const successBox = document.getElementById('job-success')   as HTMLElement;
-    const errorBox   = document.getElementById('jf-error')      as HTMLElement;
-    const errorMsg   = document.getElementById('jf-error-msg')  as HTMLSpanElement;
-    const submitBtn  = document.getElementById('jf-submit')     as HTMLButtonElement;
+    const form = document.getElementById('job-form') as HTMLFormElement;
+    const successBox = document.getElementById('job-success') as HTMLElement;
+    const errorBox = document.getElementById('jf-error') as HTMLElement;
+    const errorMsg = document.getElementById('jf-error-msg') as HTMLSpanElement;
+    const submitBtn = document.getElementById('jf-submit') as HTMLButtonElement;
 
     form?.addEventListener('submit', async (e) => {
         e.preventDefault();
-        if (!form.checkValidity()) { form.reportValidity(); return; }
+        if (!form.checkValidity()) {
+            form.reportValidity();
+            return;
+        }
 
         submitBtn.disabled = true;
         submitBtn.innerHTML = '<i class="ti ti-loader-2 animate-spin"></i> Enviando…';
         errorBox.style.display = 'none';
 
         try {
-            const res  = await fetch(API_URL, {
+            const res = await fetch(API_URL, {
                 method: 'POST',
                 body: new FormData(form),
             });
