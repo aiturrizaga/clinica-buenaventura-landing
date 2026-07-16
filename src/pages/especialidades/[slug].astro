@@ -1,8 +1,10 @@
 ---
 import PageLayout from '../../layouts/PageLayout.astro';
-import DoctorCard from '../../components/cards/DoctorCard.astro';
-import { specialties, getSpecialtyBySlug } from '../../data/specialties';
-import { doctors } from '../../data/doctors';
+import DoctorCard from '@features/doctors/DoctorCard.astro';
+import { specialties, getSpecialtyBySlug } from '@features/specialties/data';
+import { doctors } from '@features/doctors/data';
+import { ROUTES } from '@config/routes';
+import { buildBreadcrumbSchema } from '@lib/seo';
 
 export async function getStaticPaths() {
   return specialties.map(s => ({ params: { slug: s.slug } }));
@@ -13,17 +15,25 @@ const specialty = getSpecialtyBySlug(slug!);
 if (!specialty) return Astro.redirect('/404');
 
 const relatedDoctors = doctors.filter(d => specialty.relatedDoctorIds.includes(d.id));
+const citasHref = `${ROUTES.citas.index}?specialty=${specialty.slug}`;
 ---
 <PageLayout
-  title={`${specialty.name} | Clínica Buenaventura`}
+  title={specialty.name}
   description={specialty.shortDescription}
   ogImage={specialty.coverImage}
-  jsonLd={{
-    '@context': 'https://schema.org',
-    '@type': 'MedicalSpecialty',
-    name: specialty.name,
-    description: specialty.shortDescription,
-  }}
+  jsonLd={[
+    {
+      '@context': 'https://schema.org',
+      '@type': 'MedicalSpecialty',
+      name: specialty.name,
+      description: specialty.shortDescription,
+    },
+    buildBreadcrumbSchema([
+      { name: 'Inicio', url: ROUTES.home },
+      { name: 'Especialidades', url: ROUTES.especialidades.index },
+      { name: specialty.name, url: ROUTES.especialidades.detail(specialty.slug) },
+    ]),
+  ]}
 >
   <!-- Banner -->
   <div class="spec-banner">
@@ -76,7 +86,7 @@ const relatedDoctors = doctors.filter(d => specialty.relatedDoctorIds.includes(d
           <div class="cta-card">
             <h3>¿Necesitas atención?</h3>
             <p>Agenda tu cita con nuestros especialistas en {specialty.name}.</p>
-            <a href={`/agendar-cita?especialidad=${specialty.slug}`} class="btn btn-white btn-md" style="width:100%;justify-content:center">
+            <a href={citasHref} class="btn btn-white btn-md" style="width:100%;justify-content:center">
               Agendar cita ahora
             </a>
           </div>

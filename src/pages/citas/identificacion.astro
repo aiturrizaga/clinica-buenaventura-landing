@@ -1,11 +1,12 @@
 ---
 import AppointmentLayout from '@/layouts/AppointmentLayout.astro';
-import AppointmentSummary from '@/components/appointment/AppointmentSummary.astro';
+import AppointmentSummary from '@features/appointments/components/AppointmentSummary.astro';
 ---
 
 <AppointmentLayout
-        title="Identifícate | Clínica Buenaventura"
+        title="Identifícate"
         description="Identifícate para continuar con la reserva de tu cita."
+        noindex={true}
 >
     <section class="container py-10 md:py-16">
         <div class="mx-auto grid max-w-4xl gap-6 lg:grid-cols-[1fr_340px]">
@@ -73,8 +74,8 @@ import AppointmentSummary from '@/components/appointment/AppointmentSummary.astr
 </AppointmentLayout>
 
 <script>
-    import { findAccountByDocument } from '@/data/accounts';
-    import { getAppointment, saveAppointment } from '@/scripts/appointmentStore';
+    import { findAccountByDocument } from '@features/appointments/accounts';
+    import { getAppointment, saveAppointment } from '@features/appointments/store';
 
     const REGISTER_URL = '/citas/registro';
     const PATIENT_URL = '/citas/paciente';

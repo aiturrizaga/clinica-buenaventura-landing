@@ -1,7 +1,7 @@
 ---
 import SectionTitle from '../../components/ui/SectionTitle.astro';
-import DoctorCard from '../../components/cards/DoctorCard.astro';
-import { getFeaturedDoctors } from '@data/doctors.ts';
+import DoctorCard from '@features/doctors/DoctorCard.astro';
+import { getFeaturedDoctors } from '@features/doctors/data';
 
 const docs = getFeaturedDoctors();
 ---
@@ -9,6 +9,7 @@ const docs = getFeaturedDoctors();
     <div class="container">
         <div class="docs-header">
             <SectionTitle
+                    id="docs-title"
                     label="Nuestro staff médico"
                     title="Especialistas que cuidan de ti"
                     subtitle="Un equipo de médicos certificados con amplia experiencia y compromiso humano."

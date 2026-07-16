@@ -1,10 +1,10 @@
 ---
 import PageLayout from '../../layouts/PageLayout.astro';
-import BlogCard from '../../components/cards/BlogCard.astro';
-import { blogPosts } from '../../data/blog';
+import BlogCard from '@features/blog/BlogCard.astro';
+import { blogPosts } from '@features/blog/data';
 ---
 <PageLayout
-  title="Blog de Salud | Clínica Buenaventura"
+  title="Blog de Salud"
   description="Artículos y consejos de salud escritos por nuestros especialistas médicos. Mantente informado sobre prevención, tratamientos y bienestar."
 >
   <section class="page-banner">

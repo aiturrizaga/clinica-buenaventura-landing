@@ -1,6 +1,8 @@
 ---
 import PageLayout from './PageLayout.astro';
-import type { BlogPost } from '../types';
+import type { BlogPost } from '@features/blog/types';
+import { buildArticleSchema, buildBreadcrumbSchema } from '@lib/seo';
+import { ROUTES } from '@config/routes';
 
 interface Props {
   post: BlogPost;
@@ -13,15 +15,14 @@ const { post } = Astro.props;
   description={post.excerpt}
   ogType="article"
   ogImage={post.coverImage}
-  jsonLd={{
-    '@context': 'https://schema.org',
-    '@type': 'MedicalWebPage',
-    headline: post.title,
-    description: post.excerpt,
-    image: post.coverImage,
-    datePublished: post.publishedAt,
-    author: { '@type': 'Person', name: post.author.name },
-  }}
+  jsonLd={[
+    buildArticleSchema(post),
+    buildBreadcrumbSchema([
+      { name: 'Inicio', url: ROUTES.home },
+      { name: 'Blog', url: ROUTES.blog.index },
+      { name: post.title, url: ROUTES.blog.detail(post.slug) },
+    ]),
+  ]}
 >
   <slot />
 </PageLayout>

@@ -1,5 +1,7 @@
 ---
 import PageLayout from '../../layouts/PageLayout.astro';
+import { ROUTES } from '@config/routes';
+import { whatsappLink, WHATSAPP_MESSAGES } from '@config/social';
 
 const services = [
   {
@@ -35,8 +37,9 @@ const services = [
 ];
 ---
 <PageLayout
-  title="Servicios Médicos | Clínica Buenaventura"
+  title="Servicios Médicos"
   description="Servicios médicos integrales en Clínica Buenaventura: diagnóstico, cirugía, hospitalización, urgencias 24h, rehabilitación y medicina preventiva."
+  noindex={true}
 >
   <div class="page-banner">
     <div class="container">
@@ -79,8 +82,8 @@ const services = [
       <h2 style="color:#fff;font-size:clamp(1.5rem,3vw,2rem);margin:0 0 1rem">¿Necesitas alguno de nuestros servicios?</h2>
       <p style="color:rgba(255,255,255,0.75);margin:0 0 2rem">Agenda tu cita y te atendemos a la brevedad.</p>
       <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
-        <a href="/agendar-cita" class="btn btn-white btn-lg">Agendar cita</a>
-        <a href="/contacto" class="btn btn-outline btn-lg" style="border-color:rgba(255,255,255,0.5);color:#fff">Contactarnos</a>
+        <a href={ROUTES.citas.index} class="btn btn-white btn-lg">Agendar cita</a>
+        <a href={whatsappLink(WHATSAPP_MESSAGES.general)} target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-lg" style="border-color:rgba(255,255,255,0.5);color:#fff">Contactarnos</a>
       </div>
     </div>
   </section>

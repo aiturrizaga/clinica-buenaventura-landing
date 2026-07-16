@@ -1,14 +1,15 @@
 ---
 import AppointmentLayout from '@/layouts/AppointmentLayout.astro';
-import AppointmentSummary from '@/components/appointment/AppointmentSummary.astro';
+import AppointmentSummary from '@features/appointments/components/AppointmentSummary.astro';
 
 const otpBoxClass =
     'size-14 rounded-xl border-[1.5px] border-primary-100 text-center text-2xl font-semibold text-text outline-none transition-colors focus:border-primary';
 ---
 
 <AppointmentLayout
-        title="Confirma tu identidad | Clínica Buenaventura"
+        title="Confirma tu identidad"
         description="Confirma tu identidad para continuar con la reserva de tu cita."
+        noindex={true}
 >
     <section class="container py-10 md:py-16">
         <div class="mx-auto grid max-w-4xl gap-6 lg:grid-cols-[1fr_340px]">
@@ -65,7 +66,7 @@ const otpBoxClass =
 </AppointmentLayout>
 
 <script>
-    import { getAppointment } from '@/scripts/appointmentStore';
+    import { getAppointment } from '@features/appointments/store';
 
     const NEXT_URL = '/citas/paciente';
 

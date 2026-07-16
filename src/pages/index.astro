@@ -1,32 +1,29 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
 import HeroSection from '../sections/home/HeroSection.astro';
-import PromotionsSection from '../sections/home/PromotionsSection.astro';
+import PromotionsCarousel from '@features/promotions/PromotionsCarousel.astro';
 import SpecialtiesSection from '../sections/home/SpecialtiesSection.astro';
 import AboutSection from '../sections/home/AboutSection.astro';
-// import ClubSection from '../sections/home/ClubSection.astro';
 import DoctorsSection from '../sections/home/DoctorsSection.astro';
-// import TestimonialsSection from '../sections/home/TestimonialsSection.astro';
-import { buildClinicSchema } from '../utils/seo';
-import PromoPopup from "@components/ui/PromoPopup.astro";
+import { buildClinicSchema } from '@lib/seo';
+import PromoPopup from '@features/promotions/PromoPopup.astro';
+import promoTestAliento from '@assets/promotions/promo_test_de_aliento.webp';
 ---
 <PageLayout
         title="Clínica Buenaventura | Comprometidos con tu confianza"
+        noTitleSuffix
         description="Atención médica cercana y confiable para ti y tu familia. Más de 20 especialidades, cirugías, ecografías, rayos X, odontología, laboratorio y farmacia en San Juan de Miraflores, Lima Sur. Agenda tu cita online."
-        ogImage="/images/og-default.jpg"
         jsonLd={ buildClinicSchema() }
 >
     <PromoPopup
-            image="/images/promotions/promo_test_de_aliento.webp"
+            image={ promoTestAliento }
             alt="Sorteo especial Día del Padre"
             waMessage="Hola Clínica Buenaventura, ¿Me pueden dar más información sobre el sorteo especial del Día del Padre?"
     />
 
     <HeroSection/>
-    <PromotionsSection/>
+    <PromotionsCarousel/>
     <SpecialtiesSection/>
     <AboutSection/>
-    <!--<ClubSection />-->
     <DoctorsSection/>
-    <!--<TestimonialsSection />-->
 </PageLayout>

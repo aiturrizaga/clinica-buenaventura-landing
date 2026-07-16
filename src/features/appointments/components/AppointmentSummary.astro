@@ -1,0 +1,64 @@
+---
+interface Props {
+    showPatient?: boolean;
+    class?: string;
+}
+
+const { showPatient = false, class: className = '' } = Astro.props;
+
+const items = [
+    { label: 'Especialidad', field: 'specialty', icon: 'ti-stethoscope', full: false },
+    { label: 'Médico', field: 'doctor', icon: 'ti-user-heart', full: true },
+    { label: 'Sede', field: 'branch', icon: 'ti-map-pin', full: false },
+    { label: 'Consulta', field: 'type', icon: 'ti-building-hospital', full: false },
+    { label: 'Fecha', field: 'date', icon: 'ti-calendar', full: false },
+    { label: 'Hora', field: 'time', icon: 'ti-clock', full: false },
+];
+---
+
+<aside class:list={ ['rounded-2xl bg-primary-50 p-5', className] }>
+    <h2 class="mb-4 text-lg font-bold text-text">
+        Resumen de <span class="text-primary">tu cita</span>
+    </h2>
+
+    <dl class="grid grid-cols-2 gap-x-4 gap-y-4">
+        { showPatient && (
+                <div class="col-span-2 flex gap-3">
+                    <i class="ti ti-user mt-0.5 text-lg text-primary"></i>
+                    <div>
+                        <dt class="text-xs text-text-muted">Paciente</dt>
+                        <dd class="m-0 text-[0.95rem] font-semibold text-primary" data-summary="patient">—</dd>
+                    </div>
+                </div>
+        ) }
+        { items.map((item) => (
+                <div class:list={ ['flex gap-3', { 'col-span-2': item.full }] }>
+                    <i class={ `ti ${ item.icon } mt-0.5 text-lg text-primary` }></i>
+                    <div>
+                        <dt class="text-xs text-text-muted">{ item.label }</dt>
+                        <dd class="m-0 text-[0.95rem] font-semibold text-primary" data-summary={ item.field }>—</dd>
+                    </div>
+                </div>
+        )) }
+    </dl>
+</aside>
+
+<script>
+    import { getAppointment } from '../store';
+    import { formatLongDate, formatTime } from '@lib/utils/date';
+
+    const data = getAppointment();
+    if (data) {
+        const set = (field: string, value?: string) => {
+            const el = document.querySelector<HTMLElement>(`[data-summary="${ field }"]`);
+            if (el && value) el.textContent = value;
+        };
+        set('specialty', data.specialty);
+        set('doctor', data.doctorName);
+        set('branch', data.branchName);
+        set('type', data.type);
+        set('date', formatLongDate(data.dateIso));
+        set('time', formatTime(data.time));
+        set('patient', data.patientName);
+    }
+</script>

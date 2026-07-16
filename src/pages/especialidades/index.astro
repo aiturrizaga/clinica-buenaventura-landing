@@ -1,10 +1,11 @@
 ---
 import PageLayout from '../../layouts/PageLayout.astro';
-import SpecialtyCard from '../../components/cards/SpecialtyCard.astro';
-import { specialties } from '@data/specialties.ts';
+import SpecialtyCard from '@features/specialties/SpecialtyCard.astro';
+import { specialties } from '@features/specialties/data';
+import { SITE } from '@config/site';
 ---
 <PageLayout
-  title="Especialidades Médicas | Clínica Buenaventura"
+  title="Especialidades Médicas"
   description="Más de 20 especialidades médicas en Clínica Buenaventura. Cardiología, Pediatría, Ginecología, Traumatología y mucho más. Agenda tu cita."
 >
   <!-- Banner -->
@@ -35,7 +36,7 @@ import { specialties } from '@data/specialties.ts';
     <div class="container">
       <h2 style="color:#fff;font-size:clamp(1.5rem,3vw,2rem);margin:0 0 1rem">¿No encuentras tu especialidad?</h2>
       <p style="color:rgba(255,255,255,0.75);margin:0 0 2rem;font-size:1.0625rem">Contáctanos y te orientamos al especialista indicado.</p>
-      <a href="https://wa.me/51932939530" target="_blank" class="btn btn-white btn-lg">Contáctanos</a>
+      <a href={ `https://wa.me/${ SITE.contact.whatsapp }` } target="_blank" class="btn btn-white btn-lg">Contáctanos</a>
     </div>
   </section>
 </PageLayout>

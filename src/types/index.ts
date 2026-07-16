@@ -1,106 +1,18 @@
-export interface Doctor {
-    id: string;
-    slug: string;
-    name: string;
-    title: 'Dr.' | 'Dra.' | 'Lic.';
-    specialty: string;
-    subspecialty?: string;
-    cmp: string;
-    bio: string;
-    photo: string;
-    schedule: Schedule[];
-    education: string[];
-    languages: string[];
-    experience: number;
-    rating: number;
-    reviewCount: number;
-    featured: boolean;
-    dates?: AvailabilityDate[];
-    slots?: Record<string, string[]>;
-}
-
-export interface Schedule {
-    day: string;
-    startTime: string;
-    endTime: string;
-    location: string;
-}
-
-export interface Specialty {
-    id: string;
-    slug: string;
-    name: string;
-    fontIcon: string;
-    shortDescription: string;
-    fullDescription: string;
-    coverImage: string;
-    procedures: string[];
-    relatedDoctorIds: string[];
-    featured: boolean;
-    order: number;
-    preferred?: boolean;
-}
-
-export interface Promotion {
-    id: string;
-    title: string;
-    description: string;
-    image: string;
-    slug: string;
-    discount?: string;
-    validUntil: string;
-    ctaText: string;
-    ctaHref: string;
-    tag?: string;
-    accentColor: string;
-    waMessage?: string;
-    detail: {
-        highlights: { icon: string, text: string }[];
-        important: string;
-        legal: string;
-        termsUrl: string;
-    }
-}
-
-export interface Testimonial {
-    id: string;
-    name: string;
-    role: string;
-    avatar: string;
-    rating: number;
-    comment: string;
-    specialty?: string;
-}
-
-export interface BlogPost {
-    id: string;
-    slug: string;
-    title: string;
-    excerpt: string;
-    content: string;
-    coverImage: string;
-    author: BlogAuthor;
-    category: string;
-    tags: string[];
-    publishedAt: string;
-    readingTime: number;
-    featured: boolean;
-}
-
-export interface BlogAuthor {
-    name: string;
-    role: string;
-    avatar: string;
-}
+// Tipos verdaderamente transversales (usados por más de una feature o por
+// layouts/config compartidos). Los tipos de dominio de cada feature viven en
+// su propio src/features/<feature>/types.ts.
 
 export interface SEOProps {
+    /** No incluyas "| Clínica Buenaventura" aquí — se agrega solo (ver noTitleSuffix). */
     title: string;
     description: string;
     canonical?: string;
     ogImage?: string;
     ogType?: 'website' | 'article' | 'profile';
     noindex?: boolean;
-    jsonLd?: object;
+    /** true para usar `title` tal cual, sin agregar "| Clínica Buenaventura". */
+    noTitleSuffix?: boolean;
+    jsonLd?: object | object[];
 }
 
 export interface NavItem {
@@ -113,17 +25,4 @@ export interface ClubBenefit {
     icon: string;
     title: string;
     description: string;
-}
-
-export interface Branch {
-    id: string;
-    slug: string;
-    name: string;
-    address: string;
-}
-
-export interface AvailabilityDate {
-    iso: string;
-    dow: string;
-    day: string;
 }

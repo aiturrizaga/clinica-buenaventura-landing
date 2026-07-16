@@ -1,10 +1,9 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
-import AppointmentBrandBar from "@components/appointment/AppointmentBrandBar.astro";
+import AppointmentBrandBar from '@features/appointments/components/AppointmentBrandBar.astro';
 import type { SEOProps } from 'src/types';
 
-interface Props extends SEOProps {
-}
+type Props = SEOProps;
 ---
 
 <BaseLayout {...Astro.props}>

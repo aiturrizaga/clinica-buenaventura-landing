@@ -1,9 +1,10 @@
 ---
 import PageLayout from '../../layouts/PageLayout.astro';
+import { SITE } from '@config/site';
 ---
 
 <PageLayout
-        title="Política de Privacidad | Clínica Buenaventura"
+        title="Política de Privacidad"
         description="Política de Privacidad, Cookies y Datos Personales de Clínica Buenaventura. Conoce cómo tratamos tu información personal."
 >
     <div class="bg-linear-to-br from-primary-50 to-white py-14">
@@ -99,8 +100,8 @@ import PageLayout from '../../layouts/PageLayout.astro';
                 <p>El consentimiento para recibir promociones es opcional y no condiciona la atención médica ni la
                     gestión de citas necesarias.</p>
                 <p>El usuario puede dejar de recibir promociones en cualquier momento escribiendo: "NO DESEO
-                    PROMOCIONES" o comunicándose con Clínica Buenaventura al <strong>932 939 530 / 943 004 989</strong>
-                    o al correo: <a href="mailto:atencionalcliente@clinicabuenaventura.com">atencionalcliente@clinicabuenaventura.com</a>
+                    PROMOCIONES" o comunicándose con Clínica Buenaventura al <strong>{SITE.contact.phoneDisplay} / {SITE.contact.altPhoneDisplay}</strong>
+                    o al correo: <a href={`mailto:${SITE.contact.email}`}>{SITE.contact.email}</a>
                 </p>
 
                 <h2>7. Cookies y tecnologías de seguimiento</h2>
@@ -142,9 +143,9 @@ import PageLayout from '../../layouts/PageLayout.astro';
                 <h2>11. Canales para ejercer Derechos ARCO</h2>
                 <p>El usuario puede presentar su solicitud por:</p>
                 <ul>
-                    <li>Correo: <a href="mailto:atencionalcliente@clinicabuenaventura.com">atencionalcliente@clinicabuenaventura.com</a>
+                    <li>Correo: <a href={`mailto:${SITE.contact.email}`}>{SITE.contact.email}</a>
                     </li>
-                    <li>WhatsApp: 932 939 530 / 943 004 989</li>
+                    <li>WhatsApp: {SITE.contact.phoneDisplay} / {SITE.contact.altPhoneDisplay}</li>
                     <li>Dirección: Av. San Juan 871, San Juan de Miraflores, Lima, Perú</li>
                 </ul>
                 <p>La solicitud deberá indicar:</p>

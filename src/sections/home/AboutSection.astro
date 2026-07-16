@@ -1,19 +1,26 @@
 ---
+import { Image } from 'astro:assets';
 import SectionTitle from '../../components/ui/SectionTitle.astro';
+import nosotrosYtCover from '@assets/nosotros_yt_cover.jpg';
+import salaOperacionUno from '@assets/sala_operacion_uno_cover.jpg';
+import salaOperacionDos from '@assets/sala_operacion_dos_cover.jpg';
+import salaOperacionTres from '@assets/sala_operacion_tres_cover.jpg';
+import 'swiper/css';
+import 'swiper/css/pagination';
 
 const operationRooms = [
     {
-        image: '/images/sala_operacion_uno_cover.jpg',
+        image: salaOperacionUno,
         alt: 'Sala de operaciones 1',
         video: 'https://youtu.be/javru-kTlUc?si=dVfmDz3JCeGm-j1Q',
     },
     {
-        image: '/images/sala_operacion_dos_cover.jpg',
+        image: salaOperacionDos,
         alt: 'Sala de operaciones 2',
         video: 'https://youtu.be/T4e3GY0fACY?si=Gv2kH0Q8C_x9voMd',
     },
     {
-        image: '/images/sala_operacion_tres_cover.jpg',
+        image: salaOperacionTres,
         alt: 'Sala de operaciones 3',
         video: 'https://youtu.be/tNJXQUhs4z8?si=ipI6JiPsUY5fKfjB',
     },
@@ -25,12 +32,12 @@ const operationRooms = [
             <!-- Images -->
             <div class="about-images reveal">
                 <div class="img-main">
-                    <img
-                            src="/images/nosotros_yt_cover.jpg"
+                    <Image
+                            src={nosotrosYtCover}
                             alt="Fachada Clínica Buenaventura"
                             loading="lazy"
-                            width="1280"
-                            height="720"
+                            width={1280}
+                            height={720}
                     />
                     <a
                             href="https://youtu.be/j8TyqVtGGbc?si=y_rQwEfFEDfLhpdD"
@@ -55,6 +62,7 @@ const operationRooms = [
             <!-- Text -->
             <div class="about-text reveal" style="animation-delay:0.15s">
                 <SectionTitle
+                        id="about-title"
                         label="Sobre nosotros"
                         labelHref="/nosotros"
                         title="Salud integral con calidad y calidez humana"
@@ -111,12 +119,12 @@ const operationRooms = [
                             operationRooms.map((item) => (
                                     <div class="swiper-slide">
                                         <div class="img-main">
-                                            <img
+                                            <Image
                                                     src={ item.image }
                                                     alt={ item.alt }
                                                     loading="lazy"
-                                                    width="600"
-                                                    height="480"
+                                                    width={600}
+                                                    height={480}
                                             />
 
                                             <a
@@ -147,6 +155,7 @@ const operationRooms = [
             </div>
             <div class="or-text reveal" style="animation-delay:0.15s">
                 <SectionTitle
+                        id="or-title"
                         label="Sala de operaciones"
                         title="Cirugías con seguridad y respaldo médico"
                         subtitle={
@@ -388,25 +397,39 @@ const operationRooms = [
     import Swiper from 'swiper';
     import { Pagination, Autoplay } from 'swiper/modules';
 
-    import 'swiper/css';
-    import 'swiper/css/pagination';
+    // astro:page-load dispara en la carga inicial y en cada navegación del
+    // Client Router; el módulo del script no se re-ejecuta solo, así que sin
+    // esto el carrusel deja de inicializarse al volver a esta página.
+    // Se clona el contenedor antes de inicializar: garantiza que ni el
+    // contenedor ni ninguno de sus nodos internos conserven listeners de una
+    // instancia anterior que puedan interferir con el drag/los dots.
+    function initOperationRoomSwiper() {
+        const original = document.querySelector<HTMLElement>('.operation-room-swiper');
+        if (!original) return;
+        const el = original.cloneNode(true) as HTMLElement;
+        original.replaceWith(el);
 
-    new Swiper('.operation-room-swiper', {
-        modules: [Pagination, Autoplay],
+        const instance = new Swiper(el, {
+            modules: [Pagination, Autoplay],
 
-        slidesPerView: 1,
-        spaceBetween: 0,
+            slidesPerView: 1,
+            spaceBetween: 0,
 
-        pagination: {
-            el: '.swiper-pagination',
-            clickable: true,
-        },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
 
-        autoplay: {
-            delay: 5000,
-            disableOnInteraction: false,
-        },
+            autoplay: {
+                delay: 5000,
+                disableOnInteraction: false,
+            },
 
-        loop: true,
-    });
+            loop: true,
+        });
+
+        document.addEventListener('astro:before-swap', () => instance.destroy(true, true), { once: true });
+    }
+
+    document.addEventListener('astro:page-load', initOperationRoomSwiper);
 </script>

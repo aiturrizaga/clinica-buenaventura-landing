@@ -1,8 +1,11 @@
 ---
+import { Image } from 'astro:assets';
 import PageLayout from '../../layouts/PageLayout.astro';
-import { promotions } from '@data/promotions.ts';
-
-const PHONE = '51932939530';
+import { promotions, getPromotionImage } from '@features/promotions/data';
+import { whatsappLink, WHATSAPP_MESSAGES } from '@config/social';
+import { ROUTES } from '@config/routes';
+import { buildBreadcrumbSchema } from '@lib/seo';
+import { sanitizeHtml } from '@lib/html/sanitize';
 
 export function getStaticPaths() {
     return promotions.map((promo) => ({
@@ -13,15 +16,18 @@ export function getStaticPaths() {
 
 const { promo } = Astro.props;
 const detail = promo.detail;
-
-function waLink(text: string) {
-    return `https://wa.me/${ PHONE }?text=${ encodeURIComponent(text) }`;
-}
+const promoImage = getPromotionImage(promo);
 ---
 
 <PageLayout
-        title={ `${ promo.title } | Clínica Buenaventura` }
+        title={ promo.title }
         description={ `Conoce más sobre ${ promo.title } en Clínica Buenaventura.` }
+        ogImage={ promoImage.src }
+        jsonLd={ buildBreadcrumbSchema([
+            { name: 'Inicio', url: ROUTES.home },
+            { name: 'Promociones', url: ROUTES.promociones.index },
+            { name: promo.title, url: ROUTES.promociones.detail(promo.slug) },
+        ]) }
 >
     <!-- Banner -->
     <div class="bg-linear-to-br from-primary-50 to-white py-14">
@@ -43,8 +49,8 @@ function waLink(text: string) {
 
             <!-- Imagen -->
             <div class="rounded-2xl overflow-hidden shadow-md mb-8">
-                <img
-                        src={ promo.image }
+                <Image
+                        src={ promoImage }
                         alt={ promo.title }
                         class="w-full h-auto block"
                         loading="eager"
@@ -53,7 +59,7 @@ function waLink(text: string) {
 
             <!-- CTA -->
             <div class="flex justify-center mb-10">
-                <a href={ waLink(promo.waMessage ?? `Hola, me interesa la promoción: ${ promo.title }`) }
+                <a href={ whatsappLink(promo.waMessage ?? WHATSAPP_MESSAGES.promotion(promo.title)) }
                    target="_blank"
                    rel="noopener noreferrer"
                    class="inline-flex items-center gap-2 bg-primary hover:bg-primary-dark text-white! font-bold text-base
@@ -74,7 +80,7 @@ function waLink(text: string) {
                                             <li class="flex items-center justify-start gap-3 bg-primary-50 rounded-xl px-4 py-3">
                                                 <span class="text-xl shrink-0 mt-0.5">{ item.icon }</span>
                                                 <span class="text-gray-700 text-sm leading-relaxed"
-                                                      set:html={ item.text }/>
+                                                      set:html={ sanitizeHtml(item.text) }/>
                                             </li>
                                     )) }
                                 </ul>
@@ -87,7 +93,7 @@ function waLink(text: string) {
                                     <div>
                                         <p class="text-sm font-bold text-gray-800 uppercase tracking-wide mb-1">
                                             ¡Importante!</p>
-                                        <p class="text-sm text-gray-700 leading-relaxed" set:html={ detail.important }/>
+                                        <p class="text-sm text-gray-700 leading-relaxed" set:html={ sanitizeHtml(detail.important) }/>
                                     </div>
                                 </div>
                         ) }

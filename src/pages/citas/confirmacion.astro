@@ -13,8 +13,9 @@ const detailItems = [
 ---
 
 <AppointmentLayout
-        title="¡Cita agendada! | Clínica Buenaventura"
+        title="¡Cita agendada!"
         description="Tu cita ha sido agendada con éxito."
+        noindex={true}
 >
     <section class="container py-10 md:py-16">
         <div class="mx-auto max-w-4xl">
@@ -100,7 +101,8 @@ const detailItems = [
 </AppointmentLayout>
 
 <script>
-    import { getAppointment, clearAppointment, formatLongDate, formatTime } from '@/scripts/appointmentStore';
+    import { getAppointment, clearAppointment } from '@features/appointments/store';
+    import { formatLongDate, formatTime } from '@lib/utils/date';
 
     const appointment = getAppointment();
     if (appointment) {

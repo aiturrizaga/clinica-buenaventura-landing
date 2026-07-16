@@ -1,11 +1,13 @@
 ---
 import PageLayout from '@layouts/PageLayout.astro';
-import AppointmentHeader from '@/components/appointment/AppointmentHeader.astro';
-import AppointmentDoctorCard from '@/components/appointment/AppointmentDoctorCard.astro';
-import AppointmentConfirmDialog from '@/components/appointment/AppointmentConfirmDialog.astro';
+import AppointmentHeader from '@features/appointments/components/AppointmentHeader.astro';
+import AppointmentDoctorCard from '@features/appointments/components/AppointmentDoctorCard.astro';
+import AppointmentConfirmDialog from '@features/appointments/components/AppointmentConfirmDialog.astro';
 import Loader from '@/components/ui/Loader.astro';
-import { doctors } from '@/data/doctors';
-import { getBranchBySlug } from '@/data/branches';
+import { doctors } from '@features/doctors/data';
+import { getBranchBySlug } from '@features/appointments/branches';
+import { ROUTES } from '@config/routes';
+import { SITE } from '@config/site';
 
 const params = Astro.url.searchParams;
 const branchSlug = params.get('branch') ?? 'lima-sjm';
@@ -15,8 +17,9 @@ const branch = getBranchBySlug(branchSlug);
 ---
 
 <PageLayout
-        title="Reserva de tu cita | Clínica Buenaventura"
+        title="Reserva de tu cita"
         description="Reserva tu cita médica en línea en Clínica Buenaventura."
+        canonical={`${SITE.url}${ROUTES.citas.index}`}
 >
     <AppointmentHeader branch={ branchSlug } specialty={ specialtySlug }/>
 
@@ -33,14 +36,10 @@ const branch = getBranchBySlug(branchSlug);
 </PageLayout>
 
 <script>
-    import { doctors } from '@/data/doctors';
-    import { getBranchBySlug } from '@/data/branches';
-    import {
-        saveAppointment,
-        formatDate,
-        formatTime,
-        type SelectedAppointment,
-    } from '@/scripts/appointmentStore';
+    import { doctors } from '@features/doctors/data';
+    import { getBranchBySlug } from '@features/appointments/branches';
+    import { saveAppointment, type SelectedAppointment } from '@features/appointments/store';
+    import { formatDate, formatTime } from '@lib/utils/date';
 
     // TODO: set the real next step route when defined.
     const NEXT_STEP_URL = '/citas/identificacion';

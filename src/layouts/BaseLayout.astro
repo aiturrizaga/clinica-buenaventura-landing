@@ -1,10 +1,11 @@
 ---
+import { ClientRouter } from 'astro:transitions';
 import SEOHead from '../components/seo/SEOHead.astro';
 import '../styles/global.css';
 import type { SEOProps } from '@/types';
-import GoogleAnalytics from "@components/seo/GoogleAnalytics.astro";
+import GoogleAnalytics from '@components/seo/GoogleAnalytics.astro';
 
-interface Props extends SEOProps {}
+type Props = SEOProps;
 
 const seoProps = Astro.props;
 ---
@@ -22,24 +23,29 @@ const seoProps = Astro.props;
       rel="stylesheet"
     />
     <SEOHead {...seoProps} />
-    <title>Clinica Buenaventura</title>
+    <ClientRouter />
     { import.meta.env.PROD && <GoogleAnalytics /> }
   </head>
   <body>
     <slot />
 
-    <!-- Scroll reveal -->
+    <!-- Scroll reveal: re-observado en cada navegación del Client Router -->
     <script>
-      const io = new IntersectionObserver(
-        (entries) => entries.forEach(e => {
-          if (e.isIntersecting) {
-            e.target.classList.add('visible');
-            io.unobserve(e.target);
-          }
-        }),
-        { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
-      );
-      document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+      function initScrollReveal() {
+        const io = new IntersectionObserver(
+          (entries) => entries.forEach(e => {
+            if (e.isIntersecting) {
+              e.target.classList.add('visible');
+              io.unobserve(e.target);
+            }
+          }),
+          { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
+        );
+        document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+      }
+
+      // astro:page-load dispara también en la carga inicial, no solo tras transiciones.
+      document.addEventListener('astro:page-load', initScrollReveal);
     </script>
   </body>
 </html>

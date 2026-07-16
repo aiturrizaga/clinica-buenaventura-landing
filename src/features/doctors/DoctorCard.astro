@@ -1,0 +1,114 @@
+---
+import { Image } from 'astro:assets';
+import type { Doctor } from './types';
+import { whatsappLink, WHATSAPP_MESSAGES } from '@config/social';
+import { getDoctorPhoto } from './data';
+
+interface Props {
+    doctor: Doctor;
+    compact?: boolean;
+}
+const { doctor, compact = false } = Astro.props;
+
+function waDoctorLink(doctor: Doctor) {
+    const desc = `${ doctor.title } ${ doctor.name } de ${ doctor.specialty }`;
+    return whatsappLink(WHATSAPP_MESSAGES.doctor(desc));
+}
+---
+<article class:list={ ['doctor-card card', compact && 'compact'] }
+         aria-label={ `${ doctor.title } ${ doctor.name }, ${ doctor.specialty }` }>
+    <!-- <a href={`/medicos/${doctor.slug}`} class="doctor-card-link"> -->
+    <div class="doctor-card-link">
+        <div class="doctor-photo">
+            <a href={ waDoctorLink(doctor) } target="_blank" rel="noopener noreferrer">
+                <Image
+                        src={ getDoctorPhoto(doctor) }
+                        alt={ `Foto de ${ doctor.title } ${ doctor.name }` }
+                        loading="lazy"
+                        decoding="async"
+                        width={ 300 }
+                        height={ 380 }
+                />
+            </a>
+        </div>
+        <div class="doctor-info">
+            <p class="doctor-specialty">{ doctor.specialty }</p>
+            <h3 class="doctor-name">
+                <a href={ waDoctorLink(doctor) } target="_blank" rel="noopener noreferrer">
+                    { doctor.title } { doctor.name }
+                </a>
+            </h3>
+            <p class="doctor-cmp">CMP { doctor.cmp }</p>
+        </div>
+    </div>
+</article>
+
+<style>
+    .doctor-card {
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .doctor-card:hover {
+        transform: translateY(-4px);
+    }
+
+    .doctor-card-link {
+        display: block;
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .doctor-photo {
+        aspect-ratio: 3/3;
+        overflow: hidden;
+        background: var(--color-surface);
+    }
+
+    .compact .doctor-photo {
+        aspect-ratio: 4/3;
+    }
+
+    .doctor-photo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top;
+        transition: transform 0.5s;
+    }
+
+    .compact .doctor-photo img {
+        object-position: center 15%;
+    }
+
+    .doctor-card:hover .doctor-photo img {
+        transform: scale(1.04);
+    }
+
+    .doctor-info {
+        padding: 1.125rem 1.25rem 1.25rem;
+    }
+
+    .doctor-specialty {
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--color-primary);
+        margin: 0 0 0.25rem;
+    }
+
+    .doctor-name {
+        font-size: 1rem;
+        font-weight: 700;
+        color: var(--color-text);
+        margin: 0 0 0.2rem;
+        line-height: 1.3;
+    }
+
+    .doctor-cmp {
+        font-size: 0.75rem;
+        color: var(--color-text-light);
+        margin: 0 0 0.625rem;
+    }
+
+</style>

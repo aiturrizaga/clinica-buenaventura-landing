@@ -5,7 +5,7 @@ import Footer from '../components/layout/Footer.astro';
 import FloatingWhatsApp from '../components/ui/FloatingWhatsApp.astro';
 import type { SEOProps } from '@/types';
 
-interface Props extends SEOProps {}
+type Props = SEOProps;
 ---
 <BaseLayout {...Astro.props}>
   <Header />
@@ -13,5 +13,5 @@ interface Props extends SEOProps {}
     <slot />
   </main>
   <Footer />
-  <FloatingWhatsApp phone="51932939530" />
+  <FloatingWhatsApp />
 </BaseLayout>

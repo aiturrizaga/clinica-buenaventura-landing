@@ -1,7 +1,7 @@
 ---
 import SectionTitle from '../../components/ui/SectionTitle.astro';
-import SpecialtyCard from '../../components/cards/SpecialtyCard.astro';
-import { getFeaturedSpecialties } from '@data/specialties.ts';
+import SpecialtyCard from '@features/specialties/SpecialtyCard.astro';
+import { getFeaturedSpecialties } from '@features/specialties/data';
 
 const specs = getFeaturedSpecialties();
 ---
@@ -11,6 +11,7 @@ const specs = getFeaturedSpecialties();
 
         <div class="mb-10 reveal">
             <SectionTitle
+                    id="specs-title"
                     label="Especialidades"
                     title="Atención especializada para cada necesidad"
                     subtitle="Más de 20 especialidades con los mejores profesionales del país."

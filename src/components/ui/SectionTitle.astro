@@ -1,5 +1,8 @@
 ---
+import { sanitizeHtml } from '@lib/html/sanitize';
+
 interface Props {
+    id?: string;
     label?: string;
     labelHref?: string;
     title: string;
@@ -9,6 +12,7 @@ interface Props {
     class?: string;
 }
 const {
+    id,
     label,
     labelHref,
     title,
@@ -21,8 +25,8 @@ const {
 <div class:list={ ['section-title', `align-${ align }`, light && 'light', 'reveal', cls] }>
     { label && !labelHref && <span class="label">{ label }</span> }
     { label && labelHref && <a href={ labelHref } class="label underline!">{ label }</a> }
-    <h2 class="title">{ title }</h2>
-    { subtitle && <p class="subtitle" set:html={ subtitle }></p> }
+    <h2 id={ id } class="title">{ title }</h2>
+    { subtitle && <p class="subtitle" set:html={ sanitizeHtml(subtitle) }></p> }
 </div>
 
 <style>

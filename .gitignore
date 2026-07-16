@@ -4,6 +4,7 @@ dist/
 
 # Generated files
 .astro/
+*.tsbuildinfo
 
 # Dependencies
 node_modules/
@@ -16,6 +17,7 @@ npm-debug.log*
 .env
 .env.local
 .env.production
+.env.*.local
 
 # OS
 .DS_Store

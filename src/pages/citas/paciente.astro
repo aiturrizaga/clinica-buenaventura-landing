@@ -1,6 +1,6 @@
 ---
 import AppointmentLayout from '@/layouts/AppointmentLayout.astro';
-import AppointmentSummary from '@/components/appointment/AppointmentSummary.astro';
+import AppointmentSummary from '@features/appointments/components/AppointmentSummary.astro';
 
 const tabClassBase =
     'relative -mb-px border-b-2 px-1 pb-3 pt-2 text-base font-medium transition-colors';
@@ -10,8 +10,9 @@ const valueClass = 'm-0 text-text';
 ---
 
 <AppointmentLayout
-        title="¿Para quién es la cita? | Clínica Buenaventura"
+        title="¿Para quién es la cita?"
         description="Confirma los datos del paciente para reservar tu cita."
+        noindex={true}
 >
     <section class="container py-10 md:py-16">
         <div class="mx-auto grid max-w-4xl gap-6 lg:grid-cols-[1fr_340px]">
@@ -91,7 +92,7 @@ const valueClass = 'm-0 text-text';
 </AppointmentLayout>
 
 <script>
-    import { getAppointment, saveAppointment } from '@/scripts/appointmentStore';
+    import { getAppointment, saveAppointment } from '@features/appointments/store';
 
     const CONFIRMATION_URL = '/citas/confirmacion';
 

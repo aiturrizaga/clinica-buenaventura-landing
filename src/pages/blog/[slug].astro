@@ -1,6 +1,8 @@
 ---
 import BlogLayout from '../../layouts/BlogLayout.astro';
-import { blogPosts, getPostBySlug } from '@data/blog.ts';
+import { blogPosts, getPostBySlug } from '@features/blog/data';
+import { renderMarkdown } from '@features/blog/markdown';
+import { ROUTES } from '@config/routes';
 
 export async function getStaticPaths() {
   return blogPosts.map(p => ({ params: { slug: p.slug } }));
@@ -50,7 +52,7 @@ function formatDate(d: string) {
         </div>
 
         <!-- Content -->
-        <div class="prose post-content" set:html={post.content.replace(/\n\n/g,'</p><p>').replace(/\n## /g,'</p><h2>').replace(/\n### /g,'</p><h3>')} />
+        <div class="prose post-content" set:html={renderMarkdown(post.content)} />
 
         <!-- Tags -->
         <div class="tags">
@@ -65,7 +67,7 @@ function formatDate(d: string) {
         <div class="sidebar-card">
           <h3 class="sidebar-title">¿Necesitas atención?</h3>
           <p style="font-size:0.875rem;color:var(--color-text-muted);margin:0 0 1rem">Agenda tu cita con nuestros especialistas.</p>
-          <a href="/agendar-cita" class="btn btn-primary btn-md" style="width:100%;justify-content:center">Agendar cita</a>
+          <a href={ROUTES.citas.index} class="btn btn-primary btn-md" style="width:100%;justify-content:center">Agendar cita</a>
         </div>
         <div class="sidebar-card">
           <h3 class="sidebar-title">Especialidades</h3>

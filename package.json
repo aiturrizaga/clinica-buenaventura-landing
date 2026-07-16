@@ -2,22 +2,39 @@
   "name": "clinica-buenaventura",
   "type": "module",
   "version": "1.0.0",
+  "engines": {
+    "node": ">=22.12.0"
+  },
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "typecheck": "astro check",
+    "lint": "eslint . --ext .js,.ts,.astro",
+    "format": "prettier --write \"**/*.{js,ts,astro,md,json}\""
   },
   "dependencies": {
-    "@astrojs/sitemap": "^3.1.6",
+    "@astrojs/sitemap": "^3.7.3",
     "@tabler/icons-webfont": "^3.44.0",
-    "@tailwindcss/vite": "^4.0.0",
-    "astro": "^4.16.0",
-    "swiper": "^11.1.14",
-    "tailwindcss": "^4.0.0"
+    "@tailwindcss/vite": "^4.3.2",
+    "astro": "^7.0.9",
+    "marked": "^18.0.6",
+    "sanitize-html": "^2.17.6",
+    "swiper": "^14.0.5",
+    "tailwindcss": "^4.3.2"
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.9",
     "@types/node": "^22.0.0",
-    "typescript": "^5.6.0"
+    "@types/sanitize-html": "^2.16.1",
+    "eslint": "^10.7.0",
+    "eslint-plugin-astro": "^3.0.1",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "prettier": "^3.9.5",
+    "prettier-plugin-astro": "^0.14.1",
+    "prettier-plugin-tailwindcss": "^0.8.1",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.64.0"
   }
 }

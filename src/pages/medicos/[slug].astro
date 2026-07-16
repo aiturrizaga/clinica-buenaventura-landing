@@ -1,7 +1,9 @@
 ---
+import { Image } from 'astro:assets';
 import PageLayout from '../../layouts/PageLayout.astro';
-import { doctors, getDoctorBySlug } from '../../data/doctors';
-import { buildDoctorSchema } from '../../utils/seo';
+import { doctors, getDoctorBySlug, getSpecialtySlugFor, getDoctorPhoto } from '@features/doctors/data';
+import { buildDoctorSchema, buildBreadcrumbSchema } from '@lib/seo';
+import { ROUTES } from '@config/routes';
 
 export async function getStaticPaths() {
   return doctors.map(d => ({ params: { slug: d.slug } }));
@@ -10,13 +12,24 @@ export async function getStaticPaths() {
 const { slug } = Astro.params;
 const doctor = getDoctorBySlug(slug!);
 if (!doctor) return Astro.redirect('/404');
+
+const specialtySlug = getSpecialtySlugFor(doctor);
+const citasHref = specialtySlug ? `${ROUTES.citas.index}?specialty=${specialtySlug}` : ROUTES.citas.index;
+const doctorPhoto = getDoctorPhoto(doctor);
 ---
 <PageLayout
-  title={`${doctor.title} ${doctor.name} | ${doctor.specialty} | Clínica Buenaventura`}
+  title={`${doctor.title} ${doctor.name} | ${doctor.specialty}`}
   description={doctor.bio}
-  ogImage={doctor.photo}
+  ogImage={doctorPhoto.src}
   ogType="profile"
-  jsonLd={buildDoctorSchema(doctor)}
+  jsonLd={[
+    buildDoctorSchema(doctor),
+    buildBreadcrumbSchema([
+      { name: 'Inicio', url: ROUTES.home },
+      { name: 'Médicos', url: ROUTES.medicos.index },
+      { name: `${doctor.title} ${doctor.name}`, url: ROUTES.medicos.detail(doctor.slug) },
+    ]),
+  ]}
 >
   <section class="section-py" style="background:#fff">
     <div class="container">
@@ -30,9 +43,9 @@ if (!doctor) return Astro.redirect('/404');
         <!-- Photo sidebar -->
         <aside class="doc-photo-col reveal">
           <div class="doc-photo-wrap">
-            <img src={doctor.photo} alt={`${doctor.title} ${doctor.name}`} width="400" height="500" loading="eager" />
+            <Image src={doctorPhoto} alt={`${doctor.title} ${doctor.name}`} width={400} height={500} loading="eager" />
           </div>
-          <a href={`/agendar-cita?doctor=${doctor.slug}`} class="btn btn-primary btn-lg" style="width:100%;justify-content:center;margin-top:1.25rem">
+          <a href={citasHref} class="btn btn-primary btn-lg" style="width:100%;justify-content:center;margin-top:1.25rem">
             Agendar cita
           </a>
 

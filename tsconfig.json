@@ -6,9 +6,10 @@
       "@/*": ["src/*"],
       "@components/*": ["src/components/*"],
       "@layouts/*": ["src/layouts/*"],
-      "@data/*": ["src/data/*"],
-      "@utils/*": ["src/utils/*"],
-      "@sections/*": ["src/sections/*"]
+      "@features/*": ["src/features/*"],
+      "@config/*": ["src/config/*"],
+      "@lib/*": ["src/lib/*"],
+      "@assets/*": ["src/assets/*"]
     }
   }
 }

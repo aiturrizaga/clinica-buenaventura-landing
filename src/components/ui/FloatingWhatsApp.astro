@@ -1,11 +1,14 @@
 ---
+import { SITE } from '@config/site';
+import { WHATSAPP_MESSAGES } from '@config/social';
+
 interface Props {
-    phone: string;
+    phone?: string;
     message?: string;
 }
 const {
-    phone,
-    message = 'Hola Clínica Buenaventura, vengo de la página web y requiero una consulta médica.'
+    phone = SITE.contact.whatsapp,
+    message = WHATSAPP_MESSAGES.general,
 } = Astro.props;
 const cleanPhone = phone.replace(/\D/g, '');
 const waUrl = `https://wa.me/${ cleanPhone }?text=${ encodeURIComponent(message) }`;

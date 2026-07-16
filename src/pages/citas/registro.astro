@@ -1,6 +1,6 @@
 ---
 import AppointmentLayout from '@/layouts/AppointmentLayout.astro';
-import AppointmentSummary from '@/components/appointment/AppointmentSummary.astro';
+import AppointmentSummary from '@features/appointments/components/AppointmentSummary.astro';
 
 const labelClass = 'mb-1.5 block text-sm font-medium text-text';
 const selectWrap = 'relative';
@@ -8,8 +8,9 @@ const chevron = 'ti ti-chevron-down pointer-events-none absolute right-3 top-1/2
 ---
 
 <AppointmentLayout
-        title="Crea tu cuenta | Clínica Buenaventura"
+        title="Crea tu cuenta"
         description="Regístrate para continuar con la reserva de tu cita."
+        noindex={true}
 >
     <section class="container py-10 md:py-16">
         <div class="mx-auto grid max-w-4xl gap-6 lg:grid-cols-[1fr_340px]">
@@ -119,7 +120,7 @@ const chevron = 'ti ti-chevron-down pointer-events-none absolute right-3 top-1/2
 </AppointmentLayout>
 
 <script>
-    import { getAppointment, saveAppointment, type PatientAccount } from '@/scripts/appointmentStore';
+    import { getAppointment, saveAppointment, type PatientAccount } from '@features/appointments/store';
 
     const VERIFICATION_URL = '/citas/verificacion';
 

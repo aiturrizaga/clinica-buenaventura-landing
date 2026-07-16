@@ -1,5 +1,6 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
+import { SITE } from '@config/site';
 
 const values = [
     {
@@ -25,7 +26,7 @@ const values = [
 ];
 ---
 <PageLayout
-        title="Nosotros | Clínica Buenaventura"
+        title="Nosotros"
         description="Conoce la misión, visión y valores de Clínica Buenaventura."
         jsonLd={ {
             '@context': 'https://schema.org',
@@ -107,7 +108,7 @@ const values = [
             <p class="text-white/75 text-base mb-8 max-w-md mx-auto">
                 Agenda tu cita hoy y experimenta la excelencia médica de Clínica Buenaventura.
             </p>
-            <a href="https://wa.me/51932939530" class="btn btn-white btn-lg">Agendar mi cita</a>
+            <a href={ `https://wa.me/${ SITE.contact.whatsapp }` } class="btn btn-white btn-lg">Agendar mi cita</a>
         </div>
     </section>
 </PageLayout>

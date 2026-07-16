@@ -1,0 +1,98 @@
+---
+import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
+import { whatsappLink } from '@config/social';
+
+interface Props {
+    image: ImageMetadata;
+    alt?: string;
+    waMessage?: string;
+}
+
+const {
+    image,
+    alt = 'Promoción Clínica Buenaventura',
+    waMessage,
+} = Astro.props;
+---
+
+<!-- Overlay -->
+<div id="promo-overlay" style="opacity: 0"
+     class="fixed inset-0 z-200 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+
+    <!-- Modal -->
+    <div class="relative w-full max-w-lg md:max-w-3xl lg:max-w-5xl rounded-2xl overflow-hidden shadow-2xl">
+
+        <!-- Close button -->
+        <button
+                id="promo-close"
+                aria-label="Cerrar promoción"
+                class="absolute top-3 right-3 z-10 size-10 cursor-pointer rounded-full bg-white text-gray-800 border border-gray-300 flex items-center justify-center shadow-lg hover:bg-gray-100 transition-colors duration-200"
+        >
+            <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"
+                 aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+        </button>
+
+        <!-- Imagen -->
+        { waMessage ? (
+                <a href={ whatsappLink(waMessage) } target="_blank" rel="noopener noreferrer">
+                    <Image
+                            src={ image }
+                            alt={ alt }
+                            class="w-full h-auto block"
+                            loading="eager"
+                    />
+                </a>
+        ) : (
+                <Image
+                        src={ image }
+                        alt={ alt }
+                        class="w-full h-auto block"
+                        loading="eager"
+                />
+        ) }
+    </div>
+</div>
+
+<script>
+    // astro:page-load dispara en la carga inicial y en cada navegación del
+    // Client Router; el módulo del script no se re-ejecuta solo. Sin esto,
+    // al volver a esta página el overlay se re-renderiza desde el servidor
+    // (siempre presente en el HTML, fixed inset-0) pero se queda invisible,
+    // sin el botón de cerrar conectado y cubriendo toda la pantalla con el
+    // link de WhatsApp — bloqueando cualquier clic en la página.
+    function initPromoPopup() {
+        const overlay = document.getElementById('promo-overlay');
+        const closeBtn = document.getElementById('promo-close');
+        if (!overlay || !closeBtn) return;
+
+        if (sessionStorage.getItem('promo-seen')) {
+            overlay.remove();
+            return;
+        }
+
+        function close() {
+            sessionStorage.setItem('promo-seen', '1');
+            overlay!.style.opacity = '0';
+            setTimeout(() => overlay!.remove(), 350);
+        }
+
+        closeBtn.addEventListener('click', close);
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) close();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') close();
+        });
+
+        overlay.style.opacity = '0';
+        overlay.style.transition = 'opacity 0.35s ease';
+        setTimeout(() => {
+            overlay.style.opacity = '1';
+        }, 600);
+    }
+
+    document.addEventListener('astro:page-load', initPromoPopup);
+</script>
