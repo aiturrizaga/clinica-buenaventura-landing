@@ -1,0 +1,75 @@
+@theme {
+    /* Colors */
+    --color-primary: #15489d;
+    --color-primary-dark: #0d3578;
+    --color-primary-light: #2d6bc4;
+    --color-primary-50: #eef3fc;
+    --color-primary-100: #cddaf5;
+    --color-surface: #F5F7FB;
+    --color-surface-card: #FFFFFF;
+    --color-footer: #0D1526;
+
+    --color-text: #1A1A2E;
+    --color-text-muted: #6B7280;
+    --color-text-light: #9CA3AF;
+
+    --color-success: #10B981;
+    --color-warning: #F59E0B;
+    --color-danger: #EF4444;
+    --color-green-500: #22C55E;
+    --color-green-600: #16A34A;
+    --color-purple-light: #EDE9FE;
+    --color-purple-dark: #5B21B6;
+
+    /* Radius */
+    --radius-sm: 0.375rem;
+    --radius-md: 0.625rem;
+    --radius-lg: 1rem;
+    --radius-xl: 1.25rem;
+    --radius-2xl: 1.5rem;
+    --radius-3xl: 2rem;
+    --radius-full: 9999px;
+
+    /* Shadows — color-mix against --color-primary so elevation stays in sync with the brand color */
+    --shadow-soft: 0 2px 12px rgba(0, 0, 0, 0.06);
+    --shadow-card: 0 4px 24px color-mix(in srgb, var(--color-primary) 8%, transparent);
+    --shadow-card-hover: 0 8px 40px color-mix(in srgb, var(--color-primary) 16%, transparent);
+    --shadow-elevated: 0 24px 48px color-mix(in srgb, var(--color-primary) 12%, transparent);
+    --shadow-btn: 0 4px 14px color-mix(in srgb, var(--color-primary) 35%, transparent);
+
+    /* Font */
+    --font-sans: 'Inter', system-ui, sans-serif;
+
+    /* Reveal-on-scroll (used by .reveal in base.css, driven by BaseLayout's IntersectionObserver) */
+    --animate-fade-up: fadeUp 0.55s ease-out both;
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(24px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/*
+ * Motion and stacking values below aren't Tailwind theme namespaces (Tailwind
+ * doesn't extend duration/z-index the same way it does color/radius/shadow),
+ * so they're declared as plain custom properties for use inside component
+ * <style> blocks and arbitrary-value utilities (e.g. z-[var(--z-overlay)]).
+ * Utility-class usage (duration-200, z-50) is fine as-is and doesn't need to
+ * reference these — they exist to give scoped CSS a shared vocabulary instead
+ * of ad hoc numbers.
+ */
+:root {
+    --duration-fast: 150ms;
+    --duration-base: 250ms;
+    --duration-slow: 400ms;
+
+    /* Single source of truth for stacking order across the site. */
+    --z-header: 50;
+    --z-overlay: 200;
+}

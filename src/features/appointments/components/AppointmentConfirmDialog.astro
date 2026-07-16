@@ -1,5 +1,6 @@
 ---
 import ConfirmDialog from '@/components/ui/ConfirmDialog.astro';
+import Button from '@/components/ui/Button.astro';
 
 interface Props {
     id?: string;
@@ -24,7 +25,6 @@ const rows = [
 const rowClass = 'grid grid-cols-[120px_1fr] items-start gap-3';
 const labelClass = 'text-[0.95rem] text-text-muted';
 const valueClass = 'm-0 text-[0.95rem] font-semibold text-text';
-const pillBtn = 'rounded-full px-6 py-3 text-base font-semibold transition-colors';
 ---
 
 <ConfirmDialog id={ id }>
@@ -50,19 +50,11 @@ const pillBtn = 'rounded-full px-6 py-3 text-base font-semibold transition-color
     </dl>
 
     <Fragment slot="actions">
-        <button
-                type="button"
-                class={ `${ pillBtn } cursor-pointer border-2 border-primary bg-white text-primary hover:bg-primary-50` }
-                data-action="cancel"
-        >
+        <Button type="button" variant="outline" size="lg" data-action="cancel">
             { cancelText }
-        </button>
-        <button
-                type="button"
-                class={ `${ pillBtn } cursor-pointer border-2 border-transparent bg-primary text-white hover:bg-primary-dark` }
-                data-action="confirm"
-        >
+        </Button>
+        <Button type="button" variant="primary" size="lg" data-action="confirm">
             { confirmText }
-        </button>
+        </Button>
     </Fragment>
 </ConfirmDialog>

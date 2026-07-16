@@ -1,6 +1,8 @@
 ---
 import AppointmentLayout from '@/layouts/AppointmentLayout.astro';
 import AppointmentSummary from '@features/appointments/components/AppointmentSummary.astro';
+import Card from '@/components/ui/Card.astro';
+import Button from '@/components/ui/Button.astro';
 
 const otpBoxClass =
     'size-14 rounded-xl border-[1.5px] border-primary-100 text-center text-2xl font-semibold text-text outline-none transition-colors focus:border-primary';
@@ -14,7 +16,7 @@ const otpBoxClass =
     <section class="container py-10 md:py-16">
         <div class="mx-auto grid max-w-4xl gap-6 lg:grid-cols-[1fr_340px]">
             <!-- Verification card -->
-            <div class="card p-7 text-center md:p-9">
+            <Card padding="lg" class="text-center">
                 <div class="mx-auto mb-5 flex size-16 items-center justify-center rounded-full bg-primary-50">
                     <i class="ti ti-shield-lock text-3xl text-primary"></i>
                 </div>
@@ -35,29 +37,21 @@ const otpBoxClass =
                 </div>
 
                 <div class="mx-auto flex max-w-sm flex-col gap-3">
-                    <button
-                            type="button"
-                            id="resend-email"
-                            class="cursor-pointer inline-flex items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 font-semibold text-white transition-colors hover:bg-primary-dark"
-                    >
+                    <Button type="button" id="resend-email" size="md">
                         <i class="ti ti-mail"></i>
                         Reenviar correo electrónico
-                    </button>
-                    <button
-                            type="button"
-                            id="send-sms"
-                            class="cursor-pointer inline-flex items-center justify-center gap-2 rounded-full border-2 border-primary bg-white px-6 py-3 font-semibold text-primary transition-colors hover:bg-primary-50"
-                    >
+                    </Button>
+                    <Button type="button" id="send-sms" variant="outline" size="md">
                         <i class="ti ti-device-mobile"></i>
                         Enviar al celular 92*****67
-                    </button>
+                    </Button>
                 </div>
 
                 <p class="mt-7 text-sm text-text-muted">
                     Si no reconoces tu correo o celular, llama al
                     <strong class="text-text">(01) 715 4600</strong> para actualizar tus datos.
                 </p>
-            </div>
+            </Card>
 
             <!-- Summary -->
             <AppointmentSummary class="h-fit"/>

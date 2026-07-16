@@ -6,7 +6,7 @@ import { ROUTES } from '@config/routes';
 const year = new Date().getFullYear();
 ---
 
-<footer class="bg-[#0D1526] text-white/65 pt-16 pb-10 mt-auto">
+<footer class="bg-footer text-white/65 pt-16 pb-10 mt-auto">
     <div class="container">
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.6fr_1fr_1fr_1.4fr] gap-10 mb-12">
 
@@ -70,8 +70,6 @@ const year = new Date().getFullYear();
                         ['Inicio', ROUTES.home],
                         ['Nosotros', ROUTES.nosotros],
                         ['Especialidades', ROUTES.especialidades.index],
-                        // ['Servicios', ROUTES.servicios],
-
                         ['Médicos', ROUTES.medicos.index],
                         ['Promociones', ROUTES.promociones.index],
                         ['Trabaja con Nosotros', ROUTES.trabajaConNosotros],
@@ -148,9 +146,6 @@ const year = new Date().getFullYear();
                 <dl class="flex flex-col gap-1.5">
                     { [
                         [SITE.hours.label, SITE.hours.display, false],
-                        // ['Sábados', '7:00 am – 1:00 pm', false],
-                        // ['Urgencias', '24 horas', true],
-
                     ].map(([dt, dd, highlight]) => (
                             <div class="flex justify-between text-[0.8125rem]">
                                 <dt class="text-white/50">{ dt }</dt>
@@ -164,14 +159,6 @@ const year = new Date().getFullYear();
         <!-- Bottom -->
         <div class="pt-6 border-t border-white/8 flex flex-col sm:flex-row items-center justify-between gap-3 text-[0.8125rem] text-white/35">
             <p class="m-0">© { year } Clínica Buenaventura. Todos los derechos reservados.</p>
-            <!--<div class="flex gap-6">-->
-            <!--    <a href="/politica-privacidad"-->
-            <!--       class="text-white/35 hover:text-white/70 transition-colors duration-200 no-underline">Política de-->
-            <!--        privacidad</a>-->
-            <!--    <a href="/terminos"-->
-            <!--       class="text-white/35 hover:text-white/70 transition-colors duration-200 no-underline">Términos de-->
-            <!--        uso</a>-->
-            <!--</div>-->
         </div>
     </div>
 </footer>

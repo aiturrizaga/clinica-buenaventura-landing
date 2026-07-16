@@ -1,0 +1,50 @@
+---
+interface Props {
+    id: string;
+    type?: 'text' | 'email' | 'tel' | 'password' | 'number' | 'search' | 'url' | 'date';
+    name?: string;
+    value?: string;
+    placeholder?: string;
+    autocomplete?: string;
+    inputmode?: 'text' | 'numeric' | 'tel' | 'email' | 'decimal' | 'search' | 'url' | 'none';
+    maxlength?: number;
+    required?: boolean;
+    disabled?: boolean;
+    readonly?: boolean;
+    ariaLabel?: string;
+    inputClass?: string;
+    class?: string;
+}
+
+const {
+    id,
+    type = 'text',
+    name,
+    value,
+    placeholder,
+    autocomplete,
+    inputmode,
+    maxlength,
+    required = false,
+    disabled = false,
+    readonly = false,
+    ariaLabel,
+    inputClass = 'form-input',
+    class: cls = '',
+} = Astro.props;
+---
+<input
+        id={ id }
+        type={ type }
+        name={ name }
+        value={ value }
+        placeholder={ placeholder }
+        autocomplete={ autocomplete }
+        inputmode={ inputmode }
+        maxlength={ maxlength }
+        required={ required }
+        disabled={ disabled }
+        readonly={ readonly }
+        aria-label={ ariaLabel }
+        class:list={ [inputClass, cls] }
+/>

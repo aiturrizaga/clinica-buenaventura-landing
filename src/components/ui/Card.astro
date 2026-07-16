@@ -1,0 +1,23 @@
+---
+interface Props {
+    padding?: 'none' | 'sm' | 'md' | 'lg';
+    as?: 'div' | 'article' | 'aside' | 'section';
+    class?: string;
+}
+
+const {
+    padding = 'md',
+    as: Tag = 'div',
+    class: cls = '',
+} = Astro.props;
+
+const paddings: Record<NonNullable<Props['padding']>, string> = {
+    none: '',
+    sm: 'p-5',
+    md: 'p-6 md:p-7',
+    lg: 'p-7 md:p-9',
+};
+---
+<Tag class:list={ ['card', paddings[padding], cls] }>
+    <slot/>
+</Tag>

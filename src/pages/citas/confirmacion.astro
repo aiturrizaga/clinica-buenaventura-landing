@@ -1,5 +1,7 @@
 ---
 import AppointmentLayout from '@/layouts/AppointmentLayout.astro';
+import Card from '@/components/ui/Card.astro';
+import Button from '@/components/ui/Button.astro';
 
 const detailItems = [
     { label: 'Paciente', field: 'patient' },
@@ -40,7 +42,7 @@ const detailItems = [
 
             <div class="grid gap-6 md:grid-cols-[1.2fr_1fr]">
                 <!-- Detail -->
-                <div class="card p-7">
+                <Card padding="lg">
                     <dl class="grid grid-cols-2 gap-x-6 gap-y-5">
                         { detailItems.map((item) => (
                                 <div>
@@ -51,10 +53,10 @@ const detailItems = [
                                 </div>
                         )) }
                     </dl>
-                </div>
+                </Card>
 
                 <!-- Info -->
-                <aside class="card p-6">
+                <Card as="aside" padding="md">
                     <p class="mb-4 flex items-center gap-2 font-bold text-primary">
                         <i class="ti ti-info-circle text-lg"></i>
                         Indicaciones para tu cita
@@ -75,26 +77,18 @@ const detailItems = [
                             Al pagar por la web · Consultas ambulatorias particulares
                         </p>
                     </div>
-                </aside>
+                </Card>
             </div>
 
             <!-- Actions -->
             <div class="mt-8 flex flex-wrap gap-3">
-                <button
-                        type="button"
-                        id="pay-btn"
-                        class="cursor-pointer inline-flex items-center justify-center gap-2 rounded-full bg-primary px-7 py-3.5 font-semibold text-white transition-colors hover:bg-primary-dark"
-                >
+                <Button type="button" id="pay-btn" size="lg">
                     <i class="ti ti-credit-card"></i>
                     Pagar ahora
-                </button>
-                <a
-                        href="/"
-                        id="home-link"
-                        class="cursor-pointer inline-flex items-center justify-center gap-2 rounded-full border-2 border-primary bg-white px-7 py-3.5 font-semibold text-primary transition-colors hover:bg-primary-50"
-                >
+                </Button>
+                <Button href="/" id="home-link" variant="outline" size="lg">
                     Ir a inicio
-                </a>
+                </Button>
             </div>
         </div>
     </section>

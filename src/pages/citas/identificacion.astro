@@ -1,6 +1,11 @@
 ---
 import AppointmentLayout from '@/layouts/AppointmentLayout.astro';
 import AppointmentSummary from '@features/appointments/components/AppointmentSummary.astro';
+import Card from '@/components/ui/Card.astro';
+import FormField from '@/components/ui/FormField.astro';
+import Select from '@/components/ui/Select.astro';
+import Input from '@/components/ui/Input.astro';
+import Button from '@/components/ui/Button.astro';
 ---
 
 <AppointmentLayout
@@ -11,7 +16,7 @@ import AppointmentSummary from '@features/appointments/components/AppointmentSum
     <section class="container py-10 md:py-16">
         <div class="mx-auto grid max-w-4xl gap-6 lg:grid-cols-[1fr_340px]">
             <!-- Form card -->
-            <div class="card p-7 md:p-9">
+            <Card padding="lg">
                 <p class="mb-1 text-sm font-semibold text-primary">Reserva de cita</p>
                 <h1 class="mb-2 text-2xl font-bold text-text md:text-3xl">
                     Identifícate para continuar
@@ -21,51 +26,34 @@ import AppointmentSummary from '@features/appointments/components/AppointmentSum
                 </p>
 
                 <div class="grid gap-4 sm:grid-cols-[150px_1fr]">
-                    <div>
-                        <label class="mb-1.5 block text-sm font-medium text-text" for="document-type">
-                            Tipo de documento
-                        </label>
-                        <div class="relative">
-                            <select
-                                    id="document-type"
-                                    class="form-input appearance-none pr-10"
-                            >
-                                <option>D.N.I</option>
-                                <option>C.E</option>
-                                <option>Pasaporte</option>
-                            </select>
-                            <i class="ti ti-chevron-down pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-primary"></i>
-                        </div>
-                    </div>
+                    <FormField label="Tipo de documento" for="document-type">
+                        <Select id="document-type">
+                            <option>D.N.I</option>
+                            <option>C.E</option>
+                            <option>Pasaporte</option>
+                        </Select>
+                    </FormField>
 
-                    <div>
-                        <label class="mb-1.5 block text-sm font-medium text-text" for="document-number">
-                            N° de documento
-                        </label>
-                        <input
+                    <FormField label="N° de documento" for="document-number">
+                        <Input
                                 id="document-number"
                                 type="text"
                                 inputmode="numeric"
-                                maxlength="12"
+                                maxlength={12}
                                 placeholder="Ej. 44324600"
-                                class="form-input"
                         />
-                    </div>
+                    </FormField>
                 </div>
 
                 <p id="document-error" class="mt-2 hidden text-sm text-danger">
                     Ingresa un número de documento válido.
                 </p>
 
-                <button
-                        type="button"
-                        id="continue-btn"
-                        class="cursor-pointer mt-7 inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary px-6 py-3.5 font-semibold text-white transition-colors hover:bg-primary-dark sm:w-auto"
-                >
+                <Button type="button" id="continue-btn" size="lg" class="mt-7 w-full sm:w-auto">
                     Continuar
                     <i class="ti ti-arrow-right"></i>
-                </button>
-            </div>
+                </Button>
+            </Card>
 
             <!-- Summary -->
             <AppointmentSummary class="h-fit"/>

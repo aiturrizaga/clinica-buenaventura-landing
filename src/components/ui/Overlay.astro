@@ -1,0 +1,120 @@
+---
+// Shared full-screen overlay shell: backdrop, z-index, focus trap and focus
+// restore for Loader, ConfirmDialog and PromoPopup. Open/close stays driven
+// by the `hidden` class (toggled by each consumer's own script) so existing
+// call sites don't need a new API — this component only adds the shell and
+// the accessibility behavior around it.
+interface Props {
+    id: string;
+    labelledby?: string;
+    describedby?: string;
+    ariaLabel?: string;
+    dismissible?: boolean;
+    autoClose?: boolean;
+    open?: boolean;
+    backdropClass?: string;
+    class?: string;
+    style?: string;
+}
+
+const {
+    id,
+    labelledby,
+    describedby,
+    ariaLabel,
+    dismissible = true,
+    autoClose = true,
+    open = false,
+    backdropClass = 'bg-primary/55',
+    class: cls = '',
+    style,
+} = Astro.props;
+---
+
+<div
+        id={ id }
+        style={ style }
+        class:list={ [
+            'group fixed inset-0 z-(--z-overlay) items-center justify-center',
+            backdropClass,
+            open ? 'flex' : 'hidden [&:not(.hidden)]:flex',
+            cls,
+        ] }
+        role={ dismissible ? 'dialog' : undefined }
+        aria-modal={ dismissible ? 'true' : undefined }
+        aria-labelledby={ labelledby }
+        aria-label={ ariaLabel }
+        aria-describedby={ describedby }
+        aria-hidden={ dismissible ? undefined : 'true' }
+        data-overlay
+        data-dismissible={ dismissible ? 'true' : 'false' }
+        data-auto-close={ autoClose ? 'true' : 'false' }
+>
+    <slot/>
+</div>
+
+<script>
+    const FOCUSABLE = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+
+    function bindOverlay(overlay: HTMLElement) {
+        if (overlay.dataset.overlayBound) return;
+        overlay.dataset.overlayBound = 'true';
+
+        const dismissible = overlay.dataset.dismissible === 'true';
+        if (!dismissible) return;
+
+        const autoClose = overlay.dataset.autoClose === 'true';
+        let lastFocused: HTMLElement | null = null;
+
+        const isVisible = () => !overlay.classList.contains('hidden');
+
+        const focusFirst = () => {
+            overlay.querySelector<HTMLElement>(FOCUSABLE)?.focus();
+        };
+
+        if (isVisible()) lastFocused = document.activeElement as HTMLElement;
+
+        new MutationObserver(() => {
+            if (isVisible()) {
+                lastFocused = document.activeElement as HTMLElement;
+                focusFirst();
+            } else {
+                lastFocused?.focus();
+                lastFocused = null;
+            }
+        }).observe(overlay, { attributes: true, attributeFilter: ['class'] });
+
+        if (autoClose) {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) overlay.classList.add('hidden');
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && isVisible()) overlay.classList.add('hidden');
+            });
+        }
+
+        overlay.addEventListener('keydown', (e) => {
+            if (e.key !== 'Tab' || !isVisible()) return;
+            const focusables = Array.from(overlay.querySelectorAll<HTMLElement>(FOCUSABLE))
+                .filter((el) => el.offsetParent !== null);
+            if (!focusables.length) return;
+
+            const first = focusables[0];
+            const last = focusables[focusables.length - 1];
+            if (e.shiftKey && document.activeElement === first) {
+                e.preventDefault();
+                last.focus();
+            } else if (!e.shiftKey && document.activeElement === last) {
+                e.preventDefault();
+                first.focus();
+            }
+        });
+    }
+
+    function initOverlays() {
+        document.querySelectorAll<HTMLElement>('[data-overlay]').forEach(bindOverlay);
+    }
+
+    document.addEventListener('astro:page-load', initOverlays);
+</script>

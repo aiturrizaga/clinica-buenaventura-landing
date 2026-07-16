@@ -1,0 +1,56 @@
+/* Reset */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+html, body {
+    overflow-x: hidden;
+    max-width: 100%;
+}
+
+html {
+    font-family: var(--font-sans), serif;
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    color: var(--color-text);
+    background: var(--color-surface);
+}
+
+body {
+    margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    color: var(--color-text);
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 3px;
+    border-radius: var(--radius-sm);
+}
+
+/* Scroll-reveal animation, driven by the IntersectionObserver in BaseLayout */
+.reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity var(--duration-slow) ease, transform var(--duration-slow) ease;
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: none;
+}

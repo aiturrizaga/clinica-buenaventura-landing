@@ -1,10 +1,11 @@
 ---
 import AppointmentLayout from '@/layouts/AppointmentLayout.astro';
 import AppointmentSummary from '@features/appointments/components/AppointmentSummary.astro';
-
-const labelClass = 'mb-1.5 block text-sm font-medium text-text';
-const selectWrap = 'relative';
-const chevron = 'ti ti-chevron-down pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-primary';
+import Card from '@/components/ui/Card.astro';
+import FormField from '@/components/ui/FormField.astro';
+import Select from '@/components/ui/Select.astro';
+import Input from '@/components/ui/Input.astro';
+import Button from '@/components/ui/Button.astro';
 ---
 
 <AppointmentLayout
@@ -15,7 +16,7 @@ const chevron = 'ti ti-chevron-down pointer-events-none absolute right-3 top-1/2
     <section class="container py-10 md:py-16">
         <div class="mx-auto grid max-w-4xl gap-6 lg:grid-cols-[1fr_340px]">
             <!-- Form card -->
-            <div class="card p-7 md:p-9">
+            <Card padding="lg">
                 <p class="mb-1 text-sm font-semibold text-primary">Reserva de cita</p>
                 <h1 class="mb-2 text-2xl font-bold text-text md:text-3xl">Crea tu cuenta</h1>
                 <p class="mb-7 text-text-muted">No encontramos una cuenta con ese documento. Completa tus datos para
@@ -23,77 +24,59 @@ const chevron = 'ti ti-chevron-down pointer-events-none absolute right-3 top-1/2
 
                 <form id="register-form" novalidate class="grid gap-4">
                     <div class="grid gap-4 sm:grid-cols-[150px_1fr]">
-                        <div>
-                            <label class={ labelClass } for="reg-document-type">Tipo de documento</label>
-                            <div class={ selectWrap }>
-                                <select id="reg-document-type" class="form-input appearance-none pr-10">
-                                    <option>D.N.I</option>
-                                    <option>C.E</option>
-                                </select>
-                                <i class={ chevron }></i>
-                            </div>
-                        </div>
-                        <div>
-                            <label class={ labelClass } for="reg-document-number">N° de documento</label>
-                            <input id="reg-document-number" type="text" inputmode="numeric" class="form-input"/>
-                        </div>
+                        <FormField label="Tipo de documento" for="reg-document-type">
+                            <Select id="reg-document-type">
+                                <option>D.N.I</option>
+                                <option>C.E</option>
+                            </Select>
+                        </FormField>
+                        <FormField label="N° de documento" for="reg-document-number">
+                            <Input id="reg-document-number" type="text" inputmode="numeric"/>
+                        </FormField>
                     </div>
 
-                    <div>
-                        <label class={ labelClass } for="reg-first-name">Nombres</label>
-                        <input id="reg-first-name" type="text" autocomplete="given-name" class="form-input"/>
+                    <FormField label="Nombres" for="reg-first-name">
+                        <Input id="reg-first-name" type="text" autocomplete="given-name"/>
+                    </FormField>
+
+                    <div class="grid gap-4 sm:grid-cols-2">
+                        <FormField label="Apellido paterno" for="reg-last-name-p">
+                            <Input id="reg-last-name-p" type="text"/>
+                        </FormField>
+                        <FormField label="Apellido materno" for="reg-last-name-m">
+                            <Input id="reg-last-name-m" type="text"/>
+                        </FormField>
                     </div>
 
                     <div class="grid gap-4 sm:grid-cols-2">
-                        <div>
-                            <label class={ labelClass } for="reg-last-name-p">Apellido paterno</label>
-                            <input id="reg-last-name-p" type="text" class="form-input"/>
-                        </div>
-                        <div>
-                            <label class={ labelClass } for="reg-last-name-m">Apellido materno</label>
-                            <input id="reg-last-name-m" type="text" class="form-input"/>
-                        </div>
+                        <FormField label="Fecha de nacimiento" for="reg-birthdate">
+                            <Input id="reg-birthdate" type="text" placeholder="dd/mm/aaaa"/>
+                        </FormField>
+                        <FormField label="Sexo" for="reg-sex">
+                            <Select id="reg-sex">
+                                <option>Hombre</option>
+                                <option>Mujer</option>
+                            </Select>
+                        </FormField>
                     </div>
 
-                    <div class="grid gap-4 sm:grid-cols-2">
-                        <div>
-                            <label class={ labelClass } for="reg-birthdate">Fecha de nacimiento</label>
-                            <input id="reg-birthdate" type="text" placeholder="dd/mm/aaaa" class="form-input"/>
-                        </div>
-                        <div>
-                            <label class={ labelClass } for="reg-sex">Sexo</label>
-                            <div class={ selectWrap }>
-                                <select id="reg-sex" class="form-input appearance-none pr-10">
-                                    <option>Hombre</option>
-                                    <option>Mujer</option>
-                                </select>
-                                <i class={ chevron }></i>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div>
-                        <label class={ labelClass } for="reg-email">Correo electrónico</label>
-                        <input id="reg-email" type="email" autocomplete="email" class="form-input"/>
-                    </div>
-                    <div>
-                        <label class={ labelClass } for="reg-phone">Celular</label>
-                        <input id="reg-phone" type="tel" autocomplete="tel" class="form-input"/>
-                    </div>
+                    <FormField label="Correo electrónico" for="reg-email">
+                        <Input id="reg-email" type="email" autocomplete="email"/>
+                    </FormField>
+                    <FormField label="Celular" for="reg-phone">
+                        <Input id="reg-phone" type="tel" autocomplete="tel"/>
+                    </FormField>
 
                     <h2 class="mt-2 text-xl font-bold text-text">
                         Crea tu <span class="text-primary">contraseña</span>
                     </h2>
                     <div class="grid gap-4 sm:grid-cols-2">
-                        <div>
-                            <label class={ labelClass } for="reg-password">Crea una contraseña</label>
-                            <input id="reg-password" type="password" autocomplete="new-password" class="form-input"/>
-                        </div>
-                        <div>
-                            <label class={ labelClass } for="reg-password-confirm">Confirma tu contraseña</label>
-                            <input id="reg-password-confirm" type="password" autocomplete="new-password"
-                                   class="form-input"/>
-                        </div>
+                        <FormField label="Crea una contraseña" for="reg-password">
+                            <Input id="reg-password" type="password" autocomplete="new-password"/>
+                        </FormField>
+                        <FormField label="Confirma tu contraseña" for="reg-password-confirm">
+                            <Input id="reg-password-confirm" type="password" autocomplete="new-password"/>
+                        </FormField>
                     </div>
 
                     <label class="mt-1 flex items-center gap-2 text-sm text-text-muted">
@@ -103,15 +86,12 @@ const chevron = 'ti ti-chevron-down pointer-events-none absolute right-3 top-1/2
 
                     <p id="register-error" class="hidden text-sm text-danger"></p>
 
-                    <button
-                            type="submit"
-                            class="cursor-pointer mt-2 inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary px-6 py-3.5 font-semibold text-white transition-colors hover:bg-primary-dark sm:w-auto sm:self-start"
-                    >
+                    <Button type="submit" size="lg" class="mt-2 w-full sm:w-auto sm:self-start">
                         Continuar
                         <i class="ti ti-arrow-right"></i>
-                    </button>
+                    </Button>
                 </form>
-            </div>
+            </Card>
 
             <!-- Summary -->
             <AppointmentSummary class="h-fit"/>

@@ -1,26 +1,31 @@
 ---
 // Button.astro
 interface Props {
-  variant?: 'primary' | 'outline' | 'ghost' | 'white';
+  variant?: 'primary' | 'outline' | 'ghost' | 'white' | 'outline-white';
   size?: 'sm' | 'md' | 'lg';
   href?: string;
   type?: 'button' | 'submit' | 'reset';
+  id?: string;
   class?: string;
   ariaLabel?: string;
   disabled?: boolean;
   fullWidth?: boolean;
   target?: string;
+  // Allows JS hooks like data-action on consumers without widening Props to `any`.
+  [key: `data-${string}`]: string | boolean | undefined;
 }
 const {
   variant = 'primary',
   size    = 'md',
   href,
   type    = 'button',
+  id,
   class: cls,
   ariaLabel,
   disabled = false,
   fullWidth = false,
   target,
+  ...rest
 } = Astro.props;
 
 const Tag = href ? 'a' : 'button';
@@ -33,6 +38,7 @@ const classes = [
 ].filter(Boolean).join(' ');
 ---
 <Tag
+  id={id}
   href={href}
   type={!href ? type : undefined}
   class={classes}
@@ -40,6 +46,7 @@ const classes = [
   disabled={!href ? disabled : undefined}
   target={target}
   rel={target === '_blank' ? 'noopener noreferrer' : undefined}
+  {...rest}
 >
   <slot />
 </Tag>
