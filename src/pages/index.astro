@@ -7,7 +7,7 @@ import AboutSection from '../sections/home/AboutSection.astro';
 import DoctorsSection from '../sections/home/DoctorsSection.astro';
 import { buildClinicSchema } from '@lib/seo';
 import PromoPopup from '@features/promotions/PromoPopup.astro';
-import promoTestAliento from '@assets/promotions/promo_test_de_aliento.webp';
+import promoPopupImage from '@assets/promotions/promo_03.webp';
 ---
 <PageLayout
         title="Clínica Buenaventura | Comprometidos con tu confianza"
@@ -16,9 +16,9 @@ import promoTestAliento from '@assets/promotions/promo_test_de_aliento.webp';
         jsonLd={ buildClinicSchema() }
 >
     <PromoPopup
-            image={ promoTestAliento }
-            alt="Sorteo especial Día del Padre"
-            waMessage="Hola Clínica Buenaventura, ¿Me pueden dar más información sobre el sorteo especial del Día del Padre?"
+            image={ promoPopupImage }
+            alt="Campaña de Salud digestiva"
+            waMessage="Hola Clínica Buenaventura, ¿Me pueden dar más información sobre la campaña de salud digestiva?"
     />
 
     <HeroSection/>
