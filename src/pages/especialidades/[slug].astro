@@ -1,19 +1,21 @@
 ---
 import PageLayout from '../../layouts/PageLayout.astro';
 import DoctorCard from '@features/doctors/DoctorCard.astro';
-import { specialties, getSpecialtyBySlug } from '@features/specialties/data';
-import { doctors } from '@features/doctors/data';
+import { getSpecialties, getSpecialtyBySlug } from '@features/specialties/data';
+import { getDoctors } from '@features/doctors/data';
 import { ROUTES } from '@config/routes';
 import { buildBreadcrumbSchema } from '@lib/seo';
 
 export async function getStaticPaths() {
+  const specialties = await getSpecialties();
   return specialties.map(s => ({ params: { slug: s.slug } }));
 }
 
 const { slug } = Astro.params;
-const specialty = getSpecialtyBySlug(slug!);
+const specialty = await getSpecialtyBySlug(slug!);
 if (!specialty) return Astro.redirect('/404');
 
+const doctors = await getDoctors();
 const relatedDoctors = doctors.filter(d => specialty.relatedDoctorIds.includes(d.id));
 const citasHref = `${ROUTES.citas.index}?specialty=${specialty.slug}`;
 ---

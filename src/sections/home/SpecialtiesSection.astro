@@ -3,7 +3,7 @@ import SectionTitle from '../../components/ui/SectionTitle.astro';
 import SpecialtyCard from '@features/specialties/SpecialtyCard.astro';
 import { getFeaturedSpecialties } from '@features/specialties/data';
 
-const specs = getFeaturedSpecialties();
+const specs = await getFeaturedSpecialties();
 ---
 
 <section id="especialidades" class="pb-16 md:pb-24 md:pt-4 bg-white" aria-labelledby="specs-title">

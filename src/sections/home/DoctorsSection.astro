@@ -3,7 +3,7 @@ import SectionTitle from '../../components/ui/SectionTitle.astro';
 import DoctorCard from '@features/doctors/DoctorCard.astro';
 import { getFeaturedDoctors } from '@features/doctors/data';
 
-const docs = getFeaturedDoctors();
+const docs = await getFeaturedDoctors();
 ---
 <section id="medicos" class="section-py bg-surface-card" aria-labelledby="docs-title">
     <div class="container">

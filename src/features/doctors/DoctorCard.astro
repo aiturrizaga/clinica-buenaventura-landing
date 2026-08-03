@@ -1,8 +1,6 @@
 ---
-import { Image } from 'astro:assets';
 import type { Doctor } from './types';
 import { whatsappLink, WHATSAPP_MESSAGES } from '@config/social';
-import { getDoctorPhoto } from './data';
 
 interface Props {
     doctor: Doctor;
@@ -21,8 +19,8 @@ function waDoctorLink(doctor: Doctor) {
     <div class="doctor-card-link">
         <div class="doctor-photo">
             <a href={ waDoctorLink(doctor) } target="_blank" rel="noopener noreferrer">
-                <Image
-                        src={ getDoctorPhoto(doctor) }
+                <img
+                        src={ doctor.photo }
                         alt={ `Foto de ${ doctor.title } ${ doctor.name }` }
                         loading="lazy"
                         decoding="async"

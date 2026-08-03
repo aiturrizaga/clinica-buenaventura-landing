@@ -1,8 +1,10 @@
 ---
 import PageLayout from '../../layouts/PageLayout.astro';
 import SpecialtyCard from '@features/specialties/SpecialtyCard.astro';
-import { specialties } from '@features/specialties/data';
+import { getSpecialties } from '@features/specialties/data';
 import { SITE } from '@config/site';
+
+const specialties = await getSpecialties();
 ---
 <PageLayout
   title="Especialidades Médicas"

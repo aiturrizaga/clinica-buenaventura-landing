@@ -4,7 +4,7 @@ import AppointmentHeader from '@features/appointments/components/AppointmentHead
 import AppointmentDoctorCard from '@features/appointments/components/AppointmentDoctorCard.astro';
 import AppointmentConfirmDialog from '@features/appointments/components/AppointmentConfirmDialog.astro';
 import Loader from '@/components/ui/Loader.astro';
-import { doctors } from '@features/doctors/data';
+import { getDoctors } from '@features/doctors/data';
 import { getBranchBySlug } from '@features/appointments/branches';
 import { ROUTES } from '@config/routes';
 import { SITE } from '@config/site';
@@ -14,6 +14,7 @@ const branchSlug = params.get('branch') ?? 'lima-sjm';
 const specialtySlug = params.get('specialty') ?? 'cardiologia';
 
 const branch = getBranchBySlug(branchSlug);
+const doctors = await getDoctors();
 ---
 
 <PageLayout
@@ -36,7 +37,6 @@ const branch = getBranchBySlug(branchSlug);
 </PageLayout>
 
 <script>
-    import { doctors } from '@features/doctors/data';
     import { getBranchBySlug } from '@features/appointments/branches';
     import { saveAppointment, type SelectedAppointment } from '@features/appointments/store';
     import { formatDate, formatTime } from '@lib/utils/date';
@@ -75,8 +75,8 @@ const branch = getBranchBySlug(branchSlug);
     // ----- Slot selection -> loader -> dialog -----
     document.querySelectorAll<HTMLElement>('[data-time]').forEach((slot) => {
         slot.addEventListener('click', () => {
-            const doctor = doctors.find((d) => d.slug === slot.dataset.doctor);
-            if (!doctor || !loader || !dialog) return;
+            const card = slot.closest<HTMLElement>('[data-doctor]');
+            if (!card || !loader || !dialog) return;
 
             document.querySelectorAll('[data-time][data-selected]').forEach((s) =>
                 s.removeAttribute('data-selected')
@@ -84,9 +84,9 @@ const branch = getBranchBySlug(branchSlug);
             slot.setAttribute('data-selected', '');
 
             pending = {
-                doctorSlug: doctor.slug,
-                doctorName: `${ doctor.title } ${ doctor.name }`,
-                specialty: doctor.specialty,
+                doctorSlug: card.dataset.doctor ?? '',
+                doctorName: card.dataset.doctorName ?? '',
+                specialty: card.dataset.doctorSpecialty ?? '',
                 branchSlug,
                 branchName: branch?.name ?? '',
                 type: 'Presencial',

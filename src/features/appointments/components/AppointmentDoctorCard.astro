@@ -1,7 +1,5 @@
 ---
-import { Image } from 'astro:assets';
 import type { Doctor } from '@features/doctors/types';
-import { getDoctorPhoto } from '@features/doctors/data';
 
 interface Props {
     doctor: Doctor;
@@ -18,12 +16,14 @@ const slots = doctor.slots ?? {};
 <article
         class="grid grid-cols-1 items-start gap-8 border-b border-[#eef2f5] py-6 lg:grid-cols-[minmax(280px,1fr)_auto]"
         data-doctor={ doctor.slug }
+        data-doctor-name={ displayName }
+        data-doctor-specialty={ doctor.specialty }
 >
     <!-- Info column -->
     <div class="flex gap-4">
-        <Image
+        <img
                 class="size-24 shrink-0 rounded-xl bg-primary-50 object-cover"
-                src={ getDoctorPhoto(doctor) }
+                src={ doctor.photo }
                 alt={ displayName }
                 width={ 96 }
                 height={ 96 }

@@ -1,6 +1,6 @@
 ---
 import { branches } from '../branches';
-import { specialties } from '@features/specialties/data';
+import { getSpecialties } from '@features/specialties/data';
 import Select from '@/components/ui/Select.astro';
 import Input from '@/components/ui/Input.astro';
 import Button from '@/components/ui/Button.astro';
@@ -15,6 +15,7 @@ interface Props {
 
 const { branch = '', specialty = '' } = Astro.props;
 
+const specialties = await getSpecialties();
 const sortedSpecialties = [...specialties].sort((a, b) => a.name.localeCompare(b.name));
 ---
 
