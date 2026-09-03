@@ -14,7 +14,10 @@ interface DirectusPopupPromo {
 function toPopupPromo(raw: DirectusPopupPromo): PopupPromo {
     return {
         id: String(raw.id),
-        image: directusAssetUrl(raw.image, { width: 1200, height: 900, fit: 'contain', quality: 85 }),
+        // Solo ancho: el <img> se muestra con h-auto (mantiene su propia
+        // proporción), así que forzar un alto fijo con fit:"contain" solo
+        // generaba barras negras cuando la imagen no era exactamente 4:3.
+        image: directusAssetUrl(raw.image, { width: 1200, quality: 85 }),
         alt: raw.alt,
         waMessage: raw.waMessage ?? undefined,
     };
