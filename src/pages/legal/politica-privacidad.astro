@@ -1,6 +1,10 @@
 ---
 import PageLayout from '../../layouts/PageLayout.astro';
-import { SITE } from '@config/site';
+import { getLegalPageBySlug } from '@features/legal/data';
+import { sanitizeHtml, LEGAL_CONTENT_OPTIONS } from '@lib/html/sanitize';
+
+const legalPage = await getLegalPageBySlug('politica-privacidad');
+if (!legalPage) return Astro.redirect('/404');
 ---
 
 <PageLayout
@@ -16,158 +20,13 @@ import { SITE } from '@config/site';
                 <span>/</span>
                 <span aria-current="page">Política de Privacidad</span>
             </nav>
-            <h1 class="text-4xl font-extrabold text-gray-900 mb-2">Política de Privacidad, Cookies y Datos
-                Personales</h1>
+            <h1 class="text-4xl font-extrabold text-gray-900 mb-2">{legalPage.title}</h1>
         </div>
     </div>
 
     <section class="py-14 bg-white">
         <div class="container max-w-4xl">
-            <div class="prose prose-lg max-w-none text-gray-600">
-
-                <h2>1. Información y consentimiento</h2>
-                <p>Clínica Buenaventura podrá tratar datos personales para atender solicitudes, gestionar citas, validar
-                    pagos, recibir documentos, responder consultas y brindar servicios.</p>
-                <p>El consentimiento del usuario se entiende otorgado cuando, luego de haber tenido acceso a esta
-                    Política, utiliza voluntariamente nuestros canales oficiales, proporciona datos, envía documentos
-                    médicos, remite comprobantes de pago, solicita una cita, continúa una conversación por WhatsApp o
-                    Chat IA, o recibe atención presencial.</p>
-                <p>La Ley N.° 29733 tiene como finalidad garantizar el derecho fundamental a la protección de datos
-                    personales mediante su adecuado tratamiento.</p>
-
-                <h2>2. Datos que podrán tratarse</h2>
-                <p>Clínica Buenaventura podrá tratar:</p>
-                <ol type="a">
-                    <li>Nombres y apellidos.</li>
-                    <li>Documento de identidad.</li>
-                    <li>Fecha de nacimiento, edad y sexo, cuando corresponda.</li>
-                    <li>Teléfono, correo, dirección o distrito.</li>
-                    <li>Datos de familiares, responsables o apoderados.</li>
-                    <li>Servicio, especialidad, paquete o promoción solicitada.</li>
-                    <li>Historial de citas y atención administrativa.</li>
-                    <li>Comprobantes de pago y datos de facturación.</li>
-                    <li>Conversaciones por WhatsApp, Chat IA, web o redes sociales.</li>
-                    <li>Documentos médicos enviados voluntariamente.</li>
-                    <li>Preferencias de comunicación.</li>
-                    <li>Datos técnicos básicos de navegación web, cuando correspondan.</li>
-                </ol>
-
-                <h2>3. Datos de salud y documentos médicos</h2>
-                <p>El paciente podrá enviar voluntariamente documentos médicos por canales autorizados.</p>
-                <p>Estos documentos serán usados para gestionar citas, preparar la atención, coordinar con áreas
-                    internas, validar servicios o dar continuidad administrativa.</p>
-                <p>El envío de documentos médicos no implica diagnóstico automático ni interpretación definitiva por el
-                    Chat IA.</p>
-                <p>La información relacionada con la salud será tratada con especial confidencialidad, seguridad y
-                    acceso limitado.</p>
-
-                <h2>4. Menores de edad o terceros</h2>
-                <p>Cuando el usuario registre, agende o envíe datos de un menor de edad, familiar, paciente dependiente
-                    o tercero, declara contar con autorización suficiente.</p>
-                <p>En caso de menores de edad, la información deberá ser proporcionada por el padre, madre, tutor,
-                    apoderado o representante legal.</p>
-                <p>Clínica Buenaventura podrá solicitar información adicional para verificar la identidad o
-                    representación de quien actúa en nombre del paciente.</p>
-
-                <h2>5. Finalidades del tratamiento</h2>
-                <p>Los datos podrán usarse para:</p>
-                <ol type="a">
-                    <li>Gestionar citas, consultas, exámenes, procedimientos y paquetes.</li>
-                    <li>Confirmar identidad.</li>
-                    <li>Confirmar, cancelar o reprogramar citas.</li>
-                    <li>Validar pagos y emitir comprobantes.</li>
-                    <li>Responder consultas por canales oficiales.</li>
-                    <li>Enviar recordatorios y mensajes administrativos.</li>
-                    <li>Gestionar documentos médicos enviados por el paciente.</li>
-                    <li>Atender quejas, reclamos o solicitudes.</li>
-                    <li>Cumplir obligaciones legales, sanitarias, contables y tributarias.</li>
-                    <li>Mejorar la calidad de atención y seguridad de los canales.</li>
-                </ol>
-
-                <h2>6. Marketing y promociones</h2>
-                <p>Clínica Buenaventura podrá utilizar los datos de contacto del usuario para enviar promociones,
-                    campañas, descuentos, beneficios, novedades, paquetes preventivos y comunicaciones comerciales
-                    únicamente cuando el usuario haya brindado su autorización.</p>
-                <p>Las comunicaciones comerciales podrán enviarse por:</p>
-                <ol type="a">
-                    <li>WhatsApp.</li>
-                    <li>SMS.</li>
-                    <li>Llamadas telefónicas.</li>
-                    <li>Correo electrónico.</li>
-                    <li>Mensajería de redes sociales.</li>
-                    <li>Plataformas digitales.</li>
-                </ol>
-                <p>El consentimiento para recibir promociones es opcional y no condiciona la atención médica ni la
-                    gestión de citas necesarias.</p>
-                <p>El usuario puede dejar de recibir promociones en cualquier momento escribiendo: "NO DESEO
-                    PROMOCIONES" o comunicándose con Clínica Buenaventura al <strong>{SITE.contact.phoneDisplay} / {SITE.contact.altPhoneDisplay}</strong>
-                    o al correo: <a href={`mailto:${SITE.contact.email}`}>{SITE.contact.email}</a>
-                </p>
-
-                <h2>7. Cookies y tecnologías de seguimiento</h2>
-                <p>Clínica Buenaventura podrá utilizar cookies, píxeles, herramientas de analítica, formularios web y
-                    tecnologías similares para el funcionamiento del sitio, seguridad, medición de visitas, mejora de
-                    navegación y evaluación de campañas digitales.</p>
-                <p>Las cookies pueden ser propias o de terceros, como herramientas de analítica, redes sociales,
-                    publicidad digital, mapas o formularios integrados.</p>
-                <p>El usuario puede bloquear o eliminar cookies desde su navegador. Algunas funciones del sitio podrían
-                    no operar correctamente si se deshabilitan cookies necesarias.</p>
-                <p>Cuando corresponda, se solicitará autorización para cookies no esenciales, especialmente de
-                    publicidad, remarketing o personalización comercial.</p>
-
-                <h2>8. Proveedores y almacenamiento</h2>
-                <p>Clínica Buenaventura podrá usar proveedores tecnológicos, administrativos, contables, CRM, agenda,
-                    mensajería, almacenamiento, pasarelas de pago, soporte informático o marketing digital, solo cuando
-                    sea necesario para prestar el servicio o cumplir obligaciones legales.</p>
-                <p>Algunos servicios podrían almacenar o procesar información dentro o fuera del Perú, aplicando medidas
-                    razonables de seguridad.</p>
-                <p>La clínica no venderá datos personales del paciente a terceros.</p>
-
-                <h2>9. Conservación</h2>
-                <p>Los datos, documentos, comprobantes y comunicaciones se conservarán durante el tiempo necesario para
-                    cumplir las finalidades informadas, acreditar consentimientos, cumplir obligaciones legales o
-                    atender reclamos.</p>
-                <p>Cuando ya no sean necesarios, podrán eliminarse, bloquearse o anonimizarse conforme a procedimientos
-                    internos.</p>
-
-                <h2>10. Ejercicio de Derechos ARCO</h2>
-                <p>El usuario, paciente, apoderado o representante podrá ejercer sus derechos de Acceso, Rectificación,
-                    Cancelación y Oposición (ARCO) respecto de sus datos personales.</p>
-                <p>Esto incluye solicitar información sobre sus datos, pedir su corrección o actualización, solicitar su
-                    eliminación cuando corresponda, oponerse a determinados tratamientos y revocar su
-                    consentimiento.</p>
-                <p>La eliminación, oposición o revocación no aplicará cuando Clínica Buenaventura deba conservar o
-                    tratar la información por obligaciones legales, sanitarias, contables, tributarias, administrativas,
-                    atención médica, reclamos pendientes, servicios ya solicitados o defensa de derechos.</p>
-
-                <h2>11. Canales para ejercer Derechos ARCO</h2>
-                <p>El usuario puede presentar su solicitud por:</p>
-                <ul>
-                    <li>Correo: <a href={`mailto:${SITE.contact.email}`}>{SITE.contact.email}</a>
-                    </li>
-                    <li>WhatsApp: {SITE.contact.phoneDisplay} / {SITE.contact.altPhoneDisplay}</li>
-                    <li>Dirección: Av. San Juan 871, San Juan de Miraflores, Lima, Perú</li>
-                </ul>
-                <p>La solicitud deberá indicar:</p>
-                <ol type="a">
-                    <li>Nombres y apellidos.</li>
-                    <li>Documento de identidad.</li>
-                    <li>Derecho que desea ejercer.</li>
-                    <li>Descripción clara de la solicitud.</li>
-                    <li>Medio de respuesta.</li>
-                    <li>Documentos de sustento, cuando corresponda.</li>
-                </ol>
-                <p>Si la solicitud es presentada por un representante, Clínica Buenaventura podrá pedir documentación
-                    que acredite dicha representación.</p>
-
-                <h2>12. Documentos relacionados</h2>
-                <ul>
-                    <li><a href="/legal/terminos-condiciones">Términos y Condiciones Generales</a></li>
-                    <li><a href="/legal/terminos-promociones">Términos de Promociones, Paquetes, Reprogramaciones y
-                        Devoluciones</a></li>
-                </ul>
-
-            </div>
+            <div class="prose prose-lg max-w-none text-gray-600" set:html={sanitizeHtml(legalPage.content, LEGAL_CONTENT_OPTIONS)} />
         </div>
     </section>
 </PageLayout>

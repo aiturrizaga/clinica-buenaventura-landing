@@ -1,15 +1,8 @@
-import { SITE } from './site';
+export type { SocialLinks } from '@features/site-config/types';
+export { getSocialLinks } from '@features/site-config/data';
 
-export const SOCIAL_LINKS = {
-  facebook: 'https://www.facebook.com/clinicabuenaventurasjm',
-  instagram: 'https://www.instagram.com/clinicabuenaventura',
-  tiktok: 'https://www.tiktok.com/@clinicabuenaventura',
-  youtube: 'https://www.youtube.com/@clinicabuenaventura',
-  linkedin: 'https://www.linkedin.com/company/clinicabuenaventura',
-} as const;
-
-export function whatsappLink(message: string): string {
-  return `https://wa.me/${SITE.contact.whatsapp}?text=${encodeURIComponent(message)}`;
+export function whatsappLink(phone: string, message: string): string {
+  return `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
 }
 
 export const WHATSAPP_MESSAGES = {

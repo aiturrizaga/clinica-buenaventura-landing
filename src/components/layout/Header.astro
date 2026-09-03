@@ -1,8 +1,10 @@
 ---
 import { navItems } from '@config/navigation';
+import { getSite } from '@config/site';
 import { whatsappLink, WHATSAPP_MESSAGES } from '@config/social';
 const currentPath = Astro.url.pathname;
-const waLink = whatsappLink(WHATSAPP_MESSAGES.general);
+const site = await getSite();
+const waLink = whatsappLink(site.contact.whatsapp, WHATSAPP_MESSAGES.general);
 ---
 
 <header id="site-header"

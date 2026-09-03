@@ -1,5 +1,10 @@
 ---
 import PageLayout from '../../layouts/PageLayout.astro';
+import { getLegalPageBySlug } from '@features/legal/data';
+import { sanitizeHtml, LEGAL_CONTENT_OPTIONS } from '@lib/html/sanitize';
+
+const legalPage = await getLegalPageBySlug('terminos-promociones');
+if (!legalPage) return Astro.redirect('/404');
 ---
 
 <PageLayout
@@ -15,130 +20,13 @@ import PageLayout from '../../layouts/PageLayout.astro';
                 <span>/</span>
                 <span aria-current="page">Términos de Promociones</span>
             </nav>
-            <h1 class="text-4xl font-extrabold text-gray-900 mb-2">Términos de promociones, reprogramaciones y
-                devoluciones</h1>
+            <h1 class="text-4xl font-extrabold text-gray-900 mb-2">{legalPage.title}</h1>
         </div>
     </div>
 
     <section class="py-14 bg-white">
         <div class="container max-w-4xl">
-            <div class="prose prose-lg max-w-none text-gray-600">
-
-                <h2>1. Aceptación</h2>
-                <p>Al solicitar, reservar, pagar o utilizar una promoción, campaña, beneficio o servicio ofrecido por
-                    Clínica Buenaventura, el usuario declara haber leído, comprendido y aceptado íntegramente las
-                    presentes condiciones.</p>
-                <p>Estas condiciones se complementan con los Términos y Condiciones Generales y la Política de
-                    Privacidad, Cookies y Datos Personales de Clínica Buenaventura.</p>
-
-                <h2>2. Condiciones generales</h2>
-                <p>Todas las promociones están sujetas a vigencia, disponibilidad de agenda, disponibilidad de
-                    profesionales, horarios de atención, especialidades participantes, cupos limitados, validación de
-                    pago, confirmación oficial y demás condiciones internas de Clínica Buenaventura.</p>
-                <p>La publicación de una promoción no garantiza disponibilidad inmediata ni constituye una reserva
-                    automática.</p>
-                <p>Los precios, beneficios, imágenes y demás condiciones publicadas tienen carácter informativo y
-                    podrán ser corregidos antes de la confirmación definitiva de la atención.</p>
-
-                <h2>3. Pago previo y confirmación</h2>
-                <p>Las promociones, campañas, citas, exámenes, procedimientos y demás servicios ofrecidos por Clínica
-                    Buenaventura se gestionan con pago previo, salvo comunicación expresa en contrario.</p>
-                <p>La reserva se considerará confirmada únicamente cuando Clínica Buenaventura valide la disponibilidad,
-                    verifique el pago correspondiente y emita la confirmación mediante un canal oficial.</p>
-                <p>El envío de datos personales, solicitudes de cita, comprobantes de pago, vouchers o constancias de
-                    transferencia no constituye confirmación automática de reserva.</p>
-
-                <h2>4. No acumulación</h2>
-                <p>Las promociones, descuentos, campañas, evaluaciones gratuitas y beneficios adicionales no son
-                    acumulables con otras promociones, convenios, tarifas especiales, cupones, descuentos o beneficios
-                    vigentes, salvo comunicación expresa de Clínica Buenaventura.</p>
-
-                <h2>5. Reprogramaciones y devoluciones</h2>
-                <p>Los pagos efectuados por promociones, campañas, precios especiales, citas o servicios no están
-                    sujetos a devolución inmediata. Las solicitudes de reprogramación o devolución estarán sujetas a
-                    evaluación administrativa y a las condiciones vigentes del servicio.</p>
-
-                <h2>6. Servicios no incluidos</h2>
-                <p>Las promociones incluyen únicamente los servicios expresamente detallados en la publicación o
-                    comunicación oficial correspondiente. Salvo indicación expresa, no incluyen medicamentos,
-                    tratamientos, procedimientos adicionales, controles posteriores, exámenes complementarios,
-                    materiales médicos u otros servicios no especificados.</p>
-
-                <h2>7. Consulta odontológica gratuita</h2>
-                <p>La consulta odontológica gratuita aplica únicamente los días <strong>martes y jueves</strong> y está
-                    sujeta a disponibilidad de agenda, horarios, profesionales participantes, condiciones de campaña y
-                    confirmación oficial de Clínica Buenaventura.</p>
-                <p>No incluye tratamientos, procedimientos, limpiezas, curaciones, radiografías, materiales ni otros
-                    servicios odontológicos.</p>
-
-                <h2>8. Descuento en Rayos X y Ecografías</h2>
-                <p>Cuando una promoción incluya hasta un <strong>15% de descuento</strong> en Rayos X y Ecografías,
-                    dicho beneficio estará sujeto a disponibilidad, tipo de estudio, orden médica cuando corresponda,
-                    horarios, validación administrativa y condiciones de campaña.</p>
-
-                <h2>9. Promociones vigentes</h2>
-
-                <h3>Lunes, miércoles y sábados de locura</h3>
-                <ul>
-                    <li><strong>Vigencia:</strong> del 4 de junio al 30 de junio de 2026.</li>
-                    <li><strong>Consulta médica:</strong> S/ 30.00</li>
-                    <li><strong>Consulta no médica:</strong> S/ 25.00</li>
-                    <li>Incluye además hasta un <strong>15% de descuento</strong> en Rayos X y Ecografías.</li>
-                    <li><strong>Especialidades participantes:</strong> cardiología, gastroenterología, ginecología,
-                        reumatología, medicina interna, neurología, otorrinolaringología, pediatría, traumatología y
-                        urología.
-                    </li>
-                    <li><strong>Consultas no médicas participantes:</strong> psicología y nutrición.</li>
-                    <li>Las especialidades y profesionales participantes podrán variar según disponibilidad de agenda.
-                    </li>
-                </ul>
-
-                <h3>Jueves de locura – 30% de descuento</h3>
-                <ul>
-                    <li><strong>Consulta médica:</strong> S/ 21.00</li>
-                    <li><strong>Consulta no médica:</strong> S/ 17.50</li>
-                    <li>Promoción equivalente a un <strong>30% de descuento</strong> sobre los precios de campaña
-                        vigentes durante junio de 2026.
-                    </li>
-                    <li>Incluye además hasta un <strong>15% de descuento</strong> en Rayos X y Ecografías.</li>
-                    <li>La tarifa promocional es válida únicamente para atenciones realizadas el mismo día jueves y está
-                        sujeta a disponibilidad de agenda, horarios y confirmación oficial.
-                    </li>
-                </ul>
-
-                <h3>Viernes de locura – 50% de descuento</h3>
-                <ul>
-                    <li><strong>Consulta médica:</strong> S/ 15.00</li>
-                    <li><strong>Consulta no médica:</strong> S/ 12.50</li>
-                    <li>Promoción equivalente a un <strong>50% de descuento</strong> sobre los precios de campaña
-                        vigentes durante junio de 2026.
-                    </li>
-                    <li>Incluye además hasta un <strong>15% de descuento</strong> en Rayos X y Ecografías.</li>
-                    <li>La tarifa promocional es válida únicamente para atenciones realizadas el mismo día viernes y
-                        está sujeta a disponibilidad de agenda, horarios y confirmación oficial.
-                    </li>
-                </ul>
-
-                <h2>10. Cambios o cancelación de promociones</h2>
-                <p>Clínica Buenaventura podrá modificar, suspender, ampliar o cancelar promociones por razones
-                    operativas, comerciales, médicas, administrativas, regulatorias, de disponibilidad o fuerza
-                    mayor.</p>
-
-                <h2>11. Información oficial</h2>
-                <p>En caso de discrepancia entre distintos canales de comunicación, prevalecerá la información
-                    confirmada oficialmente por Clínica Buenaventura al momento de la reserva, pago o atención.</p>
-
-                <h2>12. Documentos relacionados</h2>
-                <ul>
-                    <li><a href="/legal/terminos-condiciones"
-                           class="text-primary! hover:underline! hover:text-blue-900!">Términos y Condiciones
-                        Generales</a></li>
-                    <li><a href="/legal/politica-privacidad"
-                           class="text-primary! hover:underline! hover:text-blue-900!">Política de Privacidad, Cookies y
-                        Datos Personales</a></li>
-                </ul>
-
-            </div>
+            <div class="prose prose-lg max-w-none text-gray-600" set:html={sanitizeHtml(legalPage.content, LEGAL_CONTENT_OPTIONS)} />
         </div>
     </section>
 </PageLayout>

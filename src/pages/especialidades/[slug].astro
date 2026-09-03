@@ -3,6 +3,7 @@ import PageLayout from '../../layouts/PageLayout.astro';
 import DoctorCard from '@features/doctors/DoctorCard.astro';
 import { getSpecialties, getSpecialtyBySlug } from '@features/specialties/data';
 import { getDoctors } from '@features/doctors/data';
+import { getSite } from '@config/site';
 import { ROUTES } from '@config/routes';
 import { buildBreadcrumbSchema } from '@lib/seo';
 
@@ -18,6 +19,7 @@ if (!specialty) return Astro.redirect('/404');
 const doctors = await getDoctors();
 const relatedDoctors = doctors.filter(d => specialty.relatedDoctorIds.includes(d.id));
 const citasHref = `${ROUTES.citas.index}?specialty=${specialty.slug}`;
+const site = await getSite();
 ---
 <PageLayout
   title={specialty.name}
@@ -30,7 +32,7 @@ const citasHref = `${ROUTES.citas.index}?specialty=${specialty.slug}`;
       name: specialty.name,
       description: specialty.shortDescription,
     },
-    buildBreadcrumbSchema([
+    buildBreadcrumbSchema(site, [
       { name: 'Inicio', url: ROUTES.home },
       { name: 'Especialidades', url: ROUTES.especialidades.index },
       { name: specialty.name, url: ROUTES.especialidades.detail(specialty.slug) },

@@ -1,25 +1,27 @@
 ---
 import type { SEOProps } from '@/types';
-import { SITE } from '@config/site';
+import { getSite } from '@config/site';
 import { escapeJsonForScript } from '@lib/html/sanitize';
 import { buildTitle } from '@lib/seo';
 
 type Props = SEOProps;
 
+const site = await getSite();
+
 const {
   title,
   description,
   canonical,
-  ogImage = SITE.ogImage,
+  ogImage = site.ogImage,
   ogType = 'website',
   noindex = false,
   noTitleSuffix = false,
   jsonLd,
 } = Astro.props;
 
-const fullTitle     = buildTitle(title, noTitleSuffix);
+const fullTitle     = buildTitle(site, title, noTitleSuffix);
 const canonicalUrl  = canonical ?? Astro.url.href;
-const ogImageFull   = ogImage.startsWith('http') ? ogImage : `${SITE.url}${ogImage}`;
+const ogImageFull   = ogImage.startsWith('http') ? ogImage : `${site.url}${ogImage}`;
 const schemas       = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 ---
 
@@ -36,8 +38,8 @@ const schemas       = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 <meta property="og:image"        content={ogImageFull} />
 <meta property="og:image:width"  content="1200" />
 <meta property="og:image:height" content="630" />
-<meta property="og:site_name"    content={SITE.name} />
-<meta property="og:locale"       content={SITE.locale} />
+<meta property="og:site_name"    content={site.name} />
+<meta property="og:locale"       content={site.locale} />
 
 <!-- Twitter -->
 <meta name="twitter:card"        content="summary_large_image" />

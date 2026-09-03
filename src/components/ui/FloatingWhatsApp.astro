@@ -1,5 +1,5 @@
 ---
-import { SITE } from '@config/site';
+import { getSite } from '@config/site';
 import { WHATSAPP_MESSAGES } from '@config/social';
 
 interface Props {
@@ -7,7 +7,7 @@ interface Props {
     message?: string;
 }
 const {
-    phone = SITE.contact.whatsapp,
+    phone = (await getSite()).contact.whatsapp,
     message = WHATSAPP_MESSAGES.general,
 } = Astro.props;
 const cleanPhone = phone.replace(/\D/g, '');

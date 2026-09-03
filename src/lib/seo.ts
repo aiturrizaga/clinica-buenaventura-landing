@@ -1,71 +1,76 @@
-import { SITE } from '@config/site';
-import { SOCIAL_LINKS } from '@config/social';
+import type { SiteSettings, SocialLinks } from '@features/site-config/types';
 
-export function buildTitle(pageTitle: string, noSuffix = false): string {
-  if (noSuffix || pageTitle.includes(SITE.name)) return pageTitle;
-  return `${pageTitle} | ${SITE.name}`;
+export function buildTitle(site: Pick<SiteSettings, 'name'>, pageTitle: string, noSuffix = false): string {
+  if (noSuffix || pageTitle.includes(site.name)) return pageTitle;
+  return `${pageTitle} | ${site.name}`;
 }
 
-export function buildDoctorSchema(doctor: {
-  name: string;
-  specialty: string;
-  cmp: string;
-  bio: string;
-  photo: string;
-  slug: string;
-}) {
+export function buildDoctorSchema(
+  site: Pick<SiteSettings, 'url' | 'name'>,
+  doctor: {
+    name: string;
+    specialty: string;
+    cmp: string;
+    bio: string;
+    photo: string;
+    slug: string;
+  },
+) {
   return {
     '@context': 'https://schema.org',
     '@type': 'Physician',
     name: doctor.name,
     description: doctor.bio,
     image: doctor.photo,
-    url: `${SITE.url}/medicos/${doctor.slug}`,
+    url: `${site.url}/medicos/${doctor.slug}`,
     medicalSpecialty: doctor.specialty,
     identifier: doctor.cmp,
-    worksFor: { '@type': 'MedicalOrganization', name: SITE.name },
+    worksFor: { '@type': 'MedicalOrganization', name: site.name },
   };
 }
 
-export function buildArticleSchema(post: {
-  title: string;
-  excerpt: string;
-  slug: string;
-  coverImage: string;
-  publishedAt: string;
-  author: { name: string };
-}) {
+export function buildArticleSchema(
+  site: Pick<SiteSettings, 'url' | 'name'>,
+  post: {
+    title: string;
+    excerpt: string;
+    slug: string;
+    coverImage: string;
+    publishedAt: string;
+    author: { name: string };
+  },
+) {
   return {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
     headline: post.title,
     description: post.excerpt,
     image: post.coverImage,
-    url: `${SITE.url}/blog/${post.slug}`,
+    url: `${site.url}/blog/${post.slug}`,
     datePublished: post.publishedAt,
     author: { '@type': 'Person', name: post.author.name },
     publisher: {
       '@type': 'Organization',
-      name: SITE.name,
-      logo: { '@type': 'ImageObject', url: `${SITE.url}/images/logo.svg` },
+      name: site.name,
+      logo: { '@type': 'ImageObject', url: `${site.url}/images/logo.svg` },
     },
   };
 }
 
-export function buildClinicSchema() {
+export function buildClinicSchema(site: SiteSettings, social: SocialLinks) {
   return {
     '@context': 'https://schema.org',
     '@type': 'MedicalOrganization',
-    name: SITE.name,
-    description: SITE.description,
-    url: SITE.url,
-    logo: `${SITE.url}/images/logo.svg`,
-    image: `${SITE.url}${SITE.ogImage}`,
-    telephone: `+${SITE.contact.whatsapp}`,
-    email: SITE.contact.email,
+    name: site.name,
+    description: site.description,
+    url: site.url,
+    logo: `${site.url}/images/logo.svg`,
+    image: `${site.url}${site.ogImage}`,
+    telephone: `+${site.contact.whatsapp}`,
+    email: site.contact.email,
     address: {
       '@type': 'PostalAddress',
-      streetAddress: SITE.contact.address,
+      streetAddress: site.contact.address,
       addressLocality: 'Lima',
       addressCountry: 'PE',
     },
@@ -75,8 +80,8 @@ export function buildClinicSchema() {
         dayOfWeek: [
           'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday',
         ],
-        opens: SITE.hours.opens,
-        closes: SITE.hours.closes,
+        opens: site.hours.opens,
+        closes: site.hours.closes,
       },
     ],
     medicalSpecialty: [
@@ -97,11 +102,11 @@ export function buildClinicSchema() {
       'https://schema.org/Musculoskeletal',
       'https://schema.org/Physiotherapy',
     ],
-    sameAs: Object.values(SOCIAL_LINKS),
+    sameAs: Object.values(social),
   };
 }
 
-export function buildBreadcrumbSchema(items: { name: string; url: string }[]) {
+export function buildBreadcrumbSchema(site: Pick<SiteSettings, 'url'>, items: { name: string; url: string }[]) {
   return {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
@@ -109,7 +114,7 @@ export function buildBreadcrumbSchema(items: { name: string; url: string }[]) {
       '@type': 'ListItem',
       position: i + 1,
       name: item.name,
-      item: item.url.startsWith('http') ? item.url : `${SITE.url}${item.url}`,
+      item: item.url.startsWith('http') ? item.url : `${site.url}${item.url}`,
     })),
   };
 }

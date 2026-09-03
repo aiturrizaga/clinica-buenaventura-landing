@@ -1,8 +1,9 @@
 ---
-import { Image } from 'astro:assets';
-import { promotions, getPromotionImage } from './data';
+import { getPromotions } from './data';
 import 'swiper/css';
 import 'swiper/css/pagination';
+
+const promotions = await getPromotions();
 ---
 
 <section class="py-10 bg-white" aria-labelledby="promos-title">
@@ -31,8 +32,8 @@ import 'swiper/css/pagination';
                                 >
                                     <div class="relative aspect-video">
 
-                                        <Image
-                                                src={ getPromotionImage(promo) }
+                                        <img
+                                                src={ promo.image }
                                                 alt={ promo.title }
                                                 loading="lazy"
                                                 decoding="async"

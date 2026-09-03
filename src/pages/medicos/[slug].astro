@@ -1,6 +1,7 @@
 ---
 import PageLayout from '../../layouts/PageLayout.astro';
 import { getDoctors, getDoctorBySlug, getSpecialtySlugFor } from '@features/doctors/data';
+import { getSite } from '@config/site';
 import { buildDoctorSchema, buildBreadcrumbSchema } from '@lib/seo';
 import { ROUTES } from '@config/routes';
 
@@ -15,6 +16,7 @@ if (!doctor) return Astro.redirect('/404');
 
 const specialtySlug = getSpecialtySlugFor(doctor);
 const citasHref = specialtySlug ? `${ROUTES.citas.index}?specialty=${specialtySlug}` : ROUTES.citas.index;
+const site = await getSite();
 ---
 <PageLayout
   title={`${doctor.title} ${doctor.name} | ${doctor.specialty}`}
@@ -22,8 +24,8 @@ const citasHref = specialtySlug ? `${ROUTES.citas.index}?specialty=${specialtySl
   ogImage={doctor.photo}
   ogType="profile"
   jsonLd={[
-    buildDoctorSchema(doctor),
-    buildBreadcrumbSchema([
+    buildDoctorSchema(site, doctor),
+    buildBreadcrumbSchema(site, [
       { name: 'Inicio', url: ROUTES.home },
       { name: 'Médicos', url: ROUTES.medicos.index },
       { name: `${doctor.title} ${doctor.name}`, url: ROUTES.medicos.detail(doctor.slug) },

@@ -2,6 +2,7 @@
 import PageLayout from './PageLayout.astro';
 import type { BlogPost } from '@features/blog/types';
 import { buildArticleSchema, buildBreadcrumbSchema } from '@lib/seo';
+import { getSite } from '@config/site';
 import { ROUTES } from '@config/routes';
 
 interface Props {
@@ -9,6 +10,7 @@ interface Props {
 }
 
 const { post } = Astro.props;
+const site = await getSite();
 ---
 <PageLayout
   title={post.title}
@@ -16,8 +18,8 @@ const { post } = Astro.props;
   ogType="article"
   ogImage={post.coverImage}
   jsonLd={[
-    buildArticleSchema(post),
-    buildBreadcrumbSchema([
+    buildArticleSchema(site, post),
+    buildBreadcrumbSchema(site, [
       { name: 'Inicio', url: ROUTES.home },
       { name: 'Blog', url: ROUTES.blog.index },
       { name: post.title, url: ROUTES.blog.detail(post.slug) },

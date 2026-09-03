@@ -1,8 +1,11 @@
 ---
-import { Image } from 'astro:assets';
 import PageLayout from '../../layouts/PageLayout.astro';
-import { promotions, getPromotionImage } from '@features/promotions/data';
+import { getPromotions } from '@features/promotions/data';
+import { getSite } from '@config/site';
 import { whatsappLink, WHATSAPP_MESSAGES } from '@config/social';
+
+const promotions = await getPromotions();
+const site = await getSite();
 ---
 <PageLayout
         title="Promociones"
@@ -34,8 +37,8 @@ import { whatsappLink, WHATSAPP_MESSAGES } from '@config/social';
                             <!-- Imagen -->
                             <div class="w-full aspect-video overflow-hidden">
                                 <a href={ `/promociones/${ promo.slug }` }>
-                                    <Image
-                                            src={ getPromotionImage(promo) }
+                                    <img
+                                            src={ promo.image }
                                             alt={ promo.title }
                                             loading="lazy"
                                             decoding="async"
@@ -47,7 +50,7 @@ import { whatsappLink, WHATSAPP_MESSAGES } from '@config/social';
                             <!-- Botón WhatsApp -->
                             <div class="p-4 bg-white flex justify-center">
                                 <a
-                                        href={ whatsappLink(promo.waMessage ?? WHATSAPP_MESSAGES.promotion(promo.title)) }
+                                        href={ whatsappLink(site.contact.whatsapp, promo.waMessage ?? WHATSAPP_MESSAGES.promotion(promo.title)) }
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         class="inline-flex items-center gap-2 bg-primary hover:bg-primary-dark text-white! font-bold text-sm px-5 py-2.5 rounded-full transition-colors duration-200 shadow-sm"

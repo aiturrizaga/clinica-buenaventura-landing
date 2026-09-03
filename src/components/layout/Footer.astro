@@ -1,9 +1,11 @@
 ---
-import { SITE } from '@config/site';
-import { SOCIAL_LINKS } from '@config/social';
+import { getSite } from '@config/site';
+import { getSocialLinks } from '@config/social';
 import { ROUTES } from '@config/routes';
 
 const year = new Date().getFullYear();
+const SITE = await getSite();
+const SOCIAL_LINKS = await getSocialLinks();
 ---
 
 <footer class="bg-footer text-white/65 pt-16 pb-10 mt-auto">

@@ -1,7 +1,7 @@
 ---
-import { SITE } from '@config/site';
+import { getSite } from '@config/site';
 
-const GA_ID = SITE.gaId;
+const GA_ID = (await getSite()).gaId;
 ---
 
 { GA_ID && (

@@ -1,5 +1,6 @@
 ---
 import type { Doctor } from './types';
+import { getSite } from '@config/site';
 import { whatsappLink, WHATSAPP_MESSAGES } from '@config/social';
 
 interface Props {
@@ -7,10 +8,11 @@ interface Props {
     compact?: boolean;
 }
 const { doctor, compact = false } = Astro.props;
+const site = await getSite();
 
 function waDoctorLink(doctor: Doctor) {
     const desc = `${ doctor.title } ${ doctor.name } de ${ doctor.specialty }`;
-    return whatsappLink(WHATSAPP_MESSAGES.doctor(desc));
+    return whatsappLink(site.contact.whatsapp, WHATSAPP_MESSAGES.doctor(desc));
 }
 ---
 <article class:list={ ['doctor-card card', compact && 'compact'] }

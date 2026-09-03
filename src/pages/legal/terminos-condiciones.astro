@@ -1,6 +1,10 @@
 ---
 import PageLayout from '../../layouts/PageLayout.astro';
-import { SITE } from '@config/site';
+import { getLegalPageBySlug } from '@features/legal/data';
+import { sanitizeHtml, LEGAL_CONTENT_OPTIONS } from '@lib/html/sanitize';
+
+const legalPage = await getLegalPageBySlug('terminos-condiciones');
+if (!legalPage) return Astro.redirect('/404');
 ---
 
 <PageLayout
@@ -16,189 +20,13 @@ import { SITE } from '@config/site';
                 <span>/</span>
                 <span aria-current="page">Términos y Condiciones</span>
             </nav>
-            <h1 class="text-4xl font-extrabold text-gray-900 mb-2">Términos y Condiciones Generales</h1>
+            <h1 class="text-4xl font-extrabold text-gray-900 mb-2">{legalPage.title}</h1>
         </div>
     </div>
 
     <section class="py-14 bg-white">
         <div class="container max-w-4xl">
-            <div class="prose prose-lg max-w-none text-gray-600">
-
-                <h2>1. Aceptación</h2>
-                <p>Al usar la página web, WhatsApp, Chat IA, formularios, redes sociales, llamadas telefónicas o
-                    atención presencial de Clínica Buenaventura, el usuario declara haber leído, entendido y aceptado
-                    estos Términos y Condiciones.</p>
-                <p>Si el usuario no está de acuerdo, deberá abstenerse de utilizar nuestros canales o solicitar
-                    servicios por dichos medios.</p>
-                <p>El usuario declara que la información que brinda es verdadera, completa y actualizada. Si registra
-                    datos de un menor de edad, familiar, paciente dependiente o tercero, declara contar con autorización
-                    suficiente.</p>
-                <p>Documentos relacionados:</p>
-                <ul>
-                    <li><a href="/legal/politica-privacidad">Política de Privacidad, Cookies y Datos Personales</a></li>
-                    <li><a href="/legal/terminos-promociones">Términos de Promociones, Paquetes, Reprogramaciones y
-                        Devoluciones</a></li>
-                </ul>
-
-                <h2>2. Canales oficiales</h2>
-                <p>Clínica Buenaventura atiende mediante:</p>
-                <ol type="a">
-                    <li>WhatsApp oficial.</li>
-                    <li>Chat IA por WhatsApp.</li>
-                    <li>Página web.</li>
-                    <li>Formularios digitales.</li>
-                    <li>Redes sociales oficiales.</li>
-                    <li>Central telefónica.</li>
-                    <li>Atención presencial.</li>
-                    <li>Personal autorizado de admisión, caja, recepción y atención al paciente.</li>
-                </ol>
-                <p>Solo serán válidas las comunicaciones, pagos, reservas, promociones y confirmaciones realizadas por
-                    canales oficiales.</p>
-
-                <h2>3. Uso del Chat IA y WhatsApp</h2>
-                <p>El Chat IA es un asistente virtual de apoyo informativo, administrativo y comercial. Puede ayudar a
-                    brindar información, agendar citas, recibir documentos médicos, recibir comprobantes de pago,
-                    informar promociones y derivar con un asesor humano.</p>
-                <p>El Chat IA no reemplaza una consulta médica, no diagnostica, no prescribe medicamentos, no interpreta
-                    documentos médicos de forma definitiva y no debe usarse para emergencias.</p>
-                <p>El usuario puede solicitar atención humana escribiendo: <strong>"asesor"</strong>,
-                    <strong>"humano"</strong> o <strong>"atención humana"</strong>.</p>
-                <p>Al continuar la conversación o enviar información por WhatsApp o Chat IA, el usuario declara conocer
-                    y aceptar estos términos y la Política de Privacidad.</p>
-
-                <h2>4. Uso de la página web</h2>
-                <p>La página web permite consultar información institucional, servicios, promociones, formularios,
-                    agendamiento y documentos legales.</p>
-                <p>El usuario debe utilizar la web de forma correcta, lícita y respetuosa.</p>
-                <p>La información publicada puede actualizarse, corregirse, modificarse o retirarse sin previo
-                    aviso.</p>
-                <p>La clínica no garantiza disponibilidad continua de la web, WhatsApp, Chat IA, redes sociales o
-                    servicios de terceros.</p>
-
-                <h2>5. Aviso legal del sitio web</h2>
-                <p>El contenido de la web tiene fines informativos, administrativos y comerciales.</p>
-                <p>La información sobre salud, servicios o especialidades no reemplaza la evaluación, diagnóstico o
-                    tratamiento de un profesional de salud.</p>
-                <p>Los textos, imágenes, logotipos, diseños, piezas gráficas, marcas, promociones y contenidos de
-                    Clínica Buenaventura no pueden copiarse, modificarse, distribuirse o usarse comercialmente sin
-                    autorización.</p>
-                <p>La web puede contener enlaces a plataformas externas, como WhatsApp, redes sociales, mapas, pasarelas
-                    de pago u otros servicios de terceros. Clínica Buenaventura no controla ni se responsabiliza por el
-                    contenido o funcionamiento de dichos sitios.</p>
-
-                <h2>6. Atención presencial</h2>
-                <p>El paciente deberá presentarse con una anticipación mínima de 20 minutos antes de su hora programada,
-                    para realizar registro, validación de datos, confirmación de pago y procesos administrativos
-                    previos.</p>
-                <p>Durante la atención, podrá solicitarse documento de identidad, datos de contacto, documentos médicos,
-                    comprobante de pago y confirmación del servicio solicitado.</p>
-                <p>La llegada tarde, falta de validación de pago o inasistencia podrá afectar la atención y estará
-                    sujeta a disponibilidad, reprogramación o evaluación administrativa.</p>
-
-                <h2>7. Agendamiento de citas</h2>
-                <p>El usuario puede solicitar citas por WhatsApp, Chat IA, web, llamada telefónica, redes sociales
-                    oficiales o atención presencial.</p>
-                <p>Todas las atenciones, citas, promociones, paquetes, exámenes, procedimientos o servicios se realizan
-                    con pago previo, salvo que Clínica Buenaventura indique expresamente otra condición.</p>
-                <p>La reserva se confirma únicamente cuando Clínica Buenaventura valida la disponibilidad, verifica el
-                    pago y envía el comprobante correspondiente por un canal oficial.</p>
-                <p>El envío de datos, solicitud de cita, voucher, captura o constancia de transferencia no confirma
-                    automáticamente la reserva.</p>
-
-                <h2>8. Documentos médicos y comprobantes de pago</h2>
-                <p>El paciente podrá enviar documentos médicos o comprobantes de pago por canales autorizados.</p>
-                <p>Los documentos médicos serán usados para gestionar la atención, preparar la cita o coordinar con el
-                    área correspondiente.</p>
-                <p>Los comprobantes de pago serán usados para validar pagos, separar cupos, aplicar promociones, emitir
-                    comprobantes y confirmar servicios.</p>
-                <p>Si el documento o comprobante es ilegible, incompleto, incorrecto o no permite identificar el pago,
-                    Clínica Buenaventura podrá solicitar información adicional.</p>
-
-                <h2>9. Pagos, reprogramaciones y devoluciones</h2>
-                <p>Como regla general, los pagos realizados por citas, servicios, promociones, campañas o paquetes no
-                    están sujetos a devolución inmediata.</p>
-                <p>Si el paciente no puede asistir o desea cambiar la fecha, la clínica podrá ofrecer una
-                    reprogramación, sujeta a disponibilidad y condiciones del servicio.</p>
-                <p>Si el paciente solicita devolución por motivos personales, la solicitud será evaluada por
-                    administración. De aprobarse, podrá descontarse un monto por gastos administrativos, bancarios,
-                    operativos, pasarela de pago, gestión de reserva, emisión o anulación de comprobantes u otros costos
-                    vinculados.</p>
-                <p>Si la atención no puede brindarse por causa atribuible a Clínica Buenaventura, se ofrecerá
-                    reprogramación preferente o devolución del monto correspondiente al servicio no brindado.</p>
-
-                <h2>10. Urgencias y emergencias</h2>
-                <p>WhatsApp, Chat IA, web, redes sociales y formularios no son canales de emergencia.</p>
-                <p>En caso de emergencia médica, el paciente debe acudir al establecimiento de salud más cercano o
-                    comunicarse con los servicios de emergencia correspondientes.</p>
-
-                <h2>11. Responsabilidad del usuario</h2>
-                <p>El usuario se compromete a brindar información verdadera, no suplantar identidad, no enviar
-                    documentos falsos o de terceros sin autorización, no usar canales digitales para emergencias y
-                    revisar fecha, hora, sede, servicio, precio y condiciones antes de confirmar una cita o pago.</p>
-
-                <h2>12. Responsabilidad de Clínica Buenaventura</h2>
-                <p>Clínica Buenaventura brindará atención con diligencia razonable y protegerá la información conforme a
-                    la normativa aplicable.</p>
-                <p>No será responsable por errores causados por información incorrecta del usuario, documentos
-                    ilegibles, comprobantes incompletos, uso de canales no oficiales, fallas de internet, WhatsApp,
-                    redes sociales, correo, servidores, plataformas externas o situaciones fuera de su control.</p>
-
-                <h2>13. Libro de Reclamaciones y reclamos en salud</h2>
-                <p>Clínica Buenaventura cuenta con Libro de Reclamaciones físico a disposición de sus usuarios. El
-                    usuario podrá solicitarlo en nuestra sede para registrar una queja o reclamo relacionado con
-                    atención, servicios, citas, pagos, promociones, paquetes o canales de atención.</p>
-                <p>La presentación de una queja o reclamo será atendida conforme a los procedimientos y plazos
-                    establecidos por la normativa vigente.</p>
-                <p>Dirección: Av. San Juan 871, San Juan de Miraflores, Lima, Perú.</p>
-
-                <h2>14. Modificaciones</h2>
-                <p>Clínica Buenaventura podrá modificar estos términos por cambios legales, operativos, comerciales,
-                    tecnológicos o administrativos.</p>
-                <p>La versión vigente estará disponible en la página web y/o canales oficiales.</p>
-
-                <h2>15. Contacto</h2>
-                <p>Para consultas sobre estos términos, citas, pagos, promociones, documentos o atención, el usuario
-                    puede comunicarse con:</p>
-                <ul>
-                    <li class="flex items-center gap-2">
-                        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                             stroke-width="2" aria-hidden="true" class="shrink-0 mt-0.5">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                  d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
-                        </svg>
-                        <div>WhatsApp: <a href={`https://wa.me/${SITE.contact.whatsapp}`} class="hover:text-primary!" target="_blank">{SITE.contact.phoneDisplay}</a> / <a
-                                href={`https://wa.me/${SITE.contact.altWhatsapp}`} class="hover:text-primary!" target="_blank">{SITE.contact.altPhoneDisplay}</a></div>
-                    </li>
-                    <li class="flex items-center gap-2">
-                        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                             stroke-width="2" aria-hidden="true" class="shrink-0 mt-0.5">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-                        </svg>
-                        <div>
-                            Dirección:
-                            <a href="https://www.google.com/maps/place/Cl%C3%ADnica+Buenaventura/@-12.158772,-76.973447,13z/data=!4m6!3m5!1s0x9105b9db90b20dd5:0xfab3be931acb300!8m2!3d-12.1587718!4d-76.9734474!16s%2Fg%2F11j7jkq6pp?hl=es&entry=ttu&g_ep=EgoyMDI2MDUyNy4wIKXMDSoASAFQAw%3D%3D"
-                               target="_blank"
-                               class="hover:text-primary!">
-                                Av. San Juan 871, San Juan de Miraflores, Lima, Perú
-                            </a>
-                        </div>
-                    </li>
-                    <li class="flex items-center gap-2">
-                        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                             stroke-width="2" aria-hidden="true" class="shrink-0 mt-0.5">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                  d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                        </svg>
-                        <div>
-                            Correo: <a href={`mailto:${SITE.contact.email}`}
-                                       class="hover:text-primary!">{SITE.contact.email}</a>
-                        </div>
-                    </li>
-                    <li>Horario de atención: 8:00 a. m. – 6:00 p. m.</li>
-                </ul>
-
-            </div>
+            <div class="prose prose-lg max-w-none text-gray-600" set:html={sanitizeHtml(legalPage.content, LEGAL_CONTENT_OPTIONS)} />
         </div>
     </section>
 </PageLayout>

@@ -5,6 +5,7 @@ export interface AssetTransform {
     height?: number;
     fit?: 'cover' | 'contain' | 'inside' | 'outside';
     format?: 'webp' | 'jpg' | 'png' | 'avif';
+    quality?: number;
 }
 
 // Construye la URL pública de un archivo subido a Directus, con transformaciones
@@ -16,6 +17,7 @@ export function directusAssetUrl(fileId: string, transform?: AssetTransform): st
     if (transform?.height) url.searchParams.set('height', String(transform.height));
     if (transform?.fit) url.searchParams.set('fit', transform.fit);
     if (transform?.format) url.searchParams.set('format', transform.format);
+    if (transform?.quality) url.searchParams.set('quality', String(transform.quality));
 
     return url.toString();
 }

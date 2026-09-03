@@ -6,20 +6,20 @@ import SpecialtiesSection from '../sections/home/SpecialtiesSection.astro';
 import AboutSection from '../sections/home/AboutSection.astro';
 import DoctorsSection from '../sections/home/DoctorsSection.astro';
 import { buildClinicSchema } from '@lib/seo';
+import { getSite } from '@config/site';
+import { getSocialLinks } from '@config/social';
 import PromoPopup from '@features/promotions/PromoPopup.astro';
-import promoPopupImage from '@assets/promotions/promo_03.webp';
+
+const site = await getSite();
+const socialLinks = await getSocialLinks();
 ---
 <PageLayout
         title="Clínica Buenaventura | Comprometidos con tu confianza"
         noTitleSuffix
         description="Atención médica cercana y confiable para ti y tu familia. Más de 20 especialidades, cirugías, ecografías, rayos X, odontología, laboratorio y farmacia en San Juan de Miraflores, Lima Sur. Agenda tu cita online."
-        jsonLd={ buildClinicSchema() }
+        jsonLd={ buildClinicSchema(site, socialLinks) }
 >
-    <PromoPopup
-            image={ promoPopupImage }
-            alt="Campaña de Salud digestiva"
-            waMessage="Hola Clínica Buenaventura, ¿Me pueden dar más información sobre la campaña de salud digestiva?"
-    />
+    <PromoPopup/>
 
     <HeroSection/>
     <PromotionsCarousel/>

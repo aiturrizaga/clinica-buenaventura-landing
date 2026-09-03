@@ -1,38 +1,29 @@
 ---
-import { getImage } from 'astro:assets';
-import mobileSrc from '@assets/hero/fondo_principal-mobile.webp';
-import tabletSrc from '@assets/hero/fondo_principal-tablet.webp';
-import desktopSrc from '@assets/hero/fondo_principal-desktop.webp';
-import wideSrc from '@assets/hero/fondo_principal-wide.webp';
+import { getHomeHero } from '@config/home-hero';
 
-// Picture con arte-dirección (una imagen distinta por breakpoint, no solo
-// tamaños): astro:assets no tiene un componente para este caso, así que se
-// optimiza cada fuente con getImage() y se arma el <picture> a mano.
-const [mobile, tablet, desktop, wide] = await Promise.all(
-    [mobileSrc, tabletSrc, desktopSrc, wideSrc].map((src) => getImage({ src })),
-);
+const hero = await getHomeHero();
 ---
 <section class="hero" aria-label="Sección principal">
     <div class="hero-bg-img" aria-hidden="true">
         <picture>
             <source
                     media="(max-width: 639px)"
-                    srcset={mobile.src}
+                    srcset={hero.imageMobile}
             />
             <source
                     media="(max-width: 1023px)"
-                    srcset={tablet.src}
+                    srcset={hero.imageTablet}
             />
             <source
                     media="(max-width: 1439px)"
-                    srcset={desktop.src}
+                    srcset={hero.imageDesktop}
             />
             <source
                     media="(min-width: 1440px)"
-                    srcset={wide.src}
+                    srcset={hero.imageWide}
             />
             <img
-                    src={desktop.src}
+                    src={hero.imageDesktop}
                     alt=""
                     fetchpriority="high"
             />

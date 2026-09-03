@@ -1,5 +1,10 @@
 ---
 import PageLayout from '../../layouts/PageLayout.astro';
+import { getLegalPageBySlug } from '@features/legal/data';
+import { sanitizeHtml, LEGAL_CONTENT_OPTIONS } from '@lib/html/sanitize';
+
+const legalPage = await getLegalPageBySlug('terminos-condiciones-sorteo-dia-del-padre');
+if (!legalPage) return Astro.redirect('/404');
 ---
 
 <PageLayout
@@ -17,7 +22,7 @@ import PageLayout from '../../layouts/PageLayout.astro';
                 <span>/</span>
                 <span aria-current="page">Sorteo Día del Padre</span>
             </nav>
-            <h1 class="text-4xl font-extrabold text-gray-900 mb-2">Sorteo Día del Padre – Edición Mundialista</h1>
+            <h1 class="text-4xl font-extrabold text-gray-900 mb-2">{legalPage.title}</h1>
             <p class="text-gray-500 mt-2">
                 Clínica Buenaventura sorteará 2 televisores de 45 pulgadas entre sus pacientes.
             </p>
@@ -26,89 +31,7 @@ import PageLayout from '../../layouts/PageLayout.astro';
 
     <section class="py-14 bg-white">
         <div class="container max-w-4xl">
-            <div class="prose prose-lg max-w-none text-gray-600">
-
-                <h2>1. ¿Cómo participar?</h2>
-                <p>Por compras iguales o mayores a <strong>S/100</strong>, el paciente recibirá <strong>1
-                    ticket</strong> para participar en el sorteo. Se entregará un máximo de <strong>6 tickets por
-                    comprobante de pago</strong>.</p>
-                <p>Los montos de diferentes boletas o comprobantes no son acumulables.</p>
-                <p>El ticket contará con los datos del paciente previamente impresos. Para participar, deberá
-                    depositarlo en el ánfora ubicada en caja de Clínica Buenaventura.</p>
-                <p>En caso de que la atención corresponda a un menor de edad, el ticket se emitirá con los datos de su
-                    acompañante mayor de edad registrado como padre, madre o apoderado.</p>
-
-                <h2>2. Participación automática</h2>
-                <p>Participarán automáticamente en el sorteo los pacientes que hayan realizado consumos válidos durante
-                    el mes de <strong>mayo de 2026</strong>.</p>
-                <p>Asimismo, los pacientes que realicen compras durante junio a través de los canales digitales de
-                    Clínica Buenaventura, como WhatsApp o Messenger, participarán automáticamente siempre que cumplan
-                    con las condiciones de la promoción y registren un consumo igual o mayor a S/100.</p>
-                <p>En estos casos, no será necesario depositar un ticket en el ánfora. Clínica Buenaventura registrará
-                    automáticamente su participación y enviará un mensaje al número de WhatsApp registrado para informar
-                    al paciente que cuenta con tickets asignados para el sorteo.</p>
-
-                <h2>3. Servicios incluidos</h2>
-                <p>La promoción aplica únicamente para ventas de tipo particular facturadas por Clínica Buenaventura en
-                    los siguientes servicios:</p>
-                <ul class="list-disc list-inside">
-                    <li>Consultas médicas</li>
-                    <li>Farmacia</li>
-                    <li>Laboratorio</li>
-                    <li>Ecografías</li>
-                    <li>Rayos X</li>
-                    <li>Procedimientos</li>
-                    <li>Cirugías</li>
-                    <li>Hospitalización</li>
-                </ul>
-
-                <h2>4. Exclusiones</h2>
-                <p>No aplica para consumos registrados bajo las modalidades:</p>
-                <ul class="list-disc list-inside">
-                    <li>Conv. SaludPol</li>
-                    <li>Empresa / Convenio</li>
-                    <li>Conv. Alquiler</li>
-                </ul>
-                <p>Tampoco participan comprobantes anulados, cancelados o reembolsados.</p>
-
-                <h2>5. Fechas importantes</h2>
-                <ul>
-                    <li><strong>Cierre de ánfora:</strong> 18 de junio de 2026 a las 8:00 p. m.</li>
-                    <li><strong>Fecha del sorteo:</strong> 19 de junio de 2026 a las 12:00 p. m.</li>
-                    <li><strong>Transmisión en vivo:</strong> TikTok Live <a
-                            href="https://www.tiktok.com/@clinicabuenaventura" target="_blank">@clinicabuenaventura</a>
-                    </li>
-                </ul>
-
-                <h2>6. Selección de ganadores</h2>
-                <p>Durante la transmisión en vivo, se seleccionará aleatoriamente un ticket y se llamará al participante
-                    al número registrado.</p>
-                <p>Si responde la llamada, será declarado ganador y recibirá un televisor de 45 pulgadas. Si no
-                    responde, se seleccionará inmediatamente a otro participante. Este procedimiento se repetirá hasta
-                    obtener a los 2 ganadores.</p>
-                <p>Cada participante podrá ganar únicamente un premio.</p>
-
-                <h2>7. Entrega de premios</h2>
-                <p>Para reclamar el premio, el ganador deberá presentar su <strong>DNI físico</strong> y acercarse a
-                    Clínica Buenaventura, ubicada en
-                    <a href="https://www.google.com/maps/place/Cl%C3%ADnica+Buenaventura/@-12.158772,-76.973447,13z/data=!4m6!3m5!1s0x9105b9db90b20dd5:0xfab3be931acb300!8m2!3d-12.1587718!4d-76.9734474!16s%2Fg%2F11j7jkq6pp?hl=es&entry=ttu&g_ep=EgoyMDI2MDUyNy4wIKXMDSoASAFQAw%3D%3D"
-                       target="_blank" class="hover:text-primary!">Av. San Juan 871, San Juan de Miraflores</a>, en la
-                    fecha que se le comunique.
-                </p>
-                <p>Los premios no podrán ser canjeados por dinero en efectivo ni por otros productos o servicios.</p>
-
-                <h2>8. Consideraciones generales</h2>
-                <ul>
-                    <li>Los tickets adulterados, duplicados o con información incorrecta serán invalidados.</li>
-                    <li>Clínica Buenaventura se reserva el derecho de verificar la validez de las participaciones y de
-                        descalificar aquellas que incumplan los presentes términos y condiciones.
-                    </li>
-                    <li>La participación en el sorteo implica la aceptación total de los presentes términos y
-                        condiciones.
-                    </li>
-                </ul>
-
-            </div>
+            <div class="prose prose-lg max-w-none text-gray-600" set:html={sanitizeHtml(legalPage.content, LEGAL_CONTENT_OPTIONS)} />
         </div>
     </section>
 </PageLayout>
