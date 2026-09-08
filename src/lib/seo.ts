@@ -5,58 +5,6 @@ export function buildTitle(site: Pick<SiteSettings, 'name'>, pageTitle: string, 
   return `${pageTitle} | ${site.name}`;
 }
 
-export function buildDoctorSchema(
-  site: Pick<SiteSettings, 'url' | 'name'>,
-  doctor: {
-    name: string;
-    specialty: string;
-    cmp: string;
-    bio: string;
-    photo: string;
-    slug: string;
-  },
-) {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'Physician',
-    name: doctor.name,
-    description: doctor.bio,
-    image: doctor.photo,
-    url: `${site.url}/medicos/${doctor.slug}`,
-    medicalSpecialty: doctor.specialty,
-    identifier: doctor.cmp,
-    worksFor: { '@type': 'MedicalOrganization', name: site.name },
-  };
-}
-
-export function buildArticleSchema(
-  site: Pick<SiteSettings, 'url' | 'name'>,
-  post: {
-    title: string;
-    excerpt: string;
-    slug: string;
-    coverImage: string;
-    publishedAt: string;
-    author: { name: string };
-  },
-) {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'BlogPosting',
-    headline: post.title,
-    description: post.excerpt,
-    image: post.coverImage,
-    url: `${site.url}/blog/${post.slug}`,
-    datePublished: post.publishedAt,
-    author: { '@type': 'Person', name: post.author.name },
-    publisher: {
-      '@type': 'Organization',
-      name: site.name,
-      logo: { '@type': 'ImageObject', url: `${site.url}/images/logo.svg` },
-    },
-  };
-}
-
 export function buildClinicSchema(site: SiteSettings, social: SocialLinks) {
   return {
     '@context': 'https://schema.org',

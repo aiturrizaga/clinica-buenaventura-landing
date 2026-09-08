@@ -7,15 +7,10 @@ import sitemap from '@astrojs/sitemap';
 // por eso las env vars se cargan aquí explícitamente en vez de importar src/config/site.ts.
 const { PUBLIC_SITE_URL } = loadEnv(process.env.NODE_ENV ?? 'production', process.cwd(), '');
 
-// Rutas sin valor de indexación (flujo transaccional /citas/* y páginas huérfanas
-// sin enlaces internos) — @astrojs/sitemap no lee la meta noindex de cada página,
-// así que se excluyen explícitamente aquí para que coincidan con SEOHead's noindex.
+// Rutas sin valor de indexación (páginas huérfanas sin enlaces internos) —
+// @astrojs/sitemap no lee la meta noindex de cada página, así que se
+// excluyen explícitamente aquí para que coincidan con SEOHead's noindex.
 const NOINDEX_PATHS = [
-  '/citas/identificacion',
-  '/citas/registro',
-  '/citas/paciente',
-  '/citas/verificacion',
-  '/citas/confirmacion',
   '/servicios',
 ];
 

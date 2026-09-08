@@ -4,4 +4,6 @@ import { DirectusLegalPagesRepository } from './infrastructure/directus-legal-pa
 
 const repository: LegalPagesRepository = new DirectusLegalPagesRepository();
 
+export const getLegalPages = (): Promise<LegalPage[]> => repository.findAllActive();
+
 export const getLegalPageBySlug = (slug: string): Promise<LegalPage | undefined> => repository.findBySlug(slug);

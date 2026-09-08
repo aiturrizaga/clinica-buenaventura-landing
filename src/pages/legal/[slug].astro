@@ -1,15 +1,22 @@
 ---
 import PageLayout from '../../layouts/PageLayout.astro';
-import { getLegalPageBySlug } from '@features/legal/data';
+import { getLegalPages } from '@features/legal/data';
 import { sanitizeHtml, LEGAL_CONTENT_OPTIONS } from '@lib/html/sanitize';
 
-const legalPage = await getLegalPageBySlug('terminos-condiciones');
-if (!legalPage) return Astro.redirect('/404');
+export async function getStaticPaths() {
+  const pages = await getLegalPages();
+  return pages.map((page) => ({
+    params: { slug: page.slug },
+    props: { page },
+  }));
+}
+
+const { page } = Astro.props;
 ---
 
 <PageLayout
-        title="Términos y Condiciones"
-        description="Términos y Condiciones Generales de uso de los servicios y canales de Clínica Buenaventura."
+        title={page.title}
+        description={`${page.title} de Clínica Buenaventura.`}
 >
     <div class="bg-linear-to-br from-primary-50 to-white py-14">
         <div class="container">
@@ -18,15 +25,15 @@ if (!legalPage) return Astro.redirect('/404');
                 <span>/</span>
                 <span>Legal</span>
                 <span>/</span>
-                <span aria-current="page">Términos y Condiciones</span>
+                <span aria-current="page">{page.title}</span>
             </nav>
-            <h1 class="text-4xl font-extrabold text-gray-900 mb-2">{legalPage.title}</h1>
+            <h1 class="text-4xl font-extrabold text-gray-900 mb-2">{page.title}</h1>
         </div>
     </div>
 
     <section class="py-14 bg-white">
         <div class="container max-w-4xl">
-            <div class="prose prose-lg max-w-none text-gray-600" set:html={sanitizeHtml(legalPage.content, LEGAL_CONTENT_OPTIONS)} />
+            <div class="prose prose-lg max-w-none text-gray-600" set:html={sanitizeHtml(page.content, LEGAL_CONTENT_OPTIONS)} />
         </div>
     </section>
 </PageLayout>

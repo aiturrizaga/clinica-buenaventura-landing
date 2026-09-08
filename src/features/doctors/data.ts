@@ -16,7 +16,3 @@ export const getFeaturedDoctors = async (): Promise<Doctor[]> => {
     const featured = (await getDoctors()).filter(d => d.featured);
     return featured.length % 2 !== 0 ? featured.slice(0, featured.length - 1) : featured;
 };
-
-// Compat: antes había que adivinar el slug de especialidad comparando nombres;
-// ahora la relación viene resuelta desde Directus.
-export const getSpecialtySlugFor = (doctor: Doctor): string | undefined => doctor.specialtySlug || undefined;

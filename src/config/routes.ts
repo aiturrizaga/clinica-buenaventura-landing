@@ -9,28 +9,12 @@ export const ROUTES = {
   },
   medicos: {
     index: '/medicos',
-    detail: (slug: string): string => `/medicos/${slug}`,
   },
   promociones: {
     index: '/promociones',
     detail: (slug: string): string => `/promociones/${slug}`,
   },
-  blog: {
-    index: '/blog',
-    detail: (slug: string): string => `/blog/${slug}`,
-  },
-  citas: {
-    index: '/citas',
-    identificacion: '/citas/identificacion',
-    registro: '/citas/registro',
-    paciente: '/citas/paciente',
-    verificacion: '/citas/verificacion',
-    confirmacion: '/citas/confirmacion',
-  },
   legal: {
-    terminosCondiciones: '/legal/terminos-condiciones',
-    politicaPrivacidad: '/legal/politica-privacidad',
-    terminosPromociones: '/legal/terminos-promociones',
-    terminosSorteoDiaDelPadre: '/legal/terminos-condiciones-sorteo-dia-del-padre',
+    detail: (slug: string): string => `/legal/${slug}`,
   },
 } as const;

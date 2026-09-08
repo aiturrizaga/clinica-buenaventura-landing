@@ -246,6 +246,19 @@
     color: var(--color-text);
 }
 
+.prose a {
+    color: var(--color-primary);
+    text-decoration: underline;
+    text-decoration-color: color-mix(in srgb, var(--color-primary) 35%, transparent);
+    text-underline-offset: 3px;
+    transition: color 0.2s ease, text-decoration-color 0.2s ease;
+}
+
+.prose a:hover {
+    color: var(--color-primary-dark);
+    text-decoration-color: currentColor;
+}
+
 /* Gradient */
 .bg-gradient {
     background: linear-gradient(to bottom right, var(--color-primary), color-mix(in srgb, var(--color-primary) 60%, #000))

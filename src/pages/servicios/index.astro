@@ -1,7 +1,6 @@
 ---
 import PageLayout from '../../layouts/PageLayout.astro';
 import Button from '@/components/ui/Button.astro';
-import { ROUTES } from '@config/routes';
 import { getSite } from '@config/site';
 import { whatsappLink, WHATSAPP_MESSAGES } from '@config/social';
 
@@ -86,8 +85,7 @@ const services = [
       <h2 style="color:#fff;font-size:clamp(1.5rem,3vw,2rem);margin:0 0 1rem">¿Necesitas alguno de nuestros servicios?</h2>
       <p style="color:rgba(255,255,255,0.75);margin:0 0 2rem">Agenda tu cita y te atendemos a la brevedad.</p>
       <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
-        <Button href={ROUTES.citas.index} variant="white" size="lg">Agendar cita</Button>
-        <Button href={whatsappLink(site.contact.whatsapp, WHATSAPP_MESSAGES.general)} target="_blank" variant="outline-white" size="lg">Contactarnos</Button>
+        <Button href={whatsappLink(site.contact.whatsapp, WHATSAPP_MESSAGES.general)} target="_blank" variant="white" size="lg">Agendar cita</Button>
       </div>
     </div>
   </section>
