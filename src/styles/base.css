@@ -5,6 +5,9 @@
 
 html, body {
     overflow-x: hidden;
+    /* `clip` evita el scroll horizontal sin convertir body en contenedor de
+       scroll (con `hidden`, cualquier `position: sticky` dentro deja de funcionar). */
+    overflow-x: clip;
     max-width: 100%;
 }
 

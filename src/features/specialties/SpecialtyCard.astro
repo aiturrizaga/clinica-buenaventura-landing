@@ -1,31 +1,68 @@
 ---
 import type { Specialty } from './types';
+import SpecialtyCardBody from './SpecialtyCardBody.astro';
 import { getSite } from '@config/site';
 import { whatsappLink, WHATSAPP_MESSAGES } from '@config/social';
+import { ROUTES } from '@config/routes';
 
 interface Props {
     specialty: Specialty;
 }
 const { specialty } = Astro.props;
 const site = await getSite();
+
+const waHref = whatsappLink(site.contact.whatsapp, WHATSAPP_MESSAGES.specialty(specialty.name));
+const cardClass = 'group flex flex-col items-center text-center gap-3 p-5 h-full bg-white rounded-2xl border border-gray-100 hover:bg-primary-50 hover:border-blue-100 transition-colors duration-200 no-underline';
+const menuItemClass = 'flex items-center gap-2.5 rounded-lg px-3 py-2.5 text-sm font-semibold text-gray-700 no-underline hover:bg-primary-50 hover:text-primary transition-colors duration-150';
 ---
-<a href={ whatsappLink(site.contact.whatsapp, WHATSAPP_MESSAGES.specialty(specialty.name)) }
-   target="_blank" rel="noopener noreferrer"
-   class="group flex flex-col items-center text-center gap-3 p-5 bg-white rounded-2xl border border-gray-100 hover:bg-primary-50 hover:border-blue-100 transition-colors duration-200 no-underline"
-   aria-label={ `Especialidad: ${ specialty.name }` }
->
-    <div class="w-14 h-14 rounded-xl bg-primary-50 text-primary flex items-center justify-center shrink-0 group-hover:bg-primary group-hover:text-white transition-colors duration-200">
-        <i class={ `ti ti-${ specialty.fontIcon }` }
-           style="font-size: 26px;"
-           aria-hidden="true"
-        ></i>
-    </div>
+{/* Con página de detalle: menú "Contactar por WhatsApp" / "Ver detalle". Sin detalle: directo a WhatsApp. */}
+{ specialty.hasDetail ? (
+        <details class="group/menu relative h-full open:z-30" data-specialty-menu>
+            <summary
+                    class:list={ [cardClass, 'cursor-pointer list-none [&::-webkit-details-marker]:hidden'] }
+                    aria-label={ `Especialidad: ${ specialty.name }. Ver opciones` }
+            >
+                <SpecialtyCardBody specialty={ specialty } expandable/>
+            </summary>
 
-    <h3 class="text-sm font-bold text-gray-900 m-0 leading-tight group-hover:text-white transition-colors duration-200">
-        { specialty.name }
-    </h3>
+            <div role="menu"
+                 class="absolute inset-x-0 top-full z-30 mt-2 flex flex-col gap-0.5 rounded-xl border border-gray-100 bg-white p-1.5 shadow-xl">
+                <a role="menuitem" href={ waHref } target="_blank" rel="noopener noreferrer" class={ menuItemClass }>
+                    <i class="ti ti-brand-whatsapp text-lg text-success" aria-hidden="true"></i>
+                    Contactar por WhatsApp
+                </a>
+                <a role="menuitem" href={ ROUTES.especialidades.detail(specialty.slug) } class={ menuItemClass }>
+                    <i class="ti ti-file-text text-lg text-primary" aria-hidden="true"></i>
+                    Ver detalle
+                </a>
+            </div>
+        </details>
+) : (
+        <a href={ waHref }
+           target="_blank" rel="noopener noreferrer"
+           class={ cardClass }
+           aria-label={ `Especialidad: ${ specialty.name }` }
+        >
+            <SpecialtyCardBody specialty={ specialty }/>
+        </a>
+) }
 
-    <!--  <span class="text-xs font-semibold text-primary mt-auto transition-colors duration-200">-->
-    <!--  Ver detalle →-->
-    <!--</span>-->
-</a>
+<script>
+    // Cierra el menú al hacer clic fuera, al elegir una opción o con Escape.
+    // Delegación en document: este módulo se ejecuta una sola vez aunque el
+    // Client Router cambie de página.
+    const OPEN_MENUS = 'details[data-specialty-menu][open]';
+
+    document.addEventListener('click', (event) => {
+        const target = event.target as Element | null;
+        document.querySelectorAll<HTMLDetailsElement>(OPEN_MENUS).forEach((menu) => {
+            const pickedOption = !!target?.closest('[role="menuitem"]') && menu.contains(target);
+            if (!menu.contains(target) || pickedOption) menu.removeAttribute('open');
+        });
+    });
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key !== 'Escape') return;
+        document.querySelectorAll<HTMLDetailsElement>(OPEN_MENUS).forEach((menu) => menu.removeAttribute('open'));
+    });
+</script>

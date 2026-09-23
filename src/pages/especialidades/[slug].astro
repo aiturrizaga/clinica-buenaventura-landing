@@ -1,31 +1,44 @@
 ---
 import PageLayout from '../../layouts/PageLayout.astro';
-import DoctorCard from '@features/doctors/DoctorCard.astro';
-import { getSpecialties, getSpecialtyBySlug } from '@features/specialties/data';
-import { getDoctors } from '@features/doctors/data';
+import { getSpecialties } from '@features/specialties/data';
 import { getSite } from '@config/site';
 import { whatsappLink, WHATSAPP_MESSAGES } from '@config/social';
 import { ROUTES } from '@config/routes';
 import { buildBreadcrumbSchema } from '@lib/seo';
+import { sanitizeHtml } from '@lib/html/sanitize';
 
+// Solo las especialidades con página de detalle activa generan ruta.
 export async function getStaticPaths() {
   const specialties = await getSpecialties();
-  return specialties.map(s => ({ params: { slug: s.slug } }));
+  const withDetail = specialties.filter((s) => s.hasDetail && s.detail);
+
+  return withDetail.map((specialty) => {
+    const target = specialty.detail!.callout
+      ? withDetail.find((s) => s.slug === specialty.detail!.callout!.specialtySlug)
+      : undefined;
+
+    return {
+      params: { slug: specialty.slug },
+      props: {
+        specialty,
+        calloutHref: target ? ROUTES.especialidades.detail(target.slug) : undefined,
+      },
+    };
+  });
 }
 
-const { slug } = Astro.params;
-const specialty = await getSpecialtyBySlug(slug!);
-if (!specialty) return Astro.redirect('/404');
-
-const doctors = await getDoctors();
-const relatedDoctors = doctors.filter(d => specialty.relatedDoctorIds.includes(d.id));
+const { specialty, calloutHref } = Astro.props;
+const detail = specialty.detail!;
 const site = await getSite();
-const citasHref = whatsappLink(site.contact.whatsapp, WHATSAPP_MESSAGES.specialty(specialty.name));
+
+const waHref = whatsappLink(site.contact.whatsapp, WHATSAPP_MESSAGES.specialty(specialty.name));
+const plainIntro = specialty.fullDescription.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+const metaDescription = plainIntro.length > 160 ? `${plainIntro.slice(0, 157)}…` : plainIntro;
 ---
 <PageLayout
   title={specialty.name}
-  description={specialty.shortDescription}
-  ogImage={specialty.coverImage}
+  description={metaDescription || specialty.shortDescription}
+  ogImage={specialty.coverImage || undefined}
   jsonLd={[
     {
       '@context': 'https://schema.org',
@@ -42,7 +55,9 @@ const citasHref = whatsappLink(site.contact.whatsapp, WHATSAPP_MESSAGES.specialt
 >
   <!-- Banner -->
   <div class="spec-banner">
-    <img src={specialty.coverImage} alt={specialty.name} loading="lazy" width="1200" height="400" />
+    {specialty.coverImage && (
+      <img src={specialty.coverImage} alt="" loading="eager" width="1200" height="400" />
+    )}
     <div class="spec-banner-overlay">
       <div class="container">
         <nav aria-label="Breadcrumb" class="breadcrumb">
@@ -50,65 +65,132 @@ const citasHref = whatsappLink(site.contact.whatsapp, WHATSAPP_MESSAGES.specialt
           <a href="/especialidades">Especialidades</a><span>/</span>
           <span aria-current="page">{specialty.name}</span>
         </nav>
-        <h1 style="color:#fff;font-size:clamp(2rem,4vw,3rem);margin:0.75rem 0 0">{specialty.name}</h1>
+        <h1 class="spec-title">{specialty.name}</h1>
+        {specialty.shortDescription && <p class="spec-tagline">{specialty.shortDescription}</p>}
       </div>
     </div>
   </div>
 
-  <section class="section-py" style="background:#fff">
+  <section class="section-py bg-white">
     <div class="container">
-      <div class="spec-layout">
-        <!-- Main content -->
-        <div>
-          <div class="prose reveal">
-            <p style="font-size:1.0625rem;color:var(--color-text-muted);line-height:1.8">{specialty.fullDescription}</p>
+      <div class="grid grid-cols-1 items-start gap-10 lg:grid-cols-[1fr_340px] lg:gap-14">
+
+        <!-- Contenido principal -->
+        <div class="min-w-0 space-y-12">
+
+          <!-- Introducción -->
+          <div class="reveal">
+            <div class="prose" set:html={sanitizeHtml(specialty.fullDescription)} />
           </div>
 
-          <div class="procedures reveal" style="animation-delay:0.1s">
-            <h2 class="proc-title">Procedimientos y servicios</h2>
-            <ul class="proc-list">
-              {specialty.procedures.map(p => (
-                <li>
-                  <span class="proc-dot" aria-hidden="true"></span>
-                  {p}
-                </li>
-              ))}
-            </ul>
-          </div>
+          {detail.symptoms.length > 0 && (
+            <section class="reveal" aria-labelledby="symptoms-title">
+              <h2 id="symptoms-title" class="section-heading">{detail.symptomsTitle}</h2>
+              <ul class="grid list-none grid-cols-1 gap-3 p-0 sm:grid-cols-2">
+                {detail.symptoms.map((symptom) => (
+                  <li class="rounded-xl border border-primary-100 bg-primary-50/50 px-5 py-3 text-[0.9375rem] font-medium text-text">
+                    {symptom}
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
 
-          {relatedDoctors.length > 0 && (
-            <div class="reveal" style="animation-delay:0.2s">
-              <h2 class="proc-title">Especialistas en {specialty.name}</h2>
-              <div class="doctors-grid">
-                {relatedDoctors.map(d => <DoctorCard doctor={d} compact />)}
+          {detail.conditions.length > 0 && (
+            <section class="reveal" aria-labelledby="conditions-title">
+              <h2 id="conditions-title" class="section-heading">{detail.conditionsTitle}</h2>
+              <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                {detail.conditions.map((condition) => (
+                  <article class="rounded-2xl border border-gray-200 bg-white p-5 transition-colors duration-200 hover:border-primary/40">
+                    <h3 class="mb-1.5 text-base font-bold text-text">{condition.title}</h3>
+                    <p class="m-0 text-sm leading-relaxed text-text-muted">{condition.description}</p>
+                  </article>
+                ))}
               </div>
-            </div>
+            </section>
+          )}
+
+          {detail.procedureGroups.length > 0 && (
+            <section class="reveal" aria-labelledby="procedures-title">
+              <h2 id="procedures-title" class="section-heading">{detail.proceduresTitle}</h2>
+              <div class="space-y-6">
+                {detail.procedureGroups.map((group) => (
+                  <div class="rounded-2xl bg-surface p-5 md:p-6">
+                    {group.title && (
+                      <h3 class="mb-3 text-sm font-bold uppercase tracking-wide text-primary">{group.title}</h3>
+                    )}
+                    <ul class="grid list-none grid-cols-1 gap-x-8 gap-y-2 p-0 m-0 md:grid-cols-2">
+                      {group.items.map((item) => (
+                        <li class="flex items-start gap-2.5 text-[0.9375rem] leading-snug text-text-muted">
+                          <span class="mt-2 size-1.5 shrink-0 rounded-full bg-primary" aria-hidden="true"></span>
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {detail.callout && calloutHref && (
+            <section class="reveal rounded-2xl bg-primary p-6 text-white md:p-8" aria-label={detail.callout.title}>
+              <h2 class="mb-2 text-xl font-bold text-white! md:text-2xl">{detail.callout.title}</h2>
+              <p class="mb-5 max-w-2xl text-white/80">{detail.callout.text}</p>
+              <a href={calloutHref} class="btn btn-white btn-md">
+                {detail.callout.buttonLabel}
+                <i class="ti ti-arrow-right" aria-hidden="true"></i>
+              </a>
+            </section>
+          )}
+
+          {detail.benefits.length > 0 && (
+            <section class="reveal" aria-labelledby="benefits-title">
+              <h2 id="benefits-title" class="section-heading">¿Por qué acudir a {specialty.name}?</h2>
+              {detail.benefitsIntro && <p class="mb-4 text-text-muted">{detail.benefitsIntro}</p>}
+              <ul class="m-0 flex list-none flex-col gap-3 p-0">
+                {detail.benefits.map((benefit) => (
+                  <li class="flex items-start gap-3 text-[0.9375rem] text-text">
+                    <i class="ti ti-circle-check mt-0.5 text-xl text-primary" aria-hidden="true"></i>
+                    {benefit}
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {detail.staff.length > 0 && (
+            <section class="reveal" aria-labelledby="staff-title">
+              <h2 id="staff-title" class="section-heading">Staff médico</h2>
+              <ul class="m-0 flex list-none flex-wrap gap-3 p-0">
+                {detail.staff.map((name) => (
+                  <li class="rounded-full border border-primary-100 bg-primary-50 px-4 py-2 text-sm font-semibold text-primary-dark">
+                    {name}
+                  </li>
+                ))}
+              </ul>
+            </section>
           )}
         </div>
 
         <!-- Sidebar -->
-        <aside class="spec-sidebar">
+        <aside class="flex flex-col gap-5 lg:sticky lg:top-28">
           <div class="cta-card">
             <h3>¿Necesitas atención?</h3>
             <p>Agenda tu cita con nuestros especialistas en {specialty.name}.</p>
-            <a href={citasHref} target="_blank" rel="noopener noreferrer" class="btn btn-white btn-md" style="width:100%;justify-content:center">
-              Agendar cita ahora
+            <a href={waHref} target="_blank" rel="noopener noreferrer" class="btn btn-white btn-md w-full justify-center">
+              <i class="ti ti-brand-whatsapp" aria-hidden="true"></i>
+              Contactar por WhatsApp
             </a>
           </div>
 
           <div class="hours-card">
-            <h3 style="font-size:1rem;font-weight:700;color:var(--color-text);margin:0 0 1rem">Horario de atención</h3>
+            <h3 class="mb-4 text-base font-bold text-text">Horario de atención</h3>
             <dl class="hours">
-              {[
-                ['Lun – Dom', '7:00 am – 8:00 pm'],
-                // ['Sábados', '7:00 am – 1:00 pm'],
-                // ['Urgencias', '24 horas'],
-              ].map(([dt, dd]) => (
-                <div>
-                  <dt>{dt}</dt>
-                  <dd style={dt==='Urgencias' ? 'color:var(--color-primary);font-weight:600' : ''}>{dd}</dd>
-                </div>
-              ))}
+              <div>
+                <dt>{site.hours.label}</dt>
+                <dd>{site.hours.display}</dd>
+              </div>
             </dl>
           </div>
         </aside>
@@ -120,62 +202,41 @@ const citasHref = whatsappLink(site.contact.whatsapp, WHATSAPP_MESSAGES.specialt
 <style>
   .spec-banner {
     position: relative;
-    height: 300px;
+    min-height: 300px;
     overflow: hidden;
-    background: var(--color-primary);
+    background: linear-gradient(135deg, var(--color-primary), color-mix(in srgb, var(--color-primary) 60%, #000));
   }
-  .spec-banner img { width:100%; height:100%; object-fit:cover; opacity:0.35; }
+  .spec-banner img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.3; }
   .spec-banner-overlay {
-    position: absolute; inset: 0;
+    position: relative;
     display: flex; flex-direction: column; justify-content: flex-end;
-    padding-bottom: 2.5rem;
+    min-height: 300px;
+    padding-block: 2.5rem;
   }
 
   .breadcrumb {
-    display: flex; align-items: center; gap: 0.5rem;
-    font-size: 0.875rem; color: rgba(255,255,255,0.7);
+    display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem;
+    font-size: 0.875rem; color: rgba(255, 255, 255, 0.7);
   }
-  .breadcrumb a { color: rgba(255,255,255,0.8); }
+  .breadcrumb a { color: rgba(255, 255, 255, 0.8); }
   .breadcrumb a:hover { color: #fff; }
 
-  .spec-layout {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 3rem;
-  }
-  @media (min-width: 1024px) { .spec-layout { grid-template-columns: 1fr 320px; } }
+  .spec-title { color: #fff; font-size: clamp(2rem, 4vw, 3rem); margin: 0.75rem 0 0; }
+  .spec-tagline { color: rgba(255, 255, 255, 0.85); font-size: 1.125rem; max-width: 42rem; margin: 0.75rem 0 0; }
 
-  .proc-title { font-size:1.25rem; font-weight:700; color:var(--color-text); margin:2rem 0 1rem; }
-  .proc-list {
-    list-style: none; padding: 0; margin: 0;
-    display: grid; grid-template-columns: repeat(2,1fr); gap: 0.625rem;
+  .section-heading {
+    font-size: 1.375rem; font-weight: 800; color: var(--color-text);
+    margin: 0 0 1.25rem;
   }
-  .proc-list li {
-    display: flex; align-items: center; gap: 0.625rem;
-    font-size: 0.9375rem; color: var(--color-text-muted);
-  }
-  .proc-dot {
-    width: 8px; height: 8px; border-radius: 50%;
-    background: var(--color-primary); flex-shrink: 0;
-  }
-
-  .doctors-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.25rem;
-    margin-top: 0.5rem;
-  }
-  @media (min-width: 640px) { .doctors-grid { grid-template-columns: repeat(3, 1fr); } }
 
   .cta-card {
     background: var(--color-primary);
     border-radius: var(--radius-xl);
     padding: 1.5rem;
     color: #fff;
-    margin-bottom: 1.25rem;
   }
-  .cta-card h3 { font-size:1.125rem; color:#fff; margin:0 0 0.625rem; }
-  .cta-card p  { font-size:0.9rem; color:rgba(255,255,255,0.75); margin:0 0 1.25rem; line-height:1.6; }
+  .cta-card h3 { font-size: 1.125rem; color: #fff; margin: 0 0 0.625rem; }
+  .cta-card p { font-size: 0.9rem; color: rgba(255, 255, 255, 0.75); margin: 0 0 1.25rem; line-height: 1.6; }
 
   .hours-card {
     background: #fff;
@@ -183,8 +244,8 @@ const citasHref = whatsappLink(site.contact.whatsapp, WHATSAPP_MESSAGES.specialt
     padding: 1.5rem;
     box-shadow: var(--shadow-card);
   }
-  .hours { display:flex; flex-direction:column; gap:0.5rem; }
-  .hours div { display:flex; justify-content:space-between; font-size:0.9rem; }
-  .hours dt { color:var(--color-text-muted); }
-  .hours dd { font-weight:600; color:var(--color-text); margin:0; }
+  .hours { display: flex; flex-direction: column; gap: 0.5rem; margin: 0; }
+  .hours div { display: flex; justify-content: space-between; font-size: 0.9rem; }
+  .hours dt { color: var(--color-text-muted); }
+  .hours dd { font-weight: 600; color: var(--color-text); margin: 0; }
 </style>
