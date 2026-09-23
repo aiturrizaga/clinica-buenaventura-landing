@@ -176,22 +176,11 @@ const metaDescription = plainIntro.length > 160 ? `${plainIntro.slice(0, 157)}â€
         <!-- Sidebar -->
         <aside class="flex flex-col gap-5 lg:sticky lg:top-28">
           <div class="cta-card">
-            <h3>Â¿Necesitas atenciÃ³n?</h3>
-            <p>Agenda tu cita con nuestros especialistas en {specialty.name}.</p>
+            <h3>Agenda tu cita</h3>
             <a href={waHref} target="_blank" rel="noopener noreferrer" class="btn btn-white btn-md w-full justify-center">
               <i class="ti ti-brand-whatsapp" aria-hidden="true"></i>
               Contactar por WhatsApp
             </a>
-          </div>
-
-          <div class="hours-card">
-            <h3 class="mb-4 text-base font-bold text-text">Horario de atenciÃ³n</h3>
-            <dl class="hours">
-              <div>
-                <dt>{site.hours.label}</dt>
-                <dd>{site.hours.display}</dd>
-              </div>
-            </dl>
           </div>
         </aside>
       </div>
@@ -235,17 +224,6 @@ const metaDescription = plainIntro.length > 160 ? `${plainIntro.slice(0, 157)}â€
     padding: 1.5rem;
     color: #fff;
   }
-  .cta-card h3 { font-size: 1.125rem; color: #fff; margin: 0 0 0.625rem; }
-  .cta-card p { font-size: 0.9rem; color: rgba(255, 255, 255, 0.75); margin: 0 0 1.25rem; line-height: 1.6; }
+  .cta-card h3 { font-size: 1.125rem; color: #fff; margin: 0 0 1.25rem; }
 
-  .hours-card {
-    background: #fff;
-    border-radius: var(--radius-xl);
-    padding: 1.5rem;
-    box-shadow: var(--shadow-card);
-  }
-  .hours { display: flex; flex-direction: column; gap: 0.5rem; margin: 0; }
-  .hours div { display: flex; justify-content: space-between; font-size: 0.9rem; }
-  .hours dt { color: var(--color-text-muted); }
-  .hours dd { font-weight: 600; color: var(--color-text); margin: 0; }
 </style>
