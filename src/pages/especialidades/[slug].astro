@@ -134,9 +134,9 @@ const metaDescription = plainIntro.length > 160 ? `${plainIntro.slice(0, 157)}â€
           )}
 
           {detail.callout && calloutHref && (
-            <section class="reveal rounded-2xl bg-primary p-6 text-white md:p-8" aria-label={detail.callout.title}>
+            <section class="reveal rounded-2xl bg-slate-800 p-6 text-white md:p-8" aria-label={detail.callout.title}>
               <h2 class="mb-2 text-xl font-bold text-white! md:text-2xl">{detail.callout.title}</h2>
-              <p class="mb-5 max-w-2xl text-white/80">{detail.callout.text}</p>
+              <p class="mb-5 max-w-2xl text-white/75">{detail.callout.text}</p>
               <a href={calloutHref} class="btn btn-white btn-md">
                 {detail.callout.buttonLabel}
                 <i class="ti ti-arrow-right" aria-hidden="true"></i>
@@ -176,7 +176,8 @@ const metaDescription = plainIntro.length > 160 ? `${plainIntro.slice(0, 157)}â€
         <!-- Sidebar -->
         <aside class="flex flex-col gap-5 lg:sticky lg:top-28">
           <div class="cta-card">
-            <h3>Agenda tu cita</h3>
+            <h3>Â¿Necesitas atenciÃ³n?</h3>
+            <p>Agenda tu cita con nuestros especialistas en {specialty.name}.</p>
             <a href={waHref} target="_blank" rel="noopener noreferrer" class="btn btn-white btn-md w-full justify-center">
               <i class="ti ti-brand-whatsapp" aria-hidden="true"></i>
               Contactar por WhatsApp
@@ -224,6 +225,8 @@ const metaDescription = plainIntro.length > 160 ? `${plainIntro.slice(0, 157)}â€
     padding: 1.5rem;
     color: #fff;
   }
-  .cta-card h3 { font-size: 1.125rem; color: #fff; margin: 0 0 1.25rem; }
+  .cta-card h3 { font-size: 1.125rem; color: #fff; margin: 0 0 0.625rem; }
+  .cta-card p { font-size: 0.9rem; color: rgba(255, 255, 255, 0.75); margin: 0 0 1.25rem; line-height: 1.6; }
+  .cta-card .ti-brand-whatsapp { font-size: 1.5rem; }
 
 </style>
